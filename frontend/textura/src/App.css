@@ -27,6 +27,21 @@
 .App-link {
   color: #61dafb;
 }
+a{
+  text-decoration: none;
+  color: white;
+}
+a:hover{
+  color: green !important;
+
+}
+
+a:visited{
+  text-decoration: none !important;
+  text-underline-mode: none;
+  color: white;
+
+}
 
 @keyframes App-logo-spin {
   from {
