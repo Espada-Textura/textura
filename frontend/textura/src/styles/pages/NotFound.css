@@ -1,0 +1,6 @@
+.not-found-page-background-color {
+    height: 100vh;
+    background: #ffafbd;
+    background: -webkit-linear-gradient(to right, #ffc3a0, #ffafbd);
+    background: linear-gradient(to right, #ffc3a0, #ffafbd);
+}
