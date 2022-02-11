@@ -5,7 +5,10 @@
 </div>
 <img src="/frontend/textura/public/icon.png" width="84"> </img>
 
-[Textura](https://textura-9fcd3.web.app/) demo page
+[Textura](https://textura-9fcd3.web.app/) weppage
+
+[Textura](https://www.figma.com/proto/vS67iKvcz0eSE5iBHUxMAT/Textura?node-id=643%3A3004&starting-point-node-id=643%3A3004&show-proto-sidebar=1) prototype by figma
+
 
 ## About Textura
 Visual Art becomes more and more popular in this decade. Most people nowadays enjoy making visual artwork more than traditional drawing or painting. Obviously, everyone can be an artist by him/herself and produce such good arts in his/her own way of creativity. Recently, most people enjoy making visual artwork more than on paper.
