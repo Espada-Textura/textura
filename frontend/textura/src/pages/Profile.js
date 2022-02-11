@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-function Home() {
-    return <div>Home</div>
+function Profile() {
+    return <div>Profile</div>
 }
 
-export default Home
+export default Profile

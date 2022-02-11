@@ -1,24 +1,34 @@
-import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React, { useState } from "react";
+import './App.css'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import NotFound from "./pages/NotFound";
+import Main from '@layouts/Main'
 
-import Header from "./components/Header";
+import Home from '@pages/Home'
+import Profile from '@pages/Profile'
+import Art from '@pages/Art'
+
+import Login from '@pages/auth/Login'
+import Register from '@pages/auth/Register'
+import Recovery from '@pages/auth/Recovery'
+
+import NotFound from '@pages/NotFound'
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="/login" element={<Login />} />
-
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Main />}>
+                    <Route index element={<Home />} />
+                    <Route path="profile" element={<Profile />} />
+                    <Route path="art" element={<Art />} />
+                </Route>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/recovery" element={<Recovery />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </BrowserRouter>
+    )
 }
 
-export default App;
+export default App

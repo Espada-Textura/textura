@@ -3,11 +3,11 @@ const { alias } = require('react-app-rewire-alias')
 module.exports = function override(config) {
     alias({
         '@components': 'src/components',
-        '@page': 'src/pages',
-        '@layout': 'src/pages/layouts',
+        '@pages': 'src/pages',
+        '@layouts': 'src/pages/layouts',
         '@assets': 'src/assets',
         '@images': 'src/assets/images',
-        '@style': 'src/styles',
+        '@styles': 'src/styles',
     })(config)
 
     return config

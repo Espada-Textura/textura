@@ -6,7 +6,11 @@ import { useNavigate } from 'react-router-dom'
 function NotFound() {
     const Navigate = useNavigate()
     function pushHome() {
+        // let testObject = { name: 'test', time: 'Date 2017-02-03T08:38:04.449Z' }
+        // localStorage.setItem('testObject', JSON.stringify(testObject))
         Navigate('/')
+        // var retrievedObject = localStorage.getItem('testObject')
+        // console.log(JSON.parse(retrievedObject))
     }
     return (
         <div className="col-12 p-5 not-found-page-background-color ">
