@@ -1,16 +1,11 @@
-# Textura Web Application
 
-## Installation
+<div style="display: flex; justify-content: space-between;">
+  
+  <h1>Textura Web Application</h1>
+</div>
+<img src="/frontend/textura/public/icon.png" width="84"> </img>
 
-### Windows
-1. Install [node.js](https://nodejs.org/en/) to get npm
-2. Run **npm install** command in frontend/textura directory 
-3. Run **npm start** command to start(serve) project in frontend/textura/src directory 
-
-### Mac os
-1. Install [node.js](https://nodejs.org/en/) to get npm via [homebrew](https://brew.sh/index_ja)
-2. Run **npm install** command in frontend/textura directory 
-3. Run **npm start** command to start(serve) project in frontend/textura/src directory
+[Textura](https://textura-9fcd3.web.app/) demo page
 
 ## About Textura
 Visual Art becomes more and more popular in this decade. Most people nowadays enjoy making visual artwork more than traditional drawing or painting. Obviously, everyone can be an artist by him/herself and produce such good arts in his/her own way of creativity. Recently, most people enjoy making visual artwork more than on paper.
@@ -21,8 +16,20 @@ Artists around the world are sharing their visual art every day to gain recognit
 
 As Cambodians, art is our soul; Nevertheless, the artists community seem to be being unwell-known. Many digital artists in Cambodia think that sharing their works in social media is not likely a good place. In order to improve our artists community, especially Visual Art (Digital Drawing/ Painting), we are creating a site where our artists can present their artworks. We, Espada Team, provide the most elegant and flexible website, Textura. Textura is a place, likely a community, for our Cambodian Artists to share their arts, earn recognition, express feeling and emotion through art, and more importantly is to improve the artist community in Cambodia. Textura mainly focuses on Digital Art and Digital painting. We are developing and growing bigger and will add more than just Digital Arts.
 
+## Installation
+### Windows
+1. Install [node.js](https://nodejs.org/en/) to get npm
+2. Run **npm install** command in frontend/textura directory 
+3. Run **npm start** command to start(serve) project in frontend/textura/src directory 
+
+### Mac os
+1. Install [node.js](https://nodejs.org/en/) to get npm via [homebrew](https://brew.sh/index_ja)
+2. Run **npm install** command in frontend/textura directory 
+3. Run **npm start** command to start(serve) project in frontend/textura/src directory
+
 ## Technology
 ### Frontend
+#### Language
 * HTML
 * CSS
 * JavaScript
