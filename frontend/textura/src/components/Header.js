@@ -5,7 +5,7 @@ function Header() {
         <div>
             <nav className="d-flex">
                 <CustomLink to="/">Home</CustomLink>
-                <CustomLink to="/art">About</CustomLink>
+                <CustomLink to="/art">Art</CustomLink>
                 <CustomLink to="/profile">Profile</CustomLink>
                 <CustomLink to="/login">Login</CustomLink>
                 <CustomLink to="/register">Register</CustomLink>
