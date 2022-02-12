@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
-import ToggleSwiich from '@components/ToggleSwiich'
 import AuthAnimetion from '@utils/AuthInputAnimation'
 
 import TexturaLogo from '@assets/logo.png'
-import AuthHighlight from '@images/login_highlight.png'
+import AuthHighlight from '@images/register_highlight.jpg'
 
 import '@styles/pages/Login.css'
 import '@styles/pages/Auth.css'
@@ -126,9 +125,7 @@ function Register() {
                         <div className="d-flex">
                             <div></div>
                             <div>
-                                <h5 className="auth-Highlight-text">
-                                    spectacle
-                                </h5>
+                                <h5 className="auth-Highlight-text">冷霧</h5>
                             </div>
                         </div>
                     </div>
