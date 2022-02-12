@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import ToggleSwiich from '@components/ToggleSwiich'
+import AuthAnimetion from '@utils/AuthInputAnimation'
 
 import TexturaLogo from '@assets/logo.png'
 import AuthHighlight from '@images/login_highlight.png'
@@ -8,31 +10,20 @@ import '@styles/pages/Login.css'
 import '@styles/pages/Auth.css'
 
 function Login() {
-    setTimeout(() => {
-        const inputs = document.getElementsByClassName('auth-input')
-        const labels = document.getElementsByClassName('auth-label')
-        Array.prototype.forEach.call(inputs, (elem, index) => {
-            if (elem.value.length > 0) {
-                labels[index].classList.add('active')
-            }
-            elem.addEventListener('focus', () => {
-                labels[index].classList.add('active')
-            })
-            elem.addEventListener('focusout', () => {
-                if (!elem.value) {
-                    labels[index].classList.remove('active')
-                }
-            })
-        })
-    }, 500)
-
+    AuthAnimetion('auth-input', 'auth-label')
     return (
         <div className="col-12 d-flex auth-layout">
             <div className="col-12 col-lg-4 col-md-6 d-flex flex-column justify-content-between p-5">
                 <div>
                     <div className="d-flex">
                         <div className="text-center">
-                            <img className="auth-image m-2" src={TexturaLogo} />
+                            <Link to="/">
+                                <img
+                                    className="auth-image m-2"
+                                    src={TexturaLogo}
+                                />
+                            </Link>
+
                             <h5 className="auth-logo-text">Textura</h5>
                         </div>
                     </div>
@@ -72,7 +63,14 @@ function Login() {
                                 Password
                             </label>
                         </div>
-                        <div className="d-flex justify-content-end">
+                        <div className="d-flex justify-content-between">
+                            <div className="d-flex auth-stay-logined-in">
+                                <ToggleSwiich />
+                                <h5 className="auth-stay-logined-in-text">
+                                    Stay logined in
+                                </h5>
+                            </div>
+
                             <button className="btn auth-button">Next</button>
                         </div>
                     </div>
