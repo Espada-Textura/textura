@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ToggleSwiich from '@components/ToggleSwiich'
 import AuthAnimetion from '@utils/AuthInputAnimation'
@@ -23,7 +22,6 @@ function Login() {
                                     src={TexturaLogo}
                                 />
                             </Link>
-
                             <h5 className="auth-logo-text">Textura</h5>
                         </div>
                     </div>
@@ -65,10 +63,13 @@ function Login() {
                         </div>
                         <div className="d-flex justify-content-between">
                             <div className="d-flex auth-stay-logined-in">
-                                <ToggleSwiich />
-                                <h5 className="auth-stay-logined-in-text">
+                                <ToggleSwiich fors="stay" />
+                                <label
+                                    htmlFor="stay"
+                                    className="auth-stay-logined-in-text"
+                                >
                                     Stay logined in
-                                </h5>
+                                </label>
                             </div>
 
                             <button className="btn auth-button">Next</button>
@@ -84,7 +85,6 @@ function Login() {
                         <h5 className="auth-wellcome-text">
                             Can not login ?
                             <Link className="auth-a-recovery" to="/recovery">
-                                {' '}
                                 Recovery Password
                             </Link>
                         </h5>
@@ -102,9 +102,7 @@ function Login() {
                         <div className="d-flex">
                             <div></div>
                             <div>
-                                <h5 className="auth-Highlight-text">
-                                    spectacle
-                                </h5>
+                                <h5 className="auth-Highlight-text">Daily</h5>
                             </div>
                         </div>
                     </div>
