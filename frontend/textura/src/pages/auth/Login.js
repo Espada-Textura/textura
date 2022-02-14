@@ -8,8 +8,44 @@ import AuthHighlight from '@images/login_highlight.png'
 import '@styles/pages/Login.css'
 import '@styles/pages/Auth.css'
 
+// import firebase from 'firebase/compat/app'
+// import 'firebase/compat/auth'
+// import 'firebase/compat/firestore'
+// import { getFirestore, collection, getDocs } from 'firebase/compat/firestore'
+import { useState } from 'react'
+
+const firebaseConfig = {
+    apiKey: 'AIzaSyA-l-SFtlQtcSF_BG-b9HX40UBhFUSLYmE',
+    authDomain: 'textura-9fcd3.firebaseapp.com',
+    databaseURL:
+        'https://textura-9fcd3-default-rtdb.asia-southeast1.firebasedatabase.app',
+    projectId: 'textura-9fcd3',
+    storageBucket: 'textura-9fcd3.appspot.com',
+    messagingSenderId: '57186236723',
+    appId: '1:57186236723:web:427c0020ffd3f8318b2646',
+    measurementId: 'G-5D6TBYG6BD',
+}
+
+// const app = firebase.initializeApp(firebaseConfig)
+// async function getCities(db) {
+//     const citiesCol = collection(db, 'user')
+//     const citySnapshot = await getDocs(citiesCol)
+//     const cityList = citySnapshot.docs.map((doc) => doc.data())
+//     return cityList
+// }
 function Login() {
     AuthAnimetion('auth-input', 'auth-label')
+    let [users, setUsers] = useState([])
+    // async function getUsers() {
+    //     const db = getFirestore(app)
+    //     const citiesCol = collection(db, 'users')
+    //     const citySnapshot = await getDocs(citiesCol)
+    //     const cityList = citySnapshot.docs.map((doc) => doc.data())
+    //     setUsers(cityList)
+    // }
+    let login = function () {
+        // getUsers()
+    }
     return (
         <div className="col-12 d-flex auth-layout">
             <div className="col-12 col-lg-4 col-md-6 d-flex flex-column justify-content-between p-5">

@@ -7,8 +7,52 @@ import AuthHighlight from '@images/register_highlight.jpg'
 import '@styles/pages/Login.css'
 import '@styles/pages/Auth.css'
 
+// import firebase from 'firebase/compat/app'
+// import {
+//     getAuth,
+//     createUserWithEmailAndPassword,
+//     sendEmailVerification,
+// } from 'firebase/auth'
+import { useState } from 'react'
+// const firebaseConfig = {
+//     apiKey: 'AIzaSyA-l-SFtlQtcSF_BG-b9HX40UBhFUSLYmE',
+//     authDomain: 'textura-9fcd3.firebaseapp.com',
+//     databaseURL:
+//         'https://textura-9fcd3-default-rtdb.asia-southeast1.firebasedatabase.app',
+//     projectId: 'textura-9fcd3',
+//     storageBucket: 'textura-9fcd3.appspot.com',
+//     messagingSenderId: '57186236723',
+//     appId: '1:57186236723:web:427c0020ffd3f8318b2646',
+//     measurementId: 'G-5D6TBYG6BD',
+// }
+
+// const app = initializeApp(firebaseConfig)
+// const auth = getAuth(app)
+
 function Register() {
     AuthAnimetion('auth-input', 'auth-label')
+    const defaultUser = { email: '', password: '', firstName: '', lastName: '' }
+    const [user, setUser] = useState(defaultUser)
+
+    let createAccount = function () {
+        // let email = 'misapisatto@gmail.com'
+        // let password = 'Misa5454'
+        // createUserWithEmailAndPassword(auth, email, password)
+        //     .then((userCredential) => {
+        //         const user = userCredential.user
+        //         sendEmailVerification(auth.currentUser)
+        //             .then(() => {
+        //                 console.log('done send email')
+        //             })
+        //             .catch((error) => {
+        //                 console.log('Email verification error', error)
+        //             })
+        //     })
+        //     .catch((error) => {
+        //         const errorCode = error.code
+        //         const errorMessage = error.message
+        //     })
+    }
     return (
         <div className="col-12 d-flex auth-layout">
             <div className="col-12 col-xl-4 col-lg-6 d-flex flex-column justify-content-between p-5">
@@ -21,7 +65,6 @@ function Register() {
                                     src={TexturaLogo}
                                 />
                             </Link>
-
                             <h5 className="auth-logo-text">Textura</h5>
                         </div>
                     </div>
@@ -94,7 +137,12 @@ function Register() {
                             </label>
                         </div>
                         <div className="d-flex justify-content-end">
-                            <button className="btn auth-button">Next</button>
+                            <button
+                                onClick={createAccount}
+                                className="btn auth-button"
+                            >
+                                Next
+                            </button>
                         </div>
                     </div>
                 </div>

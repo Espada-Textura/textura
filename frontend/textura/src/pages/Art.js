@@ -1,5 +1,5 @@
 function Art() {
-    return <div>Ardt</div>
+    return <div>Art</div>
 }
 
 export default Art
