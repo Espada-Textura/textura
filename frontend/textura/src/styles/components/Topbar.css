@@ -1,0 +1,51 @@
+.Topbar-main-Layout {
+    width: 100%;
+    height: 80px;
+    background: white;
+    position: sticky;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.Topbar-logo-wrapper {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    max-width: 304px;
+    padding: 0px 50px;
+}
+
+.Topbar-logo-text {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    text-justify: center;
+}
+
+.Topbar-input-box {
+    outline: 0;
+    border: 0;
+    max-width: 550px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 5%);
+    padding: 15px 60px;
+    position: absolute;
+}
+
+.Topbar-search-bar-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+.Topbar-search-bar {
+    position: relative;
+}
+
+.Topbar-search-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+}

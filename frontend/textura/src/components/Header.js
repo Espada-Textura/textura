@@ -1,8 +1,10 @@
 import CustomLink from '@components/CustomLink'
+import Topbar from '@components/Topbar'
 
 function Header() {
     return (
         <div>
+            <Topbar />
             <nav className="d-flex">
                 <CustomLink to="/">Home</CustomLink>
                 <CustomLink to="/art">Art</CustomLink>
