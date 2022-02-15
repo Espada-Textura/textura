@@ -1,8 +1,6 @@
 .upload-form-main-layout {
-    position: fixed;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    background-color: black;
+    background-color: #fff;
+    height: 500px;
+    border: none;
+    border-radius: 20px;
 }

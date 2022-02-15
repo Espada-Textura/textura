@@ -1,7 +1,7 @@
-import '@/styles/components/UploadForm.css'
+import '@styles/components/UploadForm.css'
 
-function UploadForm() {
-    return <div className="upload-form-main-layout"></div>
+function UploadForm(props) {
+    return <div className="upload-form-main-layout">Upload form</div>
 }
 
 export default UploadForm
