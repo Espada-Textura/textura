@@ -5,7 +5,6 @@ import AuthAnimetion from '@utils/AuthInputAnimation'
 import TexturaLogo from '@assets/logo.png'
 import AuthHighlight from '@images/login_highlight.png'
 
-import '@styles/pages/Login.css'
 import '@styles/pages/Auth.css'
 
 function Login() {

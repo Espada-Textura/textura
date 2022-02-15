@@ -1,0 +1,8 @@
+.main-layout-content {
+    margin-top: 64px;
+}
+
+.main-layout-header {
+    position: fixed;
+    top: 0;
+}

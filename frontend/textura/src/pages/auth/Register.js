@@ -4,7 +4,6 @@ import AuthAnimetion from '@utils/AuthInputAnimation'
 import TexturaLogo from '@assets/logo.png'
 import AuthHighlight from '@images/register_highlight.jpg'
 
-import '@styles/pages/Login.css'
 import '@styles/pages/Auth.css'
 
 function Register() {
