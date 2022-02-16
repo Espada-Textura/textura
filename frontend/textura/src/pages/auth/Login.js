@@ -45,7 +45,7 @@ function Login() {
     const [formUser, setFormUser] = useState({ email: '', password: '' })
     let [user, setUser] = useState({})
     let [logoText, setLogoText] = useState('LOGIN')
-    const [isLoginError, setLoginErrorStatus] = useState(true)
+    const [isLoginError, setLoginErrorStatus] = useState(false)
 
     async function getUsers(uid) {
         const db = getFirestore(app)
