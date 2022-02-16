@@ -177,3 +177,9 @@
 .temp-space {
     width: 10px;
 }
+
+.auth-toast {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+}

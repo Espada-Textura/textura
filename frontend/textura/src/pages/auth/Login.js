@@ -1,17 +1,24 @@
 import { Link } from 'react-router-dom'
 import ToggleSwiich from '@components/ToggleSwiich'
 import AuthAnimetion from '@utils/AuthInputAnimation'
+import { Toast, Col } from 'react-bootstrap'
 
 import TexturaLogo from '@assets/logo.png'
 import AuthHighlight from '@images/login_highlight.png'
 
 import '@styles/pages/Auth.css'
 
-// import firebase from 'firebase/compat/app'
-// import 'firebase/compat/auth'
-// import 'firebase/compat/firestore'
-// import { getFirestore, collection, getDocs } from 'firebase/compat/firestore'
+import firebase from 'firebase/compat/app'
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    doc,
+    getDoc,
+} from 'firebase/firestore'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useState } from 'react'
+import { BsExclamationTriangleFill } from 'react-icons/bs'
 
 const firebaseConfig = {
     apiKey: 'AIzaSyA-l-SFtlQtcSF_BG-b9HX40UBhFUSLYmE',
@@ -25,7 +32,7 @@ const firebaseConfig = {
     measurementId: 'G-5D6TBYG6BD',
 }
 
-// const app = firebase.initializeApp(firebaseConfig)
+const app = firebase.initializeApp(firebaseConfig)
 // async function getCities(db) {
 //     const citiesCol = collection(db, 'user')
 //     const citySnapshot = await getDocs(citiesCol)
@@ -34,17 +41,68 @@ const firebaseConfig = {
 // }
 function Login() {
     AuthAnimetion('auth-input', 'auth-label')
-    let [users, setUsers] = useState([])
-    // async function getUsers() {
-    //     const db = getFirestore(app)
-    //     const citiesCol = collection(db, 'users')
-    //     const citySnapshot = await getDocs(citiesCol)
-    //     const cityList = citySnapshot.docs.map((doc) => doc.data())
-    //     setUsers(cityList)
-    // }
-    let login = function () {
-        // getUsers()
+
+    const [formUser, setFormUser] = useState({ email: '', password: '' })
+    let [user, setUser] = useState({})
+    let [logoText, setLogoText] = useState('LOGIN')
+    const [isLoginError, setLoginErrorStatus] = useState(true)
+
+    async function getUsers(uid) {
+        const db = getFirestore(app)
+        // console.log(getAuth().currentUser)
+        await getDoc(doc(db, 'users', uid)).then((resp) => {
+            if (resp.exists()) {
+                // console.log(resp)
+                // console.log(resp.data())
+                setUser(resp.data())
+                let user = resp.data()
+                setLogoText(`Hi ${user.firstName} ${user.lastName}`)
+            } else {
+                console.log('Failed to get user data by UID')
+            }
+        })
+
+        // const citySnapshot = await getDocs(
+        //     doc(db, 'users', 'csvUJCgthWgqCfHZD0ucpzaOnVr2')
+        // )
+        // const cityList = citySnapshot.docs.map((doc) => doc.data())
+        // setUsers(cityList)
+        // console.log(users)
     }
+
+    async function tryToLogin() {
+        let user = { email: 'misapisatto@gmail.com', password: 'Misa5454' }
+        const auth = getAuth(app)
+        await signInWithEmailAndPassword(
+            auth,
+            formUser.email,
+            formUser.password
+        )
+            .then((userCredential) => {
+                const user = userCredential.user
+                let uid = userCredential.user.uid
+                // console.log(userCredential)
+                getUsers(uid)
+            })
+            .catch((error) => {
+                setLoginErrorStatus(true)
+                const errorCode = error.code
+                const errorMessage = error.message
+            })
+    }
+
+    const handleFormChange = (e) => {
+        const { name, value } = e.target
+        setFormUser((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }))
+    }
+
+    let login = function () {
+        tryToLogin()
+    }
+
     return (
         <div className="col-12 d-flex auth-layout">
             <div className="col-12 col-lg-4 col-md-6 d-flex flex-column justify-content-between p-5">
@@ -61,7 +119,7 @@ function Login() {
                         </div>
                     </div>
                     <div className="mt-3 mb-3">
-                        <h1 className="auth-title mt-3">Login</h1>
+                        <h1 className="auth-title mt-3">{logoText}</h1>
                         <h5 className="auth-wellcome-text mt-3">
                             Wellcome back to the textura.
                         </h5>
@@ -71,9 +129,11 @@ function Login() {
                         <div className="mb-4 auth-input-form">
                             <input
                                 type="email"
+                                name="email"
                                 className="form-control auth-input"
                                 id="email"
                                 placeholder=""
+                                onChange={handleFormChange}
                             ></input>
                             <label
                                 htmlFor="email"
@@ -84,10 +144,12 @@ function Login() {
                         </div>
                         <div className="mb-4 auth-input-form">
                             <input
+                                name="password"
                                 type="password"
                                 className="form-control auth-input"
                                 id="password"
                                 placeholder=""
+                                onChange={handleFormChange}
                             ></input>
                             <label
                                 htmlFor="password"
@@ -107,7 +169,9 @@ function Login() {
                                 </label>
                             </div>
 
-                            <button className="btn auth-button">Next</button>
+                            <button onClick={login} className="btn auth-button">
+                                Next
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -143,6 +207,23 @@ function Login() {
                     </div>
                 </div>
             </div>
+            <Toast
+                onClose={() => setLoginErrorStatus(false)}
+                show={isLoginError}
+                className="auth-toast"
+                delay={10000}
+                autohide
+                animation={true}
+            >
+                <Toast.Header>
+                    <BsExclamationTriangleFill className="rounded me-2" />
+                    <strong className="me-auto">Authentication</strong>
+                    <small>Error</small>
+                </Toast.Header>
+                <Toast.Body>
+                    Failed to login, Invalid email or password.
+                </Toast.Body>
+            </Toast>
         </div>
     )
 }
