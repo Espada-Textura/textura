@@ -117,8 +117,8 @@
     border-radius: 10px;
     padding: 16px 20px;
     border: none;
-    transition-duration: 1s;
 }
+
 .auth-button:hover {
     color: #ffffff;
     border: none;

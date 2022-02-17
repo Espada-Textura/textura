@@ -3,35 +3,84 @@ import AuthAnimetion from '@utils/AuthInputAnimation'
 
 import TexturaLogo from '@assets/logo.png'
 import AuthHighlight from '@images/register_highlight.jpg'
+import ReactLoading from 'react-loading'
 
 import '@styles/pages/Auth.css'
 
-// import firebase from 'firebase/compat/app'
-// import {
-//     getAuth,
-//     createUserWithEmailAndPassword,
-//     sendEmailVerification,
-// } from 'firebase/auth'
-import { useState } from 'react'
-// const firebaseConfig = {
-//     apiKey: 'AIzaSyA-l-SFtlQtcSF_BG-b9HX40UBhFUSLYmE',
-//     authDomain: 'textura-9fcd3.firebaseapp.com',
-//     databaseURL:
-//         'https://textura-9fcd3-default-rtdb.asia-southeast1.firebasedatabase.app',
-//     projectId: 'textura-9fcd3',
-//     storageBucket: 'textura-9fcd3.appspot.com',
-//     messagingSenderId: '57186236723',
-//     appId: '1:57186236723:web:427c0020ffd3f8318b2646',
-//     measurementId: 'G-5D6TBYG6BD',
-// }
+import firebase from 'firebase/compat/app'
+import { getFirestore, doc, setDoc } from 'firebase/firestore'
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    sendEmailVerification,
+} from 'firebase/auth'
 
-// const app = initializeApp(firebaseConfig)
+import { useState } from 'react'
+const firebaseConfig = {
+    apiKey: 'AIzaSyA-l-SFtlQtcSF_BG-b9HX40UBhFUSLYmE',
+    authDomain: 'textura-9fcd3.firebaseapp.com',
+    databaseURL:
+        'https://textura-9fcd3-default-rtdb.asia-southeast1.firebasedatabase.app',
+    projectId: 'textura-9fcd3',
+    storageBucket: 'textura-9fcd3.appspot.com',
+    messagingSenderId: '57186236723',
+    appId: '1:57186236723:web:427c0020ffd3f8318b2646',
+    measurementId: 'G-5D6TBYG6BD',
+}
+
+const app = firebase.initializeApp(firebaseConfig)
 // const auth = getAuth(app)
 
 function Register() {
     AuthAnimetion('auth-input', 'auth-label')
-    const defaultUser = { email: '', password: '', firstName: '', lastName: '' }
-    const [user, setUser] = useState(defaultUser)
+    const [formUser, setFormUser] = useState({
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+    })
+    const [isRegistering, setRegisterStatus] = useState(false)
+
+    async function tryToSignUp() {
+        const auth = getAuth(app)
+
+        await createUserWithEmailAndPassword(
+            auth,
+            formUser.email,
+            formUser.password
+        )
+            .then((resp) => {
+                const user = resp.user
+                createUser(user.uid).then(() => {
+                    setRegisterStatus(false)
+                })
+                sendEmailVerification(auth.currentUser)
+                    .then(() => {
+                        console.log('Done send email')
+                    })
+                    .catch((error) => {
+                        console.log('Email verification error', error)
+                    })
+            })
+            .catch((error) => {
+                setRegisterStatus(false)
+                console.log('Register error', error)
+            })
+    }
+
+    async function createUser(uid) {
+        const db = getFirestore(app)
+        await setDoc(doc(db, 'users', uid), {
+            firstName: formUser.firstName,
+            lastName: formUser.lastName,
+            email: formUser.email,
+        })
+    }
+
+    function signUp() {
+        setRegisterStatus(true)
+        tryToSignUp()
+    }
 
     let createAccount = function () {
         // let email = 'misapisatto@gmail.com'
@@ -51,6 +100,14 @@ function Register() {
         //         const errorCode = error.code
         //         const errorMessage = error.message
         //     })
+    }
+
+    const handleFormChange = (e) => {
+        const { name, value } = e.target
+        setFormUser((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }))
     }
     return (
         <div className="col-12 d-flex auth-layout">
@@ -80,9 +137,11 @@ function Register() {
                             <div className="auth-input-form col">
                                 <input
                                     type="text"
+                                    name="firstName"
                                     className="form-control auth-input"
                                     id="firstName"
                                     placeholder=""
+                                    onChange={handleFormChange}
                                 ></input>
                                 <label
                                     htmlFor="firstName"
@@ -95,9 +154,11 @@ function Register() {
                             <div className="auth-input-form col">
                                 <input
                                     type="text"
+                                    name="lastName"
                                     className="form-control auth-input"
                                     id="lastName"
                                     placeholder=""
+                                    onChange={handleFormChange}
                                 ></input>
                                 <label
                                     htmlFor="lastName"
@@ -110,9 +171,11 @@ function Register() {
                         <div className="mb-4 auth-input-form">
                             <input
                                 type="email"
+                                name="email"
                                 className="form-control auth-input"
                                 id="email"
                                 placeholder=""
+                                onChange={handleFormChange}
                             ></input>
                             <label
                                 htmlFor="email"
@@ -124,9 +187,11 @@ function Register() {
                         <div className="mb-4 auth-input-form">
                             <input
                                 type="password"
+                                name="password"
                                 className="form-control auth-input"
                                 id="password"
                                 placeholder=""
+                                onChange={handleFormChange}
                             ></input>
                             <label
                                 htmlFor="password"
@@ -137,10 +202,21 @@ function Register() {
                         </div>
                         <div className="d-flex justify-content-end">
                             <button
-                                onClick={createAccount}
-                                className="btn auth-button"
+                                onClick={signUp}
+                                className="btn auth-button auth-button-animetion d-flex"
+                                disabled={isRegistering}
                             >
-                                Next
+                                {!isRegistering ? 'Next' : 'Registering '}
+                                {isRegistering ? (
+                                    <ReactLoading
+                                        type={'bubbles'}
+                                        color={'#fff'}
+                                        height={'20px'}
+                                        width={'33px'}
+                                    />
+                                ) : (
+                                    ''
+                                )}
                             </button>
                         </div>
                     </div>

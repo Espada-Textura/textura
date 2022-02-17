@@ -17,6 +17,7 @@ import {
     getDoc,
 } from 'firebase/firestore'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+
 import { useState } from 'react'
 import { BsExclamationTriangleFill } from 'react-icons/bs'
 
@@ -71,7 +72,6 @@ function Login() {
     }
 
     async function tryToLogin() {
-        let user = { email: 'misapisatto@gmail.com', password: 'Misa5454' }
         const auth = getAuth(app)
         await signInWithEmailAndPassword(
             auth,
@@ -182,7 +182,7 @@ function Login() {
                         </Link>
 
                         <h5 className="auth-wellcome-text">
-                            Can not login ?
+                            Can not login ?{' '}
                             <Link className="auth-a-recovery" to="/recovery">
                                 Recovery Password
                             </Link>
