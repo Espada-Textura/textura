@@ -6,6 +6,7 @@ import Main from '@layouts/Main'
 import Home from '@pages/Home'
 import Profile from '@pages/Profile'
 import Art from '@pages/Art'
+import AboutUs from '@pages/AboutUs'
 
 import Login from '@pages/auth/Login'
 import Register from '@pages/auth/Register'
@@ -21,6 +22,7 @@ function App() {
                     <Route index element={<Home />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="art" element={<Art />} />
+                    <Route path="aboutus" element={<AboutUs/>} />
                 </Route>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
