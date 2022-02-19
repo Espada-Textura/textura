@@ -1,6 +1,179 @@
 .upload-form-main-layout {
-    background-color: #fff;
-    height: 500px;
+    background-color: rgb(235, 244, 247);
+    height: 600px;
     border: none;
-    border-radius: 20px;
+    border-radius: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    z-index: -2;
 }
+.uplaod-type{
+    display: flex;
+    flex-direction: column;
+}
+
+.uplaod-type input[type="text"]
+{
+    margin-top: 10px;
+    height: 40px;
+    font-size: 14px; 
+    background: #3EB489;
+    border: none;
+    border-radius: 10px;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-top: 8px;
+    padding-bottom: 0px;
+}
+
+
+#header{
+    text-align: center;
+    text-decoration: none;
+}
+#uplaod-picture-text{
+    font-size: 20px;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+.uplaod-picture{
+    padding: 10px;
+    height: 280px;
+    background: transparent;
+    outline: none;
+    border: 1px dashed gray;
+    border-radius: 10px;
+}
+
+#uplaod-type-text::placeholder{
+    color: white;
+    font-size: 12px;
+}
+
+#uplaod-type-decription::placeholder{
+    color: white;
+    font-size: 12px;
+}
+.uplaod-type-tag-tool{
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+#uplaod-type-tag{
+    width: 100%;
+    margin-top: 10px;
+    height: 40px;
+    font-size: 12px;
+    line-height: 12px;
+    background:  #3EB489;
+    border: none;
+    border-radius: 10px;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-top: 8px;
+    padding-bottom: 0px;
+}
+
+#uplaod-type-tag::placeholder{
+    color: white;
+    font-size: 12px;
+}
+
+#uplaod-type-tool{
+    width: 97%;
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 40px;
+    font-size: 12px;
+    line-height: 12px;
+    background:  #3EB489;
+    border: none;
+    border-radius: 10px;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-top: 8px;
+    padding-bottom: 0px;
+}
+
+#uplaod-type-tool::placeholder{
+    color: white;
+    font-size: 12px;
+}
+
+#uplaod-uplaod-button{
+    float: right;
+    color: rgb(0, 0, 0);
+    background-color: #2c79f7;
+    margin-top: 10px;
+    width: 140px;
+    height: 40px;
+    text-decoration: none;
+    border: none;
+    font-size: 16px;
+    line-height: 16px;
+    padding: 10px 26px;
+    border-radius: 25px;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+#uplaod-uplaod-button-cancel{
+    float: right;
+    height: 40px;
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 12px;
+    margin-top: 10px;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 25px;
+    background-color: #FF2400;
+    width: 140px;
+}
+
+#uplaod-uplaod-button:hover{
+    border: 2px solid rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
+#uplaod-uplaod-button-cancel:hover{
+    border: 2px solid rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
+.item{
+    flex: 1;
+}
+
+
+.file-input{
+    position: absolute;
+    float: center;
+    width: 100%;
+    height: 150px;
+    padding: 20px;
+}
+#real-btn{
+    position: absolute;
+    background: center top no-repeat;
+    z-index: 1;
+    opacity: 0;
+    width: 200px;
+    height: 80px;
+}
+#uplaod-button-pick{
+float: center;
+font-size: 16px;
+line-height: 12px;
+border: none;
+color: rgb(42, 39, 39);
+width: 150px;
+height: 50px;
+background-color: rgb(92, 176, 255);
+}
+
