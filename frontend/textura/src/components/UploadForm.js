@@ -1,15 +1,19 @@
 import '@styles/components/UploadForm.css'
-import UploadPic from './UploadPic';
+// import UploadPic from './UploadPic';
 
 function UploadForm(props) {
     return (
         <div className="upload-form-main-layout">
             <h3 id="header">What you want to share to us?</h3>
-            <p>What do you want to share with us?</p>
+            <p id="header">We glad to see what you have done and publish it to the world.</p>
             <div className="uplaod-picture">
-                {/* <h5 id="uplaod-picture-text">Please choose  your file </h5>
-                <input type="file" id="uplaod-picture-realBtn"></input> */}
-                <UploadPic />
+                <h5 id="uplaod-picture-text">Please choose  your file </h5>
+                    <div className="uplaod-picture-realBtn">
+                    <input type="file" id="uplaod-picture-realBtn-id"></input>
+                    <button id="uplaod-picture-fakeBtn">Select file</button>
+                    </div>
+                
+            
             </div>
 
             <div className="uplaod-type">
@@ -41,7 +45,6 @@ function UploadForm(props) {
                     </input>
                   
                 </div>
-
            </div >
            <div className="uplaod-type-button">
 
@@ -49,21 +52,16 @@ function UploadForm(props) {
                     <button 
                     id="uplaod-uplaod-button">
                     Uplaod</button>
-                
                 </div>
 
                  <div >
                     <button 
                     id="uplaod-uplaod-button-cancel">
                     Cancel</button>
-                
                 </div>
-
 
            </div>
            
-            
-        
         </div>
     );
 }
