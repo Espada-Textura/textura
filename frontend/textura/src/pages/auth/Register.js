@@ -4,6 +4,11 @@ import AuthAnimetion from '@utils/AuthInputAnimation'
 import TexturaLogo from '@assets/logo.png'
 import AuthHighlight from '@images/register_highlight.jpg'
 import ReactLoading from 'react-loading'
+import { Toast } from 'react-bootstrap'
+import { RegisterValidation } from '@validations/Auth'
+
+import { useForm } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
 
 import '@styles/pages/Auth.css'
 
@@ -39,7 +44,21 @@ function Register() {
         firstName: '',
         lastName: '',
     })
-    const [isRegistering, setRegisterStatus] = useState(false)
+    const [isRegistering, setRegisteringStatus] = useState(false)
+    const [isRegisterError, setRegisterErrorStatus] = useState(false)
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm()
+    const onSubmits = (data) => {
+        console.log(data)
+    }
+
+    let firstNameValidation = {
+        required: true,
+        maxLength: 20,
+    }
 
     async function tryToSignUp() {
         const auth = getAuth(app)
@@ -52,7 +71,7 @@ function Register() {
             .then((resp) => {
                 const user = resp.user
                 createUser(user.uid).then(() => {
-                    setRegisterStatus(false)
+                    setRegisteringStatus(false)
                 })
                 sendEmailVerification(auth.currentUser)
                     .then(() => {
@@ -63,7 +82,7 @@ function Register() {
                     })
             })
             .catch((error) => {
-                setRegisterStatus(false)
+                setRegisteringStatus(false)
                 console.log('Register error', error)
             })
     }
@@ -78,8 +97,8 @@ function Register() {
     }
 
     function signUp() {
-        setRegisterStatus(true)
-        tryToSignUp()
+        // setRegisteringStatus(true)
+        // tryToSignUp()
     }
 
     let createAccount = function () {
@@ -132,20 +151,34 @@ function Register() {
                         </h5>
                     </div>
 
-                    <div className="mt-4 form-group">
+                    <form
+                        onSubmit={handleSubmit(onSubmits)}
+                        className="mt-4 form-group"
+                    >
                         <div className="mb-4 d-flex form-row">
                             <div className="auth-input-form col">
                                 <input
                                     type="text"
                                     name="firstName"
-                                    className="form-control auth-input"
+                                    className={
+                                        errors.firstName
+                                            ? 'invalid form-control auth-input'
+                                            : 'form-control auth-input'
+                                    }
                                     id="firstName"
                                     placeholder=""
-                                    onChange={handleFormChange}
+                                    {...register(
+                                        'firstName',
+                                        RegisterValidation.firstName
+                                    )}
                                 ></input>
                                 <label
                                     htmlFor="firstName"
-                                    className="form-label auth-label"
+                                    className={
+                                        errors.firstName
+                                            ? 'invalid form-label auth-label'
+                                            : 'form-label auth-label'
+                                    }
                                 >
                                     First name
                                 </label>
@@ -158,8 +191,12 @@ function Register() {
                                     className="form-control auth-input"
                                     id="lastName"
                                     placeholder=""
-                                    onChange={handleFormChange}
+                                    {...register(
+                                        'lastName',
+                                        RegisterValidation.lastName
+                                    )}
                                 ></input>
+                                {errors.lastName?.type}
                                 <label
                                     htmlFor="lastName"
                                     className="form-label auth-label"
@@ -170,13 +207,16 @@ function Register() {
                         </div>
                         <div className="mb-4 auth-input-form">
                             <input
-                                type="email"
+                                type="text"
                                 name="email"
                                 className="form-control auth-input"
                                 id="email"
                                 placeholder=""
-                                onChange={handleFormChange}
+                                {...register('email', RegisterValidation.email)}
                             ></input>
+                            {errors.email?.message && (
+                                <p>{errors.email?.message}</p>
+                            )}
                             <label
                                 htmlFor="email"
                                 className="form-label auth-label"
@@ -191,8 +231,12 @@ function Register() {
                                 className="form-control auth-input"
                                 id="password"
                                 placeholder=""
-                                onChange={handleFormChange}
+                                {...register(
+                                    'password',
+                                    RegisterValidation.password
+                                )}
                             ></input>
+                            {errors.password?.type}
                             <label
                                 htmlFor="password"
                                 className="form-label auth-label"
@@ -219,7 +263,7 @@ function Register() {
                                 )}
                             </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div>
                     <div>
@@ -254,6 +298,22 @@ function Register() {
                     </div>
                 </div>
             </div>
+            <Toast
+                onClose={() => setRegisterErrorStatus(false)}
+                show={isRegisterError}
+                className="auth-toast"
+                delay={10000}
+                autohide
+                animation={true}
+            >
+                <Toast.Header>
+                    <strong className="me-auto">Authentication</strong>
+                    <small>Error</small>
+                </Toast.Header>
+                <Toast.Body>
+                    Failed to login, Invalid email or password.
+                </Toast.Body>
+            </Toast>
         </div>
     )
 }

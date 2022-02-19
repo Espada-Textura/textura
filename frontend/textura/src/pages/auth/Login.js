@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import ToggleSwiich from '@components/ToggleSwiich'
 import AuthAnimetion from '@utils/AuthInputAnimation'
-import { Toast, Col } from 'react-bootstrap'
+import { Toast } from 'react-bootstrap'
+import { useState } from 'react'
 
 import TexturaLogo from '@assets/logo.png'
 import AuthHighlight from '@images/login_highlight.png'
@@ -18,9 +19,6 @@ import {
 } from 'firebase/firestore'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
-import { useState } from 'react'
-import { BsExclamationTriangleFill } from 'react-icons/bs'
-
 const firebaseConfig = {
     apiKey: 'AIzaSyA-l-SFtlQtcSF_BG-b9HX40UBhFUSLYmE',
     authDomain: 'textura-9fcd3.firebaseapp.com',
@@ -34,41 +32,30 @@ const firebaseConfig = {
 }
 
 const app = firebase.initializeApp(firebaseConfig)
-// async function getCities(db) {
-//     const citiesCol = collection(db, 'user')
-//     const citySnapshot = await getDocs(citiesCol)
-//     const cityList = citySnapshot.docs.map((doc) => doc.data())
-//     return cityList
-// }
+
 function Login() {
     AuthAnimetion('auth-input', 'auth-label')
 
-    const [formUser, setFormUser] = useState({ email: '', password: '' })
+    let [formUser, setFormUser] = useState({ email: '', password: '' })
     let [user, setUser] = useState({})
     let [logoText, setLogoText] = useState('LOGIN')
-    const [isLoginError, setLoginErrorStatus] = useState(false)
+    let [isLoginError, setLoginErrorStatus] = useState(false)
+    let navigate = useNavigate()
+    let imageHiligthPathFromGoogle =
+        'https://drive.google.com/uc?export=view&id=1l2qvdx5bqzXaAEDqbENKnsFVrpPMr-JK'
 
     async function getUsers(uid) {
         const db = getFirestore(app)
-        // console.log(getAuth().currentUser)
         await getDoc(doc(db, 'users', uid)).then((resp) => {
             if (resp.exists()) {
-                // console.log(resp)
-                // console.log(resp.data())
                 setUser(resp.data())
                 let user = resp.data()
                 setLogoText(`Hi ${user.firstName} ${user.lastName}`)
+                navigate('/')
             } else {
                 console.log('Failed to get user data by UID')
             }
         })
-
-        // const citySnapshot = await getDocs(
-        //     doc(db, 'users', 'csvUJCgthWgqCfHZD0ucpzaOnVr2')
-        // )
-        // const cityList = citySnapshot.docs.map((doc) => doc.data())
-        // setUsers(cityList)
-        // console.log(users)
     }
 
     async function tryToLogin() {
@@ -81,7 +68,6 @@ function Login() {
             .then((userCredential) => {
                 const user = userCredential.user
                 let uid = userCredential.user.uid
-                // console.log(userCredential)
                 getUsers(uid)
             })
             .catch((error) => {
@@ -193,7 +179,10 @@ function Login() {
             <div className="col-8 col-lg-8 col-md-6 d-none d-md-flex auth-image-layout">
                 <div className="position-img-outer">
                     <div className="position-img-inner">
-                        <img className="position-img" src={AuthHighlight} />
+                        <img
+                            className="position-img"
+                            src={imageHiligthPathFromGoogle}
+                        />
                     </div>
                 </div>
                 <div className="auth-profile-Highlight-layout">
@@ -216,7 +205,6 @@ function Login() {
                 animation={true}
             >
                 <Toast.Header>
-                    <BsExclamationTriangleFill className="rounded me-2" />
                     <strong className="me-auto">Authentication</strong>
                     <small>Error</small>
                 </Toast.Header>
