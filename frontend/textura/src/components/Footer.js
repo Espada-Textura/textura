@@ -2,6 +2,7 @@ import TexturaLogo from '@assets/logo.png'
 import FacebookLogo from '@assets/images/facebook.png'
 import IGLogo from '@assets/images/instagram.png'
 import TwitterLogo from '@assets/images/twitter.png'
+import GitHubLogo from '@assets/images/github.png'
 
 import { Link } from 'react-router-dom'
 
@@ -67,8 +68,6 @@ function Footer() {
                                         className="small-logo"
                                         src={TexturaLogo}
                                         alt="Textura Logo"
-                                        width="35px"
-                                        height="35px"
                                     ></img>
                                 </Link>
                             </div>
@@ -76,15 +75,28 @@ function Footer() {
                                 <img
                                     className="small-logo"
                                     src={FacebookLogo}
+                                    alt="Facebook Logo"
                                 ></img>
                             </div>
                             <div className="footer-logo-link">
-                                <img className="small-logo" src={IGLogo}></img>
+                                <img
+                                className="small-logo"
+                                src={IGLogo}
+                                alt="Instagram Logo"
+                                ></img>
                             </div>
                             <div className="footer-logo-link">
                                 <img
                                     className="small-logo"
                                     src={TwitterLogo}
+                                    alt="Twitter Logo"
+                                ></img>
+                            </div>
+                            <div className="footer-logo-link">
+                                <img
+                                    className="small-logo"
+                                    src={GitHubLogo}
+                                    alt="GitHub Logo"
                                 ></img>
                             </div>
                         </div>
