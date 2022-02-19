@@ -6,6 +6,9 @@
 
 :root {
     --main-text-color: rgb(25, 25, 25);
+    --text-coler: #fff;
+    --general-input-text-color: rgb(25, 25, 25);
+    --general-input-text-invalid-color: #ff0008;
 }
 
 body {

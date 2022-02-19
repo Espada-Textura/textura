@@ -3,11 +3,131 @@ import AuthAnimetion from '@utils/AuthInputAnimation'
 
 import TexturaLogo from '@assets/logo.png'
 import AuthHighlight from '@images/register_highlight.jpg'
+import ReactLoading from 'react-loading'
+import { Toast } from 'react-bootstrap'
+import { RegisterValidation } from '@validations/Auth'
+
+import { useForm } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
 
 import '@styles/pages/Auth.css'
 
+import firebase from 'firebase/compat/app'
+import { getFirestore, doc, setDoc } from 'firebase/firestore'
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    sendEmailVerification,
+} from 'firebase/auth'
+
+import { useState } from 'react'
+const firebaseConfig = {
+    apiKey: 'AIzaSyA-l-SFtlQtcSF_BG-b9HX40UBhFUSLYmE',
+    authDomain: 'textura-9fcd3.firebaseapp.com',
+    databaseURL:
+        'https://textura-9fcd3-default-rtdb.asia-southeast1.firebasedatabase.app',
+    projectId: 'textura-9fcd3',
+    storageBucket: 'textura-9fcd3.appspot.com',
+    messagingSenderId: '57186236723',
+    appId: '1:57186236723:web:427c0020ffd3f8318b2646',
+    measurementId: 'G-5D6TBYG6BD',
+}
+
+const app = firebase.initializeApp(firebaseConfig)
+// const auth = getAuth(app)
+
 function Register() {
     AuthAnimetion('auth-input', 'auth-label')
+    const [formUser, setFormUser] = useState({
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+    })
+    const [isRegistering, setRegisteringStatus] = useState(false)
+    const [isRegisterError, setRegisterErrorStatus] = useState(false)
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm()
+    const onSubmits = (data) => {
+        console.log(data)
+    }
+
+    let firstNameValidation = {
+        required: true,
+        maxLength: 20,
+    }
+
+    async function tryToSignUp() {
+        const auth = getAuth(app)
+
+        await createUserWithEmailAndPassword(
+            auth,
+            formUser.email,
+            formUser.password
+        )
+            .then((resp) => {
+                const user = resp.user
+                createUser(user.uid).then(() => {
+                    setRegisteringStatus(false)
+                })
+                sendEmailVerification(auth.currentUser)
+                    .then(() => {
+                        console.log('Done send email')
+                    })
+                    .catch((error) => {
+                        console.log('Email verification error', error)
+                    })
+            })
+            .catch((error) => {
+                setRegisteringStatus(false)
+                console.log('Register error', error)
+            })
+    }
+
+    async function createUser(uid) {
+        const db = getFirestore(app)
+        await setDoc(doc(db, 'users', uid), {
+            firstName: formUser.firstName,
+            lastName: formUser.lastName,
+            email: formUser.email,
+        })
+    }
+
+    function signUp() {
+        // setRegisteringStatus(true)
+        // tryToSignUp()
+    }
+
+    let createAccount = function () {
+        // let email = 'misapisatto@gmail.com'
+        // let password = 'Misa5454'
+        // createUserWithEmailAndPassword(auth, email, password)
+        //     .then((userCredential) => {
+        //         const user = userCredential.user
+        //         sendEmailVerification(auth.currentUser)
+        //             .then(() => {
+        //                 console.log('done send email')
+        //             })
+        //             .catch((error) => {
+        //                 console.log('Email verification error', error)
+        //             })
+        //     })
+        //     .catch((error) => {
+        //         const errorCode = error.code
+        //         const errorMessage = error.message
+        //     })
+    }
+
+    const handleFormChange = (e) => {
+        const { name, value } = e.target
+        setFormUser((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }))
+    }
     return (
         <div className="col-12 d-flex auth-layout">
             <div className="col-12 col-xl-4 col-lg-6 d-flex flex-column justify-content-between p-5">
@@ -20,7 +140,6 @@ function Register() {
                                     src={TexturaLogo}
                                 />
                             </Link>
-
                             <h5 className="auth-logo-text">Textura</h5>
                         </div>
                     </div>
@@ -32,18 +151,34 @@ function Register() {
                         </h5>
                     </div>
 
-                    <div className="mt-4 form-group">
+                    <form
+                        onSubmit={handleSubmit(onSubmits)}
+                        className="mt-4 form-group"
+                    >
                         <div className="mb-4 d-flex form-row">
                             <div className="auth-input-form col">
                                 <input
                                     type="text"
-                                    className="form-control auth-input"
+                                    name="firstName"
+                                    className={
+                                        errors.firstName
+                                            ? 'invalid form-control auth-input'
+                                            : 'form-control auth-input'
+                                    }
                                     id="firstName"
                                     placeholder=""
+                                    {...register(
+                                        'firstName',
+                                        RegisterValidation.firstName
+                                    )}
                                 ></input>
                                 <label
                                     htmlFor="firstName"
-                                    className="form-label auth-label"
+                                    className={
+                                        errors.firstName
+                                            ? 'invalid form-label auth-label'
+                                            : 'form-label auth-label'
+                                    }
                                 >
                                     First name
                                 </label>
@@ -52,10 +187,16 @@ function Register() {
                             <div className="auth-input-form col">
                                 <input
                                     type="text"
+                                    name="lastName"
                                     className="form-control auth-input"
                                     id="lastName"
                                     placeholder=""
+                                    {...register(
+                                        'lastName',
+                                        RegisterValidation.lastName
+                                    )}
                                 ></input>
+                                {errors.lastName?.type}
                                 <label
                                     htmlFor="lastName"
                                     className="form-label auth-label"
@@ -66,11 +207,16 @@ function Register() {
                         </div>
                         <div className="mb-4 auth-input-form">
                             <input
-                                type="email"
+                                type="text"
+                                name="email"
                                 className="form-control auth-input"
                                 id="email"
                                 placeholder=""
+                                {...register('email', RegisterValidation.email)}
                             ></input>
+                            {errors.email?.message && (
+                                <p>{errors.email?.message}</p>
+                            )}
                             <label
                                 htmlFor="email"
                                 className="form-label auth-label"
@@ -81,10 +227,16 @@ function Register() {
                         <div className="mb-4 auth-input-form">
                             <input
                                 type="password"
+                                name="password"
                                 className="form-control auth-input"
                                 id="password"
                                 placeholder=""
+                                {...register(
+                                    'password',
+                                    RegisterValidation.password
+                                )}
                             ></input>
+                            {errors.password?.type}
                             <label
                                 htmlFor="password"
                                 className="form-label auth-label"
@@ -93,9 +245,25 @@ function Register() {
                             </label>
                         </div>
                         <div className="d-flex justify-content-end">
-                            <button className="btn auth-button">Next</button>
+                            <button
+                                onClick={signUp}
+                                className="btn auth-button auth-button-animetion d-flex"
+                                disabled={isRegistering}
+                            >
+                                {!isRegistering ? 'Next' : 'Registering '}
+                                {isRegistering ? (
+                                    <ReactLoading
+                                        type={'bubbles'}
+                                        color={'#fff'}
+                                        height={'20px'}
+                                        width={'33px'}
+                                    />
+                                ) : (
+                                    ''
+                                )}
+                            </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div>
                     <div>
@@ -130,6 +298,22 @@ function Register() {
                     </div>
                 </div>
             </div>
+            <Toast
+                onClose={() => setRegisterErrorStatus(false)}
+                show={isRegisterError}
+                className="auth-toast"
+                delay={10000}
+                autohide
+                animation={true}
+            >
+                <Toast.Header>
+                    <strong className="me-auto">Authentication</strong>
+                    <small>Error</small>
+                </Toast.Header>
+                <Toast.Body>
+                    Failed to login, Invalid email or password.
+                </Toast.Body>
+            </Toast>
         </div>
     )
 }
