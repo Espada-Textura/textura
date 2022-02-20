@@ -1,34 +1,55 @@
 export const RegisterValidation = {
     firstName: {
-        required: true,
+        required: 'First name is required.',
         maxLength: {
             value: 64,
-            message: 'Too Many Characters',
+            message: 'First name is too many characters.',
         },
     },
     lastName: {
-        required: true,
+        required: 'Last name is required.',
         maxLength: {
             value: 64,
-            message: 'Too Many Characters',
+            message: 'Last name is too many characters.',
         },
     },
     email: {
-        required: 'Email is required',
+        required: 'Email is required.',
         pattern: {
             value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-            message: 'Please enter a valid email',
+            message: 'Invalid email format.',
         },
     },
     password: {
-        required: 'Email is required',
+        required: 'Password is required.',
         maxLength: {
             value: 64,
-            message: 'Too Many Characters',
+            message: 'Password is too many characters.',
         },
         minLength: {
             value: 8,
-            message: 'Too Less Characters',
+            message: 'Password is must be more than 8 characters.',
+        },
+    },
+}
+
+export const LoginValidation = {
+    email: {
+        required: 'Email is required.',
+        pattern: {
+            value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            message: 'Invalid email format.',
+        },
+    },
+    password: {
+        required: 'Password is required.',
+        maxLength: {
+            value: 64,
+            message: 'Password is too many characters.',
+        },
+        minLength: {
+            value: 8,
+            message: 'Password is must be more than 8 characters.',
         },
     },
 }

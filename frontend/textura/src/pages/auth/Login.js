@@ -1,11 +1,14 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import ToggleSwiich from '@components/ToggleSwiich'
 import AuthAnimetion from '@utils/AuthInputAnimation'
+import ReactLoading from 'react-loading'
 import { Toast } from 'react-bootstrap'
 import { useState } from 'react'
 
 import TexturaLogo from '@assets/logo.png'
 import AuthHighlight from '@images/login_highlight.png'
+import { LoginValidation } from '@validations/Auth'
+import { useForm } from 'react-hook-form'
 
 import '@styles/pages/Auth.css'
 
@@ -36,11 +39,18 @@ const app = firebase.initializeApp(firebaseConfig)
 function Login() {
     AuthAnimetion('auth-input', 'auth-label')
 
-    let [formUser, setFormUser] = useState({ email: '', password: '' })
+    const [isRegistering, setRegisteringStatus] = useState(false)
     let [user, setUser] = useState({})
     let [logoText, setLogoText] = useState('LOGIN')
     let [isLoginError, setLoginErrorStatus] = useState(false)
     let navigate = useNavigate()
+
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm()
+
     let imageHiligthPathFromGoogle =
         'https://drive.google.com/uc?export=view&id=1l2qvdx5bqzXaAEDqbENKnsFVrpPMr-JK'
 
@@ -57,13 +67,17 @@ function Login() {
             }
         })
     }
+    const onSubmits = (data) => {
+        tryToLogin(data)
+    }
 
-    async function tryToLogin() {
+    async function tryToLogin(userData) {
         const auth = getAuth(app)
+        const userForm = userData
         await signInWithEmailAndPassword(
             auth,
-            formUser.email,
-            formUser.password
+            userForm.email,
+            userForm.password
         )
             .then((userCredential) => {
                 const user = userCredential.user
@@ -77,21 +91,13 @@ function Login() {
             })
     }
 
-    const handleFormChange = (e) => {
-        const { name, value } = e.target
-        setFormUser((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }))
-    }
-
     let login = function () {
         tryToLogin()
     }
 
     return (
         <div className="col-12 d-flex auth-layout">
-            <div className="col-12 col-lg-4 col-md-6 d-flex flex-column justify-content-between p-5">
+            <div className="col-12 col-lg-4 col-md-6 d-flex flex-column justify-content-between p-5 auth-form-layout">
                 <div>
                     <div className="d-flex">
                         <div className="text-center">
@@ -110,40 +116,59 @@ function Login() {
                             Wellcome back to the textura.
                         </h5>
                     </div>
-
-                    <div className="mt-4">
-                        <div className="mb-4 auth-input-form">
+                    <form
+                        onSubmit={handleSubmit(onSubmits)}
+                        className="mt-4 form-group"
+                    >
+                        <div className="auth-input-form">
                             <input
-                                type="email"
+                                type="text"
                                 name="email"
-                                className="form-control auth-input"
+                                className={
+                                    'form-control auth-input ' +
+                                    (errors.email ? 'invalid ' : '')
+                                }
                                 id="email"
                                 placeholder=""
-                                onChange={handleFormChange}
+                                {...register('email', LoginValidation.email)}
                             ></input>
+                            <p className="auth-invalid-message-text">
+                                {errors.email?.message}
+                            </p>
+
                             <label
                                 htmlFor="email"
-                                className="form-label auth-label"
+                                className={'form-label auth-label'}
                             >
                                 Email
                             </label>
                         </div>
-                        <div className="mb-4 auth-input-form">
+                        <div className="auth-input-form">
                             <input
-                                name="password"
                                 type="password"
-                                className="form-control auth-input"
+                                name="password"
+                                className={
+                                    'form-control auth-input ' +
+                                    (errors.password ? 'invalid ' : '')
+                                }
                                 id="password"
                                 placeholder=""
-                                onChange={handleFormChange}
+                                {...register(
+                                    'password',
+                                    LoginValidation.password
+                                )}
                             ></input>
+                            <p className="auth-invalid-message-text">
+                                {errors.password?.message}
+                            </p>
                             <label
                                 htmlFor="password"
-                                className="form-label auth-label"
+                                className={'form-label auth-label'}
                             >
                                 Password
                             </label>
                         </div>
+
                         <div className="d-flex justify-content-between">
                             <div className="d-flex auth-stay-logined-in">
                                 <ToggleSwiich fors="stay" />
@@ -154,12 +179,25 @@ function Login() {
                                     Stay logined in
                                 </label>
                             </div>
-
-                            <button onClick={login} className="btn auth-button">
-                                Next
+                            <button
+                                type="submit"
+                                className="btn auth-button auth-button-animetion d-flex"
+                                disabled={isRegistering}
+                            >
+                                {!isRegistering ? 'Next' : 'Registering '}
+                                {isRegistering ? (
+                                    <ReactLoading
+                                        type={'bubbles'}
+                                        color={'#fff'}
+                                        height={'20px'}
+                                        width={'33px'}
+                                    />
+                                ) : (
+                                    ''
+                                )}
                             </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div>
                     <div>
