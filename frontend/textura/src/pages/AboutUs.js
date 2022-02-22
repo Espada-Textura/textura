@@ -1,4 +1,5 @@
 import TexturaLogo from '@assets/logo.png'
+import EspadaLogo from '@images/Espada.svg'
 import { FiMail } from 'react-icons/fi'
 
 import '@styles/pages/AboutUs.css'
@@ -7,8 +8,15 @@ function AboutUs() {
     return (
         <div className="aboutUs-main-layout">
             <section className="aboutUs-info pb-5 pt-5">
-                <div className="d-flex m-4 justify-content-between">
-                    <div className="aboutUs-info-part col-7">
+                <div className="d-flex justify-content-between m-4 align-items-center">
+                    <div className="aboutUs-logo-part d-flex col-md-3 col-sm-12 justify-content-center">
+                        <img
+                            className="logo"
+                            src={TexturaLogo}
+                            alt="Textura Logo"
+                        ></img>
+                    </div>
+                    <div className="aboutUs-info-part col-md-9 col-sm-12">
                         <h4 className="info-title">ABOUT TEXTURA</h4>
                         <p className="info-text">
                             Textura is a place, likely a community, for our
@@ -21,40 +29,120 @@ function AboutUs() {
                             Digital Arts.
                         </p>
                     </div>
-                    <div className="aboutUs-logo-part col-4 d-flex m-8">
-                        <img
-                            className="logo"
-                            src={TexturaLogo}
-                            alt="Textura Logo"
-                        ></img>
-                    </div>
                 </div>
             </section>
-            <section className="aboutUs-dev-info pb-5 pt-5">
+            <section className="aboutUs-dev-team-info pb-5 pt-5">
                 <div className="row pd-3">
                     <h2 className="dev-info-title pt-4 pb-4">DEVELOPER</h2>
                 </div>
-                <div className="row align-items-center">
-                    <div className="col-sm-12 col-md-4 mb-3 mb-md-0 text-center">
-                        <img
-                            className="dev-profile"
-                            src={TexturaLogo}
-                            alt="Espada Logo"
-                        ></img>
+                <div className="row justify-content-center flex-nowrap mt-3 mb-3">
+                    <img
+                        className="dev-team-profile"
+                        src={EspadaLogo}
+                        alt="Espada Logo"
+                    ></img>
+                </div>
+                <div className="row align-items-center justify-content-center">
+                    <h4 className="mb-3 text-center">
+                        <b>ESPADA TEAM</b>
+                    </h4>
+                    <p className="info-text mb-4 text-center">
+                        ESPADA is a team of four students majors in department
+                        of Information Technology Engineering, Royal University
+                        of Phnom Penh, Cambodia.
+                        <br></br>We are developing techs to help people.
+                    </p>
+                </div>
+            </section>
+            <section className="aboutUs-dev-members-info col-12 d-flex justify-content-center pb-5 pt-5">
+                <div className="col-12 col-md-7">
+                    <div className="row pd-3">
+                        <h2 className="dev-info-title pt-4 pb-4">
+                            OUR TEAM MEMBERS
+                        </h2>
                     </div>
-                    <div className="col-sm-12 col-md-8">
-                        <h4 className="mb-3">
-                            <b>ESPADA TEAM</b>
-                        </h4>
-                        <h5 className="mb-3"> CEO And Developer</h5>
-                        <p className="mb-4">
-                            ESPADA is a group of four students majors in
-                            Information Technology Engineering, Royal University
-                            of Phnom Penh, Cambodia.
-                            <br></br>We are developing techs to help people.
-                        </p>
-                        <div className="contact">
-                            <FiMail size={30} />
+                    <div className=" row align-items-center pt-3 pb-3">
+                        <div className="col-sm-12 col-md-4 mb-3 mb-md-0 text-center">
+                            <img
+                                className="dev-profile"
+                                src={EspadaLogo}
+                                alt="Espada Logo"
+                            ></img>
+                        </div>
+                        <div className="col-sm-12 text-sm-left col-md-8">
+                            <h4 className="dev-name mb-3">
+                                <b>Misa Pisatto</b>
+                            </h4>
+                            <h5 className="dev-role mb-3">
+                                Fullstack Developer
+                            </h5>
+                            <p className="mb-4">Im handsome.</p>
+                            <div className="contact">
+                                <FiMail size={30} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row align-items-center flex-row-reverse pt-3 pb-3">
+                        <div className="col-sm-12 col-md-4 mb-3 mb-md-0 text-center">
+                            <img
+                                className="dev-profile"
+                                src={EspadaLogo}
+                                alt="Espada Logo"
+                            ></img>
+                        </div>
+                        <div className="col-sm-12 col-md-8 text-end">
+                            <h4 className="dev-name mb-3">
+                                <b>Hok Lenghak</b>
+                            </h4>
+                            <h5 className="dev-role mb-3">
+                                Frontend Developer
+                            </h5>
+                            <p className="mb-4">Im handsome.</p>
+                            <div className="contact">
+                                <FiMail size={30} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row align-items-center pt-3 pb-3">
+                        <div className="col-sm-12 col-md-4 mb-3 mb-md-0 text-center">
+                            <img
+                                className="dev-profile"
+                                src={EspadaLogo}
+                                alt="Espada Logo"
+                            ></img>
+                        </div>
+                        <div className="col-sm-12 col-md-8">
+                            <h4 className="dev-name mb-3">
+                                <b>Yorn Chanvisal</b>
+                            </h4>
+                            <h5 className="dev-role mb-3">
+                                Frontend Developer
+                            </h5>
+                            <p className="mb-4">Im handsome.</p>
+                            <div className="contact">
+                                <FiMail size={30} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row align-items-center flex-row-reverse pt-3 pb-3">
+                        <div className="col-sm-12 col-md-4 mb-3 mb-md-0 text-center">
+                            <img
+                                className="dev-profile col-md-4"
+                                src={EspadaLogo}
+                                alt="Espada Logo"
+                            ></img>
+                        </div>
+                        <div className="col-sm-12 col-md-8 text-end">
+                            <h4 className="dev-name mb-3">
+                                <b>Veong Chamreoun</b>
+                            </h4>
+                            <h5 className="dev-role mb-3">
+                                Frontend Developer
+                            </h5>
+                            <p className="mb-4">Im handsome.</p>
+                            <div className="contact">
+                                <FiMail size={30} />
+                            </div>
                         </div>
                     </div>
                 </div>
