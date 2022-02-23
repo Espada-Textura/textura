@@ -112,16 +112,6 @@ function Topbar({ children, ...props }) {
                     ></img>
                 </div>
             </div>
-            <Modal
-                show={show}
-                onHide={() => setShow(false)}
-                dialogClassName="modal-90w"
-                size="lg"
-            >
-                <Modal.Body className="topbar-popup-body">
-                    <UploadForm />
-                </Modal.Body>
-            </Modal>
         </div>
     )
 }
