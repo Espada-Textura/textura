@@ -1,9 +1,9 @@
-import HeaderNew from '@components/HeaderNew'
+import TopBarNew from '@components/TopBarNew'
 
 function Header() {
     return (
         <div>
-            <HeaderNew />
+            <TopBarNew />
         </div>
     )
 }

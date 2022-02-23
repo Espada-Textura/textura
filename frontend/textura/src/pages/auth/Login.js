@@ -4,6 +4,11 @@ import AuthAnimetion from '@utils/AuthInputAnimation'
 import ReactLoading from 'react-loading'
 import { Toast } from 'react-bootstrap'
 import { useState } from 'react'
+import Backdrop from '@mui/material/Backdrop'
+import CircularProgress from '@mui/material/CircularProgress'
+import Button from '@mui/material/Button'
+import GoogleIcon from '@mui/icons-material/Google'
+import GitHubIcon from '@mui/icons-material/GitHub'
 
 import TexturaLogo from '@assets/logo.png'
 import AuthHighlight from '@images/login_highlight.png'
@@ -20,7 +25,14 @@ import {
     doc,
     getDoc,
 } from 'firebase/firestore'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    GoogleAuthProvider,
+    GithubAuthProvider,
+} from 'firebase/auth'
 
 const firebaseConfig = {
     apiKey: 'AIzaSyA-l-SFtlQtcSF_BG-b9HX40UBhFUSLYmE',
@@ -38,6 +50,35 @@ const app = firebase.initializeApp(firebaseConfig)
 
 function Login() {
     AuthAnimetion('auth-input', 'auth-label')
+
+    const GoogleProvider = new GoogleAuthProvider()
+    const GitHubProvider = new GithubAuthProvider()
+
+    const singWithProvider = function (provider, rootProvider) {
+        const auth = getAuth(app)
+
+        handleToggleLoding()
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = rootProvider.credentialFromResult(result)
+                const token = credential.accessToken
+                // The signed-in user info.
+                const user = result.user
+                console.log(user)
+                // ...
+            })
+            .catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code
+                const errorMessage = error.message
+                // The email of the user's account used.
+                const email = error.email
+                // The AuthCredential type that was used.
+                const credential = rootProvider.credentialFromError(error)
+                // ...
+            })
+    }
 
     const [isRegistering, setRegisteringStatus] = useState(false)
     let [user, setUser] = useState({})
@@ -74,6 +115,7 @@ function Login() {
     async function tryToLogin(userData) {
         const auth = getAuth(app)
         const userForm = userData
+        handleToggleLoding()
         await signInWithEmailAndPassword(
             auth,
             userForm.email,
@@ -88,11 +130,20 @@ function Login() {
                 setLoginErrorStatus(true)
                 const errorCode = error.code
                 const errorMessage = error.message
+                handleCloseLoding()
             })
     }
 
     let login = function () {
         tryToLogin()
+    }
+
+    const [open, setOpen] = useState(false)
+    const handleCloseLoding = () => {
+        setOpen(false)
+    }
+    const handleToggleLoding = () => {
+        setOpen(!open)
     }
 
     return (
@@ -200,6 +251,36 @@ function Login() {
                     </form>
                 </div>
                 <div>
+                    <div className="mb-2 col-12 d-flex">
+                        <Button
+                            size="large"
+                            variant="outlined"
+                            startIcon={<GoogleIcon size="large" />}
+                            onClick={() => {
+                                singWithProvider(
+                                    GoogleProvider,
+                                    GoogleAuthProvider
+                                )
+                            }}
+                            sx={{ width: 1, mr: 0.25 }}
+                        >
+                            Google
+                        </Button>
+                        <Button
+                            size="large"
+                            variant="outlined"
+                            startIcon={<GitHubIcon size="large" />}
+                            onClick={() => {
+                                singWithProvider(
+                                    GitHubProvider,
+                                    GithubAuthProvider
+                                )
+                            }}
+                            sx={{ width: 1, ml: 0.25 }}
+                        >
+                            Git Hub
+                        </Button>
+                    </div>
                     <div>
                         <Link className="auth-a-create" to="/register">
                             Create an account
@@ -250,6 +331,15 @@ function Login() {
                     Failed to login, Invalid email or password.
                 </Toast.Body>
             </Toast>
+            <Backdrop
+                sx={{
+                    color: '#fff',
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                }}
+                open={open}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </div>
     )
 }

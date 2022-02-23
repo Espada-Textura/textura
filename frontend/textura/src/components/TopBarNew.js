@@ -11,6 +11,13 @@ import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
+import UploadForm from '@components/UploadForm'
+import { Modal } from 'react-bootstrap'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import { Settings, Logout } from '@mui/icons-material'
+import Divider from '@mui/material/Divider'
+import Backdrop from '@mui/material/Backdrop'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import {
     useNavigate,
@@ -18,6 +25,8 @@ import {
     useMatch,
     useLocation,
 } from 'react-router-dom'
+
+import { useState } from 'react'
 
 import '@styles/components/Topbar.css'
 
@@ -28,35 +37,8 @@ import { BsFillPaletteFill } from 'react-icons/bs'
 import TexturaLogo from '@assets/logo.png'
 import ProfileImg from '@images/ado.jpg'
 
-const pages = [
-    {
-        tag: 'Home',
-        style: 'topbar-btn',
-        icon: <FaHome className="topber-btn-icon" />,
-        to: '/',
-    },
-    {
-        tag: 'Art',
-        style: 'topbar-btn',
-        icon: <BsFillPaletteFill className="topber-btn-icon" />,
-        to: '/art',
-    },
-    {
-        tag: 'Post',
-        style: 'topbar-btn-create-post ',
-        icon: <FiPlusCircle className="topber-btn-icon" />,
-    },
-    {
-        tag: 'Sing up',
-        style: 'topbar-btn-sing-up',
-        icon: <FiLogIn className="topber-btn-icon" />,
-        to: '/register',
-    },
-]
-
-const settings = ['Profile', 'Account', 'Logout']
-
-const HeaderNew = () => {
+const TopBarNew = () => {
+    const [show, setShow] = useState(false)
     const [anchorElNav, setAnchorElNav] = React.useState(null)
     const [anchorElUser, setAnchorElUser] = React.useState(null)
     const navigate = useNavigate()
@@ -82,8 +64,65 @@ const HeaderNew = () => {
         setAnchorElUser(null)
     }
 
+    const handleClose = () => setShow(false)
+    const handleShow = () => setShow(true)
+
+    let demoSetting = {
+        tag: 'Profile',
+        to: '/profile',
+        icon: <Settings fontSize="small" />,
+    }
+
+    const settings = [
+        {
+            tag: 'Logout',
+            action: function () {
+                console.log('logout')
+                handleToggleLoding()
+            },
+            icon: <Logout fontSize="small" />,
+        },
+    ]
+
+    const pages = [
+        {
+            tag: 'Home',
+            style: 'topbar-btn',
+            icon: <FaHome className="topber-btn-icon" />,
+            to: '/',
+        },
+        {
+            tag: 'Art',
+            style: 'topbar-btn',
+            icon: <BsFillPaletteFill className="topber-btn-icon" />,
+            to: '/art',
+        },
+        {
+            tag: 'Post',
+            style: 'topbar-btn-create-post ',
+            icon: <FiPlusCircle className="topber-btn-icon" />,
+            action: function () {
+                handleShow()
+            },
+        },
+        {
+            tag: 'Sing up',
+            style: 'topbar-btn-sing-up',
+            icon: <FiLogIn className="topber-btn-icon" />,
+            to: '/register',
+        },
+    ]
+
+    const [open, setOpen] = useState(false)
+    const handleCloseLoding = () => {
+        setOpen(false)
+    }
+    const handleToggleLoding = () => {
+        setOpen(!open)
+    }
+
     return (
-        <AppBar position="static" className="topbar-main-layout">
+        <AppBar position="static" className="topbar-main-layout" elevation={3}>
             <Container maxWidth="" className="topbar-main-layout">
                 <Toolbar disableGutters>
                     <Typography
@@ -148,7 +187,15 @@ const HeaderNew = () => {
                             {pages.map((page) => (
                                 <MenuItem
                                     key={page.tag}
-                                    onClick={handleCloseNavMenu}
+                                    onClick={(e) => {
+                                        if (page.hasOwnProperty('to')) {
+                                            PushTo(e, page.to)
+                                        } else if (
+                                            page.hasOwnProperty('action')
+                                        ) {
+                                            page.action()
+                                        }
+                                    }}
                                 >
                                     <Typography textAlign="center">
                                         {page.icon}
@@ -200,7 +247,11 @@ const HeaderNew = () => {
                             <Button
                                 key={page.tag}
                                 onClick={(e) => {
-                                    PushTo(e, page.to)
+                                    if (page.hasOwnProperty('to')) {
+                                        PushTo(e, page.to)
+                                    } else {
+                                        page.action()
+                                    }
                                 }}
                                 className={page.style}
                                 sx={{
@@ -243,21 +294,65 @@ const HeaderNew = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
+                            <MenuItem
+                                onClick={function (event) {
+                                    PushTo(event, 'profile')
+                                }}
+                            >
+                                <Avatar
+                                    alt="Remy Sharp"
+                                    src={ProfileImg}
+                                    sx={{ mr: '16px' }}
+                                />
+                                MISA Pisatto
+                                <br />
+                                useremail@example.com
+                            </MenuItem>
+                            <Divider />
                             {settings.map((setting) => (
                                 <MenuItem
-                                    key={setting}
-                                    onClick={handleCloseUserMenu}
+                                    key={setting.tag}
+                                    onClick={function (event) {
+                                        handleCloseUserMenu()
+                                        if (setting.hasOwnProperty('to')) {
+                                            PushTo(event, setting.to)
+                                        } else if (
+                                            setting.hasOwnProperty('action')
+                                        ) {
+                                            setting.action()
+                                        }
+                                    }}
                                 >
-                                    <Typography textAlign="center">
-                                        {setting}
-                                    </Typography>
+                                    <ListItemIcon>{setting.icon}</ListItemIcon>
+                                    {setting.tag}
                                 </MenuItem>
                             ))}
                         </Menu>
                     </Box>
                 </Toolbar>
             </Container>
+
+            <Modal
+                show={show}
+                onHide={() => setShow(false)}
+                dialogClassName="modal-90w"
+                size="lg"
+            >
+                <Modal.Body className="topbar-popup-body">
+                    <UploadForm />
+                </Modal.Body>
+            </Modal>
+            <Backdrop
+                sx={{
+                    color: '#fff',
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                }}
+                open={open}
+                onClick={handleCloseLoding}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </AppBar>
     )
 }
-export default HeaderNew
+export default TopBarNew
