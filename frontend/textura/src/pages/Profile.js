@@ -12,7 +12,7 @@ function Profile() {
     return (
         <div className="proPage-mainLayout">
             {/*----------------- COVER PAGE  -----------------*/}
-            <div className="proPage-cover">
+            <div className="proPage-cover" id="proPage-coverPic">
                 <button className="proPage-editPro-btn">
                     <AiFillEdit id="proPage-editPro-icon" />
                     Edit Profile
@@ -21,7 +21,6 @@ function Profile() {
                 <div className="proPage-profile">
                     <div className="proPage-proText">
                         <p className="proPage-name">Profile Name</p>
-                        <MdVerified id="proPage-verified-btn" />
                         <p className="proPage-username">@iam_auser</p>
                     </div>
                     <div className="proPage-proPicOutLine">
@@ -49,24 +48,18 @@ function Profile() {
                         <p id="proPage-postCount">--</p>
                     </div>
 
-                    <div className="proPage-sVLine"></div>
-
                     <div className="proPage-followerInfo">
                         <p>Followers</p>
                         <p id="proPage-followerCount">--</p>
                     </div>
-
-                    <div className="proPage-sVLine"></div>
 
                     <div className="proPage-followingInfo">
                         <p>Followings</p>
                         <p id="proPage-followingCount">--</p>
                     </div>
 
-                    <div className="proPage-bio">No Bio.</div>
+                    <div id="proPage-bio">No Bio.</div>
                 </div>
-
-                <div className="proPage-horLine"></div>
 
                 <ul className="proPage-navMenu">
                     <li>
@@ -105,8 +98,6 @@ function Profile() {
                         <p>Settings</p>
                     </li>
 
-                    <div className="proPage-horLine"></div>
-
                     <li>
                         <div className="proPage-navTag"></div>
                         <GiExitDoor className="proPage-icon" />
@@ -115,8 +106,6 @@ function Profile() {
                 </ul>
             </div>
             {/*---------------------------- END NAV CONTAINER  ----------------------------*/}
-
-            <div className="proPage-verLine"></div>
 
             {/*---------------------------- POST PANEL  ----------------------------*/}
             <div className="proPage-postPanel">

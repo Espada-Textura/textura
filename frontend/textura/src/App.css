@@ -4,6 +4,11 @@
     src: url('@fonts/Lato/Lato-Regular.ttf');
 }
 
+@font-face {
+    font-family: 'Lato-Black';
+    src: url('@fonts/Lato/Lato-Black.ttf');
+}
+
 :root {
     --main-text-color: rgb(25, 25, 25);
     --text-coler: #fff;
