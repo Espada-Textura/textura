@@ -1,4 +1,45 @@
 .aboutUs-main-layout {
-    background-color: rgb(107, 107, 107);
-    height: 1000px !important;
+    height: auto;
+    color: var(--main-text-color);
+}
+
+.info-title{
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.info-text{
+    font-size: 20px;
+}
+
+.logo{
+    width: 250px;
+    height: 250px;
+}
+
+.dev-info-title{
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0px;
+}
+
+.dev-name{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.dev-role{
+    font-size: 18px;
+}
+
+.dev-team-profile{
+    width: 280px;
+    height: 280px;
+}
+
+.dev-profile{
+    width: 200px;
+    height: 200px;
 }

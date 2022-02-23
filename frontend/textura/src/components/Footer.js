@@ -80,9 +80,9 @@ function Footer() {
                             </div>
                             <div className="footer-logo-link">
                                 <img
-                                className="small-logo"
-                                src={IGLogo}
-                                alt="Instagram Logo"
+                                    className="small-logo"
+                                    src={IGLogo}
+                                    alt="Instagram Logo"
                                 ></img>
                             </div>
                             <div className="footer-logo-link">
