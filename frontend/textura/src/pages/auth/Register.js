@@ -8,7 +8,6 @@ import { Toast } from 'react-bootstrap'
 import { RegisterValidation } from '@validations/Auth'
 
 import { useForm } from 'react-hook-form'
-import { ErrorMessage } from '@hookform/error-message'
 
 import '@styles/pages/Auth.css'
 
@@ -38,67 +37,62 @@ const app = firebase.initializeApp(firebaseConfig)
 
 function Register() {
     AuthAnimetion('auth-input', 'auth-label')
-    const [formUser, setFormUser] = useState({
-        email: '',
-        password: '',
-        firstName: '',
-        lastName: '',
-    })
+
     const [isRegistering, setRegisteringStatus] = useState(false)
     const [isRegisterError, setRegisterErrorStatus] = useState(false)
+    const [isRegisterComplete, setRegisterCompleteStatus] = useState(false)
     const {
         register,
         formState: { errors },
         handleSubmit,
     } = useForm()
+
     const onSubmits = (data) => {
-        console.log(data)
+        setRegisteringStatus(true)
+        tryToSignUp(data)
     }
 
-    let firstNameValidation = {
-        required: true,
-        maxLength: 20,
-    }
-
-    async function tryToSignUp() {
+    async function tryToSignUp(userData) {
         const auth = getAuth(app)
-
+        const userForm = userData
         await createUserWithEmailAndPassword(
             auth,
-            formUser.email,
-            formUser.password
+            userForm.email,
+            userForm.password
         )
             .then((resp) => {
                 const user = resp.user
-                createUser(user.uid).then(() => {
-                    setRegisteringStatus(false)
-                })
+                createUser(user.uid, userForm)
+                    .then(() => {
+                        setRegisteringStatus(true)
+                    })
+                    .catch(() => {
+                        setRegisteringStatus(false)
+                        setRegisterErrorStatus(true)
+                    })
                 sendEmailVerification(auth.currentUser)
                     .then(() => {
-                        console.log('Done send email')
+                        setRegisterCompleteStatus(true)
                     })
                     .catch((error) => {
                         console.log('Email verification error', error)
+                        setRegisterErrorStatus(true)
                     })
             })
             .catch((error) => {
                 setRegisteringStatus(false)
+                setRegisterErrorStatus(true)
                 console.log('Register error', error)
             })
     }
 
-    async function createUser(uid) {
+    async function createUser(uid, userData) {
         const db = getFirestore(app)
         await setDoc(doc(db, 'users', uid), {
-            firstName: formUser.firstName,
-            lastName: formUser.lastName,
-            email: formUser.email,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            email: userData.email,
         })
-    }
-
-    function signUp() {
-        // setRegisteringStatus(true)
-        // tryToSignUp()
     }
 
     let createAccount = function () {
@@ -121,16 +115,9 @@ function Register() {
         //     })
     }
 
-    const handleFormChange = (e) => {
-        const { name, value } = e.target
-        setFormUser((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }))
-    }
     return (
         <div className="col-12 d-flex auth-layout">
-            <div className="col-12 col-xl-4 col-lg-6 d-flex flex-column justify-content-between p-5">
+            <div className="col-12 col-sm-12 col-md-6 col-xl-4 p-5 d-flex flex-column justify-content-between auth-form-layout">
                 <div>
                     <div className="d-flex">
                         <div className="text-center">
@@ -155,15 +142,14 @@ function Register() {
                         onSubmit={handleSubmit(onSubmits)}
                         className="mt-4 form-group"
                     >
-                        <div className="mb-4 d-flex form-row">
+                        <div className="d-flex form-row">
                             <div className="auth-input-form col">
                                 <input
                                     type="text"
                                     name="firstName"
                                     className={
-                                        errors.firstName
-                                            ? 'invalid form-control auth-input'
-                                            : 'form-control auth-input'
+                                        'form-control auth-input ' +
+                                        (errors.firstName ? 'invalid ' : '')
                                     }
                                     id="firstName"
                                     placeholder=""
@@ -172,13 +158,12 @@ function Register() {
                                         RegisterValidation.firstName
                                     )}
                                 ></input>
+                                <p className="auth-invalid-message-text">
+                                    {errors.firstName?.message}
+                                </p>
                                 <label
                                     htmlFor="firstName"
-                                    className={
-                                        errors.firstName
-                                            ? 'invalid form-label auth-label'
-                                            : 'form-label auth-label'
-                                    }
+                                    className={'form-label auth-label'}
                                 >
                                     First name
                                 </label>
@@ -188,7 +173,10 @@ function Register() {
                                 <input
                                     type="text"
                                     name="lastName"
-                                    className="form-control auth-input"
+                                    className={
+                                        'form-control auth-input ' +
+                                        (errors.lastName ? 'invalid ' : '')
+                                    }
                                     id="lastName"
                                     placeholder=""
                                     {...register(
@@ -196,39 +184,48 @@ function Register() {
                                         RegisterValidation.lastName
                                     )}
                                 ></input>
-                                {errors.lastName?.type}
+                                <p className="auth-invalid-message-text">
+                                    {errors.lastName?.message}
+                                </p>
                                 <label
                                     htmlFor="lastName"
-                                    className="form-label auth-label"
+                                    className={'form-label auth-label'}
                                 >
                                     Last name
                                 </label>
                             </div>
                         </div>
-                        <div className="mb-4 auth-input-form">
+                        <div className="auth-input-form">
                             <input
                                 type="text"
                                 name="email"
-                                className="form-control auth-input"
+                                className={
+                                    'form-control auth-input ' +
+                                    (errors.email ? 'invalid ' : '')
+                                }
                                 id="email"
                                 placeholder=""
                                 {...register('email', RegisterValidation.email)}
                             ></input>
-                            {errors.email?.message && (
-                                <p>{errors.email?.message}</p>
-                            )}
+                            <p className="auth-invalid-message-text">
+                                {errors.email?.message}
+                            </p>
+
                             <label
                                 htmlFor="email"
-                                className="form-label auth-label"
+                                className={'form-label auth-label'}
                             >
                                 Email
                             </label>
                         </div>
-                        <div className="mb-4 auth-input-form">
+                        <div className="auth-input-form">
                             <input
                                 type="password"
                                 name="password"
-                                className="form-control auth-input"
+                                className={
+                                    'form-control auth-input ' +
+                                    (errors.password ? 'invalid ' : '')
+                                }
                                 id="password"
                                 placeholder=""
                                 {...register(
@@ -236,17 +233,19 @@ function Register() {
                                     RegisterValidation.password
                                 )}
                             ></input>
-                            {errors.password?.type}
+                            <p className="auth-invalid-message-text">
+                                {errors.password?.message}
+                            </p>
                             <label
                                 htmlFor="password"
-                                className="form-label auth-label"
+                                className={'form-label auth-label'}
                             >
                                 Password
                             </label>
                         </div>
                         <div className="d-flex justify-content-end">
                             <button
-                                onClick={signUp}
+                                type="submit"
                                 className="btn auth-button auth-button-animetion d-flex"
                                 disabled={isRegistering}
                             >
@@ -281,7 +280,7 @@ function Register() {
                     </div>
                 </div>
             </div>
-            <div className="col-8 col-xl-8 col-lg-8 col-md-6 d-none d-md-flex auth-image-layout">
+            <div className="col-0 col-md-6 col-xl-8 d-none d-md-flex auth-image-layout">
                 <div className="position-img-outer">
                     <div className="position-img-inner">
                         <img className="position-img" src={AuthHighlight} />
@@ -302,16 +301,17 @@ function Register() {
                 onClose={() => setRegisterErrorStatus(false)}
                 show={isRegisterError}
                 className="auth-toast"
-                delay={10000}
+                delay={20000}
                 autohide
                 animation={true}
             >
                 <Toast.Header>
                     <strong className="me-auto">Authentication</strong>
-                    <small>Error</small>
+                    <small>Registering error</small>
                 </Toast.Header>
                 <Toast.Body>
-                    Failed to login, Invalid email or password.
+                    Invalid email or email has been registered. Please try
+                    another email.
                 </Toast.Body>
             </Toast>
         </div>

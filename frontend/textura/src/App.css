@@ -4,11 +4,16 @@
     src: url('@fonts/Lato/Lato-Regular.ttf');
 }
 
+@font-face {
+    font-family: 'Lato-Black';
+    src: url('@fonts/Lato/Lato-Black.ttf');
+}
+
 :root {
     --main-text-color: rgb(25, 25, 25);
     --text-coler: #fff;
     --general-input-text-color: rgb(25, 25, 25);
-    --general-input-text-invalid-color: #ff0008;
+    --general-input-text-invalid-color: #ff507c;
     --a-hover-text-color: rgb(100, 100, 100);
     --upload-input-box-color:  linear-gradient(315deg, #71e4b6 0%, #74f2ce 74%);
     
