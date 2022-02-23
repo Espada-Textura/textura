@@ -2,31 +2,36 @@
     position: relative;
     z-index: 0;
     display: grid;
-    grid-template-columns: 20% auto;
+    grid-template-columns: 20% 1fr;
     grid-template-areas:
         'proPage-cover proPage-cover'
         'proPage-nav proPage-post';
 }
 
 .proPage-cover {
-    position: absolute;
+    position: sticky;
     grid-area: proPage-cover;
     display: grid;
     grid-template-columns: 50% 50%;
-    position: sticky;
+
     height: 300px;
-    background-image: url('@assets/images/cover_default.png');
+    background-image: url('https://drive.google.com/uc?export=view&id=1rG9YQh8LNzFAO6RrzMbTcrDkfGsgaLt-');
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center center;
 }
 
 .proPage-blurBack {
     position: absolute;
     bottom: 0;
-    z-index: -1;
     height: 55%;
+    z-index: -1;
     width: 100%;
-    opacity: 50%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0),
+        rgb(255, 255, 255)
+    );
 }
 
 .proPage-profile {
@@ -44,72 +49,62 @@
 
 .proPage-proText {
     display: grid;
-    grid-template-columns: 1fr max-content;
+    grid-template-columns: max-content;
     grid-auto-flow: row;
     grid-template-rows: 45px 30px;
     column-gap: 10px;
     z-index: 1;
-    text-align: center;
+    text-align: right;
     align-self: center;
     align-items: center;
     justify-self: right;
 }
 
 .proPage-name {
+    font-family: 'Lato-Black';
     font-size: 40px;
     font-weight: bolder;
-
     color: rgb(0, 0, 0);
     margin: 0%;
 }
 
 .proPage-username {
-    font-size: 20px;
-    color: rgb(0, 0, 0);
+    font-size: 22px;
+    color: rgb(99, 99, 99);
     margin: 0%;
-}
 
-#proPage-verified-btn {
-    width: 28px;
-    height: 28px;
-    align-self: center;
+    text-align: right;
 }
 
 .proPage-proPicOutLine {
     display: grid;
-    width: 140px;
-    height: 140px;
-    border-radius: 5px;
-    border: 3.5px solid rgb(255, 255, 255);
+    width: 130px;
+    height: 130px;
+    position: relative;
     align-self: center;
+    justify-content: center;
 }
 
-#proPage-proPic {
-    width: 125px;
-    height: 125px;
+#proPage-proPic,
+.proPage-proPic-edit {
+    max-width: 130px;
+    height: 130px;
+    margin: 0%;
     border-radius: 5px;
     align-self: center;
     justify-self: center;
+    z-index: 2 !important;
     position: absolute;
-    z-index: 2;
 }
 
 .proPage-proPic-edit {
-    width: 125px;
-    height: 125px;
-    margin: 0%;
-    border-radius: 5px;
-    outline: none;
-
-    align-self: center;
-    justify-self: center;
-    z-index: 2;
-
     color: #ff7eb3;
-    font-weight: bold;
+    font-weight: bolder;
 
     opacity: 0;
     background-color: #02000073;
+    width: 100%;
+    height: 100%;
 }
 
 .proPage-proPic-edit:hover {
@@ -141,22 +136,23 @@
 }
 
 .proPage-editPro-btn {
-    width: 150px;
+    max-width: 150px;
     height: 45px;
 
     display: grid;
+    grid-template-columns: min-content, min-content;
     grid-auto-flow: column;
     align-items: center;
     align-self: flex-end;
     position: relative;
 
-    background-color: white;
     outline: none;
     border: none;
     border-radius: 10px;
     margin: 25px 50px;
 
     font-size: 18px;
+    background-color: white;
     color: #ff758c;
     transform-style: preserve-3d;
 }
@@ -175,23 +171,87 @@
 
 .proPage-followInfo {
     display: grid;
-    grid-template-columns: 1fr 1px 1fr 1px 1fr;
-    grid-template-rows: 75px 1fr;
-    row-gap: 15px;
+    position: relative;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 75px max-content;
     justify-items: center;
     align-items: center;
 
     margin: 15px 25px;
 }
 
-.proPage-navContainer {
+.proPage-followInfo::before {
+    content: '';
+    position: absolute;
+
+    width: 90%;
+    height: 100%;
+
+    border-bottom: 1px solid #c4c4c4;
+}
+
+.proPage-followInfo > div {
+    font-size: 18px;
+    color: grey;
+
+    position: relative;
+
     display: grid;
-    grid-template-rows: 2fr 1px 5fr;
+    max-width: max-content;
+    grid-auto-flow: row;
+    grid-template-rows: min-content min-content;
+    row-gap: 5px;
     grid-template-columns: 1fr;
 
+    justify-items: center;
+    align-items: center;
+
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.proPage-postInfo::before,
+.proPage-followerInfo::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    margin: auto;
+    height: 40px;
+    width: 50%;
+    border-right: 1px solid #c4c4c4;
+}
+
+#proPage-postCount,
+#proPage-followerCount,
+#proPage-followingCount {
+    font-weight: bold;
+    color: black;
+}
+
+.proPage-followInfo > div > p {
+    margin: 0%;
+}
+
+#proPage-bio {
+    font-size: 16px;
+    color: black;
+    text-align: center;
+    justify-content: center;
+    grid-column: 1 / -1;
+    padding: 10px 0px;
+}
+
+.proPage-navContainer {
     grid-area: proPage-nav;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: fit-content;
 }
 
 .proPage-postPanel {
     grid-area: proPage-post;
+    margin: 0vmax;
+    position: relative;
 }
