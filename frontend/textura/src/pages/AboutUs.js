@@ -8,7 +8,7 @@ function AboutUs() {
     return (
         <div className="aboutUs-main-layout">
             <section className="aboutUs-info pb-5 pt-5">
-                <div className="d-flex justify-content-between m-4 align-items-center">
+                <div className="d-flex justify-content-between d-flex flex-column flex-md-row-reverse flex-lg-row m-4 align-items-center">
                     <div className="aboutUs-logo-part d-flex col-md-3 col-sm-12 justify-content-center">
                         <img
                             className="logo"
@@ -32,17 +32,17 @@ function AboutUs() {
                 </div>
             </section>
             <section className="aboutUs-dev-team-info pb-5 pt-5">
-                <div className="row pd-3">
+                <div className=" ">
                     <h2 className="dev-info-title pt-4 pb-4">DEVELOPER</h2>
                 </div>
-                <div className="row justify-content-center flex-nowrap mt-3 mb-3">
+                <div className=" justify-content-center flex-nowrap mt-3 mb-3">
                     <img
                         className="dev-team-profile"
                         src={EspadaLogo}
                         alt="Espada Logo"
                     ></img>
                 </div>
-                <div className="row align-items-center justify-content-center">
+                <div className=" align-items-center justify-content-center">
                     <h4 className="mb-3 text-center">
                         <b>ESPADA TEAM</b>
                     </h4>
@@ -56,12 +56,12 @@ function AboutUs() {
             </section>
             <section className="aboutUs-dev-members-info col-12 d-flex justify-content-center pb-5 pt-5">
                 <div className="col-12 col-md-7">
-                    <div className="row pd-3">
+                    <div className=" pd-3">
                         <h2 className="dev-info-title pt-4 pb-4">
                             OUR TEAM MEMBERS
                         </h2>
                     </div>
-                    <div className=" row align-items-center pt-3 pb-3">
+                    <div className="align-items-center pt-3 pb-3">
                         <div className="col-sm-12 col-md-4 mb-3 mb-md-0 text-center">
                             <img
                                 className="dev-profile"
@@ -82,7 +82,7 @@ function AboutUs() {
                             </div>
                         </div>
                     </div>
-                    <div className="row align-items-center flex-row-reverse pt-3 pb-3">
+                    <div className=" align-items-center flex-row-reverse pt-3 pb-3">
                         <div className="col-sm-12 col-md-4 mb-3 mb-md-0 text-center">
                             <img
                                 className="dev-profile"
@@ -103,7 +103,7 @@ function AboutUs() {
                             </div>
                         </div>
                     </div>
-                    <div className="row align-items-center pt-3 pb-3">
+                    <div className=" align-items-center pt-3 pb-3">
                         <div className="col-sm-12 col-md-4 mb-3 mb-md-0 text-center">
                             <img
                                 className="dev-profile"
@@ -124,7 +124,7 @@ function AboutUs() {
                             </div>
                         </div>
                     </div>
-                    <div className="row align-items-center flex-row-reverse pt-3 pb-3">
+                    <div className="align-items-center flex-row-reverse pt-3 pb-3">
                         <div className="col-sm-12 col-md-4 mb-3 mb-md-0 text-center">
                             <img
                                 className="dev-profile col-md-4"

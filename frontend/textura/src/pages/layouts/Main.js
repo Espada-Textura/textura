@@ -13,7 +13,9 @@ function Main() {
             <div className="main-layout-content">
                 <Outlet />
             </div>
-            <Footer />
+            <div>
+                <Footer />
+            </div>
         </div>
     )
 }

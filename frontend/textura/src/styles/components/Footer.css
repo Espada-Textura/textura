@@ -1,5 +1,4 @@
 .footer-main-layout {
-    width: 10vw;
     padding: 25px;
     overflow: hidden;
 }
@@ -22,7 +21,6 @@ ul {
 .footer-margin {
     font-size: 18px;
     font-weight: regular;
-    margin-right: 200px;
 }
 
 .footer-web-info {
