@@ -12,6 +12,7 @@ module.exports = function override(config) {
         '@utils': 'src/utils',
         '@backend': 'src/firebase',
         '@validations': 'src/utils/Validations',
+        '@redux': 'src/redux',
     })(config)
 
     return config
