@@ -7,6 +7,7 @@ import { GiExitDoor } from 'react-icons/gi'
 import { BsArrowRepeat } from 'react-icons/bs'
 import profilePic from '@assets/images/ado.jpg'
 import '@styles/pages/Profile.css'
+import ArtsList from '@components/ArtsList'
 
 function Profile() {
     return (
@@ -110,7 +111,9 @@ function Profile() {
             {/*---------------------------- POST PANEL  ----------------------------*/}
             <div className="proPage-postPanel">
                 <p>Post</p>
-                <div className="proPage-postPics"></div>
+                <div className="proPage-postPics">
+                    <ArtsList></ArtsList>
+                </div>
             </div>
             {/*---------------------------- END POST PANEL ----------------------------*/}
         </div>
