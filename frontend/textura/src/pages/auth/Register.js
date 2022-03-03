@@ -24,9 +24,8 @@ import {
 } from 'firebase/auth'
 
 import { useState, useEffect } from 'react'
-import Zoom from '@mui/material/Zoom'
 import Grow from '@mui/material/Grow'
-import Slide from '@mui/material/Slide'
+
 const firebaseConfig = {
     apiKey: 'AIzaSyA-l-SFtlQtcSF_BG-b9HX40UBhFUSLYmE',
     authDomain: 'textura-9fcd3.firebaseapp.com',
@@ -337,18 +336,16 @@ function Register() {
                 </div>
             </div>
             <div className="col-0 col-md-6 col-xl-8 d-none d-md-flex auth-image-layout">
-                <div>
-                    <div className="position-img-outer">
-                        <div className="position-img-inner">
-                            <img
-                                className="position-img"
-                                src={AuthHighlight}
-                                onLoad={() => {
-                                    setImgLoadedStatus(true)
-                                }}
-                            />
-                        </div>
-                    </div>
+                <div className="">
+                    <Grow in={isImgLoaded}>
+                        <img
+                            className="position-img"
+                            src={AuthHighlight}
+                            onLoad={() => {
+                                setImgLoadedStatus(true)
+                            }}
+                        />
+                    </Grow>
                 </div>
 
                 <div className="auth-profile-Highlight-layout">

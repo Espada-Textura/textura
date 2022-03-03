@@ -144,20 +144,9 @@
     background: linear-gradient(96.43deg, #ee546d -1.21%, #d2427e 100%);
 }
 
-.position-img-outer {
+.position-img {
     height: 100vh;
-    margin: 0 auto;
-    overflow: hidden;
-}
-.position-img-outer .position-img-inner {
-    display: inline-block;
-    position: relative;
-    right: -50%;
-}
-.position-img-outer .position-img-inner .position-img {
-    height: 100vh;
-    position: relative;
-    left: -50%;
+    object-fit: cover;
 }
 
 .auth-profile-Highlight-layout {

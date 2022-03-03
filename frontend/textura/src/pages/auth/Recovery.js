@@ -51,7 +51,7 @@ function Recovery() {
 
     return (
         <div className="col-12 d-flex auth-layout">
-            <div className="col-12 col-xl-4 col-lg-6 d-flex flex-column justify-content-between p-5">
+            <div className="col-12 col-sm-12 col-md-6 col-xl-4 d-flex flex-column justify-content-between p-5 auth-form-layout">
                 <div>
                     <div className="d-flex">
                         <div className="text-center">
@@ -157,18 +157,16 @@ function Recovery() {
                     </div>
                 </div>
             </div>
-            <div className="col-8 col-xl-8 col-lg-8 col-md-6 d-none d-md-flex auth-image-layout">
-                <div className="position-img-outer">
-                    <Grow direction="up" in={isImgLoaded}>
-                        <div className="position-img-inner">
-                            <img
-                                className="position-img"
-                                src={AuthHighlight}
-                                onLoad={() => {
-                                    setImgLoadedStatus(true)
-                                }}
-                            />
-                        </div>
+            <div className="col-0 col-md-6 col-xl-8 d-none d-md-flex auth-image-layout">
+                <div className="">
+                    <Grow in={isImgLoaded}>
+                        <img
+                            className="position-img"
+                            src={AuthHighlight}
+                            onLoad={() => {
+                                setImgLoadedStatus(true)
+                            }}
+                        />
                     </Grow>
                 </div>
                 <div className="auth-profile-Highlight-layout">

@@ -256,19 +256,18 @@ function Login() {
                 </div>
             </div>
             <div className="col-8 col-lg-8 col-md-6 d-none d-md-flex auth-image-layout">
-                <Grow direction="up" in={isImgLoaded}>
-                    <div className="position-img-outer">
-                        <div className="position-img-inner">
-                            <img
-                                className="position-img"
-                                src={imageHiligthPathFromGoogle}
-                                onLoad={() => {
-                                    setImgLoadedStatus(true)
-                                }}
-                            />
-                        </div>
-                    </div>
-                </Grow>
+                <div>
+                    <Grow direction="up" in={isImgLoaded}>
+                        <img
+                            className="position-img"
+                            src={imageHiligthPathFromGoogle}
+                            onLoad={() => {
+                                setImgLoadedStatus(true)
+                            }}
+                        />
+                    </Grow>
+                </div>
+
                 <div className="auth-profile-Highlight-layout">
                     <div className="auth-profile-Highlight-layout-content">
                         <div className="d-flex">
