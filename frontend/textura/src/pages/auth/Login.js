@@ -17,6 +17,10 @@ import { useForm } from 'react-hook-form'
 
 import '@styles/pages/Auth.css'
 
+import { useDispatch, useSelector } from 'react-redux'
+import { signIn, getCurrentUser } from '@redux/users/operations'
+import { signInAction } from '@redux/users/actions'
+
 import firebase from 'firebase/compat/app'
 import {
     getFirestore,
@@ -50,6 +54,8 @@ const app = firebase.initializeApp(firebaseConfig)
 
 function Login() {
     AuthAnimetion('auth-input', 'auth-label')
+    const dispatch = useDispatch()
+    const selector = useSelector((state) => state)
 
     const GoogleProvider = new GoogleAuthProvider()
     const GitHubProvider = new GithubAuthProvider()
@@ -109,7 +115,20 @@ function Login() {
         })
     }
     const onSubmits = (data) => {
-        tryToLogin(data)
+        let signInPromiss = dispatch(signIn(data))
+        signInPromiss.then((signInResp) => {
+            let getUserPromiss = dispatch(getCurrentUser(signInResp.user.uid))
+            getUserPromiss.then((userRespData) => {
+                if (userRespData.exists()) {
+                    let user = userRespData.data()
+                    user.uid = signInResp.user.uid
+                    user.isSignedIn = true
+                    dispatch(signInAction(user))
+                    navigate('/')
+                } else {
+                }
+            })
+        })
     }
 
     async function tryToLogin(userData) {

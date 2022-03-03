@@ -19,6 +19,9 @@ import Divider from '@mui/material/Divider'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 
+import { useDispatch, useSelector } from 'react-redux'
+import { getIsSignedIn, getCurrentUser } from '@redux/users/selectors'
+
 import {
     useNavigate,
     useResolvedPath,
@@ -43,6 +46,10 @@ const TopBarNew = () => {
     const [anchorElUser, setAnchorElUser] = React.useState(null)
     const navigate = useNavigate()
     let location = useLocation()
+
+    const selector = useSelector((state) => state)
+    const isSignedIn = getIsSignedIn(selector)
+    const currentUser = getCurrentUser(selector)
 
     const PushTo = function (e, pathname = '') {
         e.preventDefault()
@@ -148,6 +155,7 @@ const TopBarNew = () => {
                         </div>
                         <div className="topbar-logo-text ">Textura</div>
                     </Typography>
+                    {isSignedIn}
 
                     <Box
                         sx={{
@@ -270,14 +278,19 @@ const TopBarNew = () => {
                     </Box>
 
                     <Box sx={{ flexGrow: 0, ml: 1 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton
-                                onClick={handleOpenUserMenu}
-                                sx={{ p: 0 }}
-                            >
-                                <Avatar alt="Remy Sharp" src={ProfileImg} />
-                            </IconButton>
-                        </Tooltip>
+                        {isSignedIn ? (
+                            <Tooltip title="Open settings">
+                                <IconButton
+                                    onClick={handleOpenUserMenu}
+                                    sx={{ p: 0 }}
+                                >
+                                    <Avatar alt="Remy Sharp" src={ProfileImg} />
+                                </IconButton>
+                            </Tooltip>
+                        ) : (
+                            ''
+                        )}
+
                         <Menu
                             sx={{ mt: '45px' }}
                             id="menu-appbar"
@@ -304,9 +317,11 @@ const TopBarNew = () => {
                                     src={ProfileImg}
                                     sx={{ mr: '16px' }}
                                 />
-                                MISA Pisatto
+                                {currentUser.firstName +
+                                    ' ' +
+                                    currentUser.lastName}
                                 <br />
-                                useremail@example.com
+                                {currentUser.email}
                             </MenuItem>
                             <Divider />
                             {settings.map((setting) => (

@@ -1,8 +1,7 @@
 const initialState = {
     users: {
-        isLogedIn: false,
+        isSignedIn: false,
         uid: '',
-        userName: '',
     },
     arts: {
         id: '',
