@@ -21,6 +21,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { getIsSignedIn, getCurrentUser } from '@redux/users/selectors'
+import { signOut } from '@redux/users/operations'
 
 import {
     useNavigate,
@@ -46,6 +47,7 @@ const TopBarNew = () => {
     const [anchorElUser, setAnchorElUser] = React.useState(null)
     const navigate = useNavigate()
     let location = useLocation()
+    const dispatch = useDispatch()
 
     const selector = useSelector((state) => state)
     const isSignedIn = getIsSignedIn(selector)
@@ -84,8 +86,8 @@ const TopBarNew = () => {
         {
             tag: 'Logout',
             action: function () {
-                console.log('logout')
-                handleToggleLoding()
+                dispatch(signOut())
+                navigate('login')
             },
             icon: <Logout fontSize="small" />,
         },

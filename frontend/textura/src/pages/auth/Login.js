@@ -6,6 +6,8 @@ import { Toast } from 'react-bootstrap'
 import { useState } from 'react'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
+import Fade from '@mui/material/Fade'
+import Grow from '@mui/material/Grow'
 
 import TexturaLogo from '@assets/logo.png'
 import { LoginValidation } from '@validations/Auth'
@@ -28,6 +30,7 @@ import { signInAction } from '@redux/users/actions'
 function Login() {
     AuthAnimetion('auth-input', 'auth-label')
     const dispatch = useDispatch()
+    const [isImgLoaded, setImgLoadedStatus] = useState(false)
     // const GoogleProvider = new GoogleAuthProvider()
     // const GitHubProvider = new GithubAuthProvider()
 
@@ -253,14 +256,19 @@ function Login() {
                 </div>
             </div>
             <div className="col-8 col-lg-8 col-md-6 d-none d-md-flex auth-image-layout">
-                <div className="position-img-outer">
-                    <div className="position-img-inner">
-                        <img
-                            className="position-img"
-                            src={imageHiligthPathFromGoogle}
-                        />
+                <Grow direction="up" in={isImgLoaded}>
+                    <div className="position-img-outer">
+                        <div className="position-img-inner">
+                            <img
+                                className="position-img"
+                                src={imageHiligthPathFromGoogle}
+                                onLoad={() => {
+                                    setImgLoadedStatus(true)
+                                }}
+                            />
+                        </div>
                     </div>
-                </div>
+                </Grow>
                 <div className="auth-profile-Highlight-layout">
                     <div className="auth-profile-Highlight-layout-content">
                         <div className="d-flex">
