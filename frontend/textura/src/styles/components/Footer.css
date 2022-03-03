@@ -57,10 +57,7 @@ ul {
 }
 
 .small-logo:hover {
-    width: 35px;
-    height: 35px;
-    margin-right: -5px;
-    margin-bottom: -5px;
+    transform: scale(1.2);
 }
 
 .footer-copyright-text {

@@ -25,8 +25,22 @@ function Footer() {
                                     About Us
                                 </Link>
                             </li>
-                            <li type="none">Contact Us</li>
-                            <li type="none">Help &amp; FAQs</li>
+                            <li type="none">
+                                <Link
+                                    to="/contactus"
+                                    className="footer-link-text"
+                                >
+                                    Contact Us
+                                </Link>
+                            </li>
+                            <li type="none">
+                                <Link
+                                    to="/helpnfaq"
+                                    className="footer-link-text"
+                                >
+                                    Help &amp; FAQs
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                     <div className="footer-margin">
