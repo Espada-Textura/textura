@@ -155,7 +155,6 @@ const TopBarNew = () => {
                         </div>
                         <div className="topbar-logo-text ">Textura</div>
                     </Typography>
-                    {isSignedIn}
 
                     <Box
                         sx={{
