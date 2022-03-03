@@ -279,18 +279,14 @@ const TopBarNew = () => {
                     </Box>
 
                     <Box sx={{ flexGrow: 0, ml: 1 }}>
-                        {isSignedIn ? (
-                            <Tooltip title="Open settings">
-                                <IconButton
-                                    onClick={handleOpenUserMenu}
-                                    sx={{ p: 0 }}
-                                >
-                                    <Avatar alt="Remy Sharp" src={ProfileImg} />
-                                </IconButton>
-                            </Tooltip>
-                        ) : (
-                            ''
-                        )}
+                        <Tooltip title="Open settings">
+                            <IconButton
+                                onClick={handleOpenUserMenu}
+                                sx={{ p: 0 }}
+                            >
+                                <Avatar alt="Remy Sharp" src={ProfileImg} />
+                            </IconButton>
+                        </Tooltip>
 
                         <Menu
                             sx={{ mt: '45px' }}
