@@ -1,6 +1,7 @@
 import TexturaLogo from '@assets/logo.png'
 import EspadaLogo from '@images/Espada.svg'
 import { FiMail } from 'react-icons/fi'
+import { FaFacebookSquare } from 'react-icons/fa'
 
 import '@styles/pages/AboutUs.css'
 
@@ -35,15 +36,15 @@ function AboutUs() {
                 <div className=" ">
                     <h2 className="dev-info-title pt-4 pb-4">DEVELOPER</h2>
                 </div>
-                <div className=" justify-content-center flex-nowrap mt-3 mb-3">
+                <div className="d-flex justify-content-center flex-nowrap mt-3 mb-3">
                     <img
                         className="dev-team-profile"
                         src={EspadaLogo}
                         alt="Espada Logo"
                     ></img>
                 </div>
-                <div className=" align-items-center justify-content-center">
-                    <h4 className="mb-3 text-center">
+                <div className="flex align-items-center justify-content-center">
+                    <h4 className="dev-info-title mb-3 text-center">
                         <b>ESPADA TEAM</b>
                     </h4>
                     <p className="info-text mb-4 text-center">
@@ -61,7 +62,7 @@ function AboutUs() {
                             OUR TEAM MEMBERS
                         </h2>
                     </div>
-                    <div className="align-items-center pt-3 pb-3">
+                    <div className="d-flex align-items-center d-flex pt-3 pb-3">
                         <div className="col-sm-12 col-md-4 mb-3 mb-md-0 text-center">
                             <img
                                 className="dev-profile"
@@ -79,10 +80,11 @@ function AboutUs() {
                             <p className="mb-4">Im handsome.</p>
                             <div className="contact">
                                 <FiMail size={30} />
+                                <FaFacebookSquare size={26} />
                             </div>
                         </div>
                     </div>
-                    <div className=" align-items-center flex-row-reverse pt-3 pb-3">
+                    <div className="d-flex align-items-center flex-row-reverse pt-3 pb-3">
                         <div className="col-sm-12 col-md-4 mb-3 mb-md-0 text-center">
                             <img
                                 className="dev-profile"
@@ -100,10 +102,11 @@ function AboutUs() {
                             <p className="mb-4">Im handsome.</p>
                             <div className="contact">
                                 <FiMail size={30} />
+                                <FaFacebookSquare size={26} />
                             </div>
                         </div>
                     </div>
-                    <div className=" align-items-center pt-3 pb-3">
+                    <div className="d-flex align-items-center pt-3 pb-3">
                         <div className="col-sm-12 col-md-4 mb-3 mb-md-0 text-center">
                             <img
                                 className="dev-profile"
@@ -121,10 +124,11 @@ function AboutUs() {
                             <p className="mb-4">Im handsome.</p>
                             <div className="contact">
                                 <FiMail size={30} />
+                                <FaFacebookSquare size={26} />
                             </div>
                         </div>
                     </div>
-                    <div className="align-items-center flex-row-reverse pt-3 pb-3">
+                    <div className="d-flex align-items-center flex-row-reverse pt-3 pb-3">
                         <div className="col-sm-12 col-md-4 mb-3 mb-md-0 text-center">
                             <img
                                 className="dev-profile col-md-4"
@@ -142,6 +146,7 @@ function AboutUs() {
                             <p className="mb-4">Im handsome.</p>
                             <div className="contact">
                                 <FiMail size={30} />
+                                <FaFacebookSquare size={26} />
                             </div>
                         </div>
                     </div>
