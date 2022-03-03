@@ -1,179 +1,231 @@
+
+
 .upload-form-main-layout {
-    background-color: rgb(235, 244, 247);
-    height: 600px;
+    height: 700px;
     border: none;
     border-radius: 15px;
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 20px;
+
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 10px;
+
+
     z-index: -2;
 }
-.uplaod-type{
+
+.upload-form-text{
     display: flex;
+    text-align: center;
+    align-items: center;
+    flex-wrap: wrap;
     flex-direction: column;
 }
 
-.uplaod-type input[type="text"]
-{
-    margin-top: 10px;
-    height: 40px;
-    font-size: 14px; 
-    background: #3EB489;
-    border: none;
-    border-radius: 10px;
-    padding-left: 18px;
-    padding-right: 18px;
-    padding-top: 8px;
-    padding-bottom: 0px;
+.upload-form-text-header {
+
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 35px;
+
+    color: #10649C;
+
+}
+
+.upload-form-text-paragraph {
+    width: 353px;
+    height: 22px;
+
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+
+    color: #6C98BB;
+}
+
+.upload-form-picture-box {
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+
+
+    margin-top: 1rem;
+
+    width: 96%;
+    height: 360px;
+
+    background: linear-gradient(180.35deg, #FFFFFF -26%, rgba(212, 226, 238, 0.17) -25.99%, rgba(26, 145, 232, 0.09) 122.09%);
+    border-radius: 24px;
+    border: 2px rgb(41, 41, 241) dashed;
+    padding: 1rem;
+}
+
+.upload-form-uplaod-picture-box-icon-text {
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+
+    width: auto;
+    height: auto;
+
+}
+
+.upload-form-upload-picture-box-icon{
+
+    width: 115px;
+    height: 115px;
+    border: 1px black solid;
+
+}
+
+.upload-form-upload-box-text {
+    
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 20px;
+    
+    
+    color: #10649C;
+
+}
+
+.upload-form-picture-box-Or {
+
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 20px;
+
+    color : #2189ce;
+
+}
+
+.upload-form-picture-box-button {
+   
+    height: 54px;
+    width: 150px;
 }
 
 
-#header{
-    text-align: center;
+#upload-form-picture-box-button-main{
+
+    height: 50px;
+    width: 145px;
+
     text-decoration: none;
-}
-#uplaod-picture-text{
-    font-size: 20px;
-    text-align: center;
-    text-decoration: none;
-}
-
-
-.uplaod-picture{
-    padding: 10px;
-    height: 280px;
-    background: transparent;
-    outline: none;
-    border: 1px dashed gray;
     border-radius: 10px;
+
+    color: white;
+    background: rgba(16, 100, 156, 1);
+    box-shadow: 0px 0px 15px 0px rgba(40, 145, 215, 0.5);
 }
 
-#uplaod-type-text::placeholder{
-    color: white;
-    font-size: 12px;
+.upload-form-input-all{
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: left;
+    justify-content: flex-start;
+    padding: 5px;
+    width: 100%;
+
+    /* background-color: red; */
+
 }
 
-#uplaod-type-decription::placeholder{
-    color: white;
-    font-size: 12px;
-}
-.uplaod-type-tag-tool{
+.flex-item{
     display: flex;
     flex-direction: row;
 }
 
-
-
-#uplaod-type-tag{
-    width: 100%;
-    margin-top: 10px;
-    height: 40px;
-    font-size: 12px;
-    line-height: 12px;
-    background:  #3EB489;
-    border: none;
-    border-radius: 10px;
-    padding-left: 18px;
-    padding-right: 18px;
-    padding-top: 8px;
-    padding-bottom: 0px;
-}
-
-#uplaod-type-tag::placeholder{
-    color: white;
-    font-size: 12px;
-}
-
-#uplaod-type-tool{
-    width: 97%;
-    margin-top: 10px;
-    margin-left: 10px;
-    height: 40px;
-    font-size: 12px;
-    line-height: 12px;
-    background:  #3EB489;
-    border: none;
-    border-radius: 10px;
-    padding-left: 18px;
-    padding-right: 18px;
-    padding-top: 8px;
-    padding-bottom: 0px;
-}
-
-#uplaod-type-tool::placeholder{
-    color: white;
-    font-size: 12px;
-}
-
-#uplaod-uplaod-button{
-    float: right;
-    color: rgb(0, 0, 0);
-    background-color: #2c79f7;
-    margin-top: 10px;
-    width: 140px;
-    height: 40px;
-    text-decoration: none;
-    border: none;
-    font-size: 16px;
-    line-height: 16px;
-    padding: 10px 26px;
-    border-radius: 25px;
-    margin-left: 6px;
-    margin-right: 6px;
-}
-
-#uplaod-uplaod-button-cancel{
-    float: right;
-    height: 40px;
-    text-decoration: none;
-    font-size: 16px;
-    line-height: 12px;
-    margin-top: 10px;
-    padding: 10px 25px;
-    border: none;
-    border-radius: 25px;
-    background-color: #FF2400;
-    width: 140px;
-}
-
-#uplaod-uplaod-button:hover{
-    border: 2px solid rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-}
-
-#uplaod-uplaod-button-cancel:hover{
-    border: 2px solid rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-}
-
-.item{
+.item {
     flex: 1;
+
 }
 
-
-.file-input{
-    position: absolute;
-    float: center;
+.upload-form-button-container {
+    display: flex;
     width: 100%;
-    height: 150px;
-    padding: 20px;
-}
-#real-btn{
-    position: absolute;
-    background: center top no-repeat;
-    z-index: 1;
-    opacity: 0;
-    width: 200px;
-    height: 80px;
-}
-#uplaod-button-pick{
-float: center;
-font-size: 16px;
-line-height: 12px;
-border: none;
-color: rgb(42, 39, 39);
-width: 150px;
-height: 50px;
-background-color: rgb(92, 176, 255);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-top: 5px;
+
 }
 
+#upload-form-button-cancel {
+    width: 125px;
+    height: 40px;
+    
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #FFFFFF;
+    
+
+    float: right;
+
+background: #219DEF;
+
+border-radius: 10px;
+margin: 5px;
+border: none;
+
+}
+
+#upload-form-button-upload {
+    width: 125px;
+    height: 40px;
+    
+
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #FFFFFF;
+    
+    background: #10649C;
+
+    border-radius: 10px;
+    margin: 5px;
+    border: none;
+}
+
+#upload-form-button-cancel:hover{
+   
+box-shadow: 0px 0px 15px rgba(40, 145, 215, 0.5);
+
+
+}
+
+#upload-form-button-upload:hover {
+
+    box-shadow: 0px 0px 15px rgba(40, 145, 215, 0.5);
+
+}
