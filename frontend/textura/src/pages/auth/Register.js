@@ -336,7 +336,7 @@ function Register() {
                 </div>
             </div>
             <div className="col-0 col-md-6 col-xl-8 d-none d-md-flex auth-image-layout">
-                <div className="">
+                <div className="auth-img-position-layout">
                     <Grow in={isImgLoaded}>
                         <img
                             className="position-img"

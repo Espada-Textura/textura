@@ -29,7 +29,7 @@
     margin: 0px;
     color: var(--main-text-color);
     font-style: normal;
-    font-weight: lighter;
+    font-weight: normal;
     font-size: 16px;
     line-height: 19px;
     text-transform: capitalize;
@@ -144,8 +144,12 @@
     background: linear-gradient(96.43deg, #ee546d -1.21%, #d2427e 100%);
 }
 
+.auth-img-position-layout {
+    overflow: hidden;
+}
+
 .position-img {
-    height: 100vh;
+    height: 100%;
     object-fit: cover;
 }
 

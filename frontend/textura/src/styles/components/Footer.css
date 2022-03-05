@@ -64,6 +64,6 @@ ul {
     margin: 25px;
     display: flex;
     justify-content: flex-end;
-    font-weight: lighter;
+    font-weight: normal;
     color: rgb(110, 110, 110);
 }

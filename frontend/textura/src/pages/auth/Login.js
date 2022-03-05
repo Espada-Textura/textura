@@ -256,7 +256,7 @@ function Login() {
                 </div>
             </div>
             <div className="col-8 col-lg-8 col-md-6 d-none d-md-flex auth-image-layout">
-                <div>
+                <div className="auth-img-position-layout">
                     <Grow direction="up" in={isImgLoaded}>
                         <img
                             className="position-img"
