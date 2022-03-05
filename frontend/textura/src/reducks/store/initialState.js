@@ -3,9 +3,8 @@ const initialState = {
         isSignedIn: false,
         uid: '',
     },
-    arts: {
-        id: '',
-        name: '',
+    art: {
+        arts: [],
     },
 }
 
