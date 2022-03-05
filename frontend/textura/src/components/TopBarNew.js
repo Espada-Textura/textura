@@ -20,9 +20,10 @@ import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import { useDispatch, useSelector } from 'react-redux'
+
 import { getIsSignedIn, getCurrentUser } from '@redux/users/selectors'
 import { signOut } from '@redux/users/operations'
-
+import PleaseSignInDialog from '@components/PleaseSignInDialog'
 import {
     useNavigate,
     useResolvedPath,
@@ -30,7 +31,7 @@ import {
     useLocation,
 } from 'react-router-dom'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import '@styles/components/Topbar.css'
 
@@ -45,6 +46,8 @@ const TopBarNew = () => {
     const [show, setShow] = useState(false)
     const [anchorElNav, setAnchorElNav] = React.useState(null)
     const [anchorElUser, setAnchorElUser] = React.useState(null)
+    const [pleaseSignInDialogStatus, setPleaseSignInDialogStatus] =
+        useState(false)
     const navigate = useNavigate()
     let location = useLocation()
     const dispatch = useDispatch()
@@ -52,6 +55,8 @@ const TopBarNew = () => {
     const selector = useSelector((state) => state)
     const isSignedIn = getIsSignedIn(selector)
     const currentUser = getCurrentUser(selector)
+
+    useEffect(() => {}, [])
 
     const PushTo = function (e, pathname = '') {
         e.preventDefault()
@@ -111,14 +116,12 @@ const TopBarNew = () => {
             style: 'topbar-btn-create-post ',
             icon: <FiPlusCircle className="topber-btn-icon" />,
             action: function () {
-                handleShow()
+                if (isSignedIn) {
+                    handleShow()
+                } else {
+                    setPleaseSignInDialogStatus(true)
+                }
             },
-        },
-        {
-            tag: 'Sing up',
-            style: 'topbar-btn-sing-up',
-            icon: <FiLogIn className="topber-btn-icon" />,
-            to: '/register',
         },
     ]
 
@@ -278,71 +281,100 @@ const TopBarNew = () => {
                         ))}
                     </Box>
 
-                    <Box sx={{ flexGrow: 0, ml: 1 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton
-                                onClick={handleOpenUserMenu}
-                                sx={{ p: 0 }}
-                            >
-                                <Avatar alt="Remy Sharp" src={ProfileImg} />
-                            </IconButton>
-                        </Tooltip>
+                    {isSignedIn ? (
+                        <Box sx={{ flexGrow: 0, ml: 1 }}>
+                            <Tooltip title="Open settings">
+                                <IconButton
+                                    onClick={handleOpenUserMenu}
+                                    sx={{ p: 0 }}
+                                >
+                                    <Avatar alt="Remy Sharp" src={ProfileImg} />
+                                </IconButton>
+                            </Tooltip>
 
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            <MenuItem
-                                onClick={function (event) {
-                                    PushTo(event, 'profile')
+                            <Menu
+                                sx={{ mt: '45px' }}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
                                 }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseUserMenu}
                             >
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src={ProfileImg}
-                                    sx={{ mr: '16px' }}
-                                />
-                                {currentUser.firstName +
-                                    ' ' +
-                                    currentUser.lastName}
-                                <br />
-                                {currentUser.email}
-                            </MenuItem>
-                            <Divider />
-                            {settings.map((setting) => (
                                 <MenuItem
-                                    key={setting.tag}
                                     onClick={function (event) {
-                                        handleCloseUserMenu()
-                                        if (setting.hasOwnProperty('to')) {
-                                            PushTo(event, setting.to)
-                                        } else if (
-                                            setting.hasOwnProperty('action')
-                                        ) {
-                                            setting.action()
-                                        }
+                                        PushTo(event, 'profile')
                                     }}
                                 >
-                                    <ListItemIcon>{setting.icon}</ListItemIcon>
-                                    {setting.tag}
+                                    <Avatar
+                                        alt="Remy Sharp"
+                                        src={ProfileImg}
+                                        sx={{ mr: '16px' }}
+                                    />
+                                    {currentUser.firstName +
+                                        ' ' +
+                                        currentUser.lastName}
+                                    <br />
+                                    {currentUser.email}
                                 </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
+                                <Divider />
+                                {settings.map((setting) => (
+                                    <MenuItem
+                                        key={setting.tag}
+                                        onClick={function (event) {
+                                            handleCloseUserMenu()
+                                            if (setting.hasOwnProperty('to')) {
+                                                PushTo(event, setting.to)
+                                            } else if (
+                                                setting.hasOwnProperty('action')
+                                            ) {
+                                                setting.action()
+                                            }
+                                        }}
+                                    >
+                                        <ListItemIcon>
+                                            {setting.icon}
+                                        </ListItemIcon>
+                                        {setting.tag}
+                                    </MenuItem>
+                                ))}
+                            </Menu>
+                        </Box>
+                    ) : (
+                        <Button
+                            onClick={(e) => {
+                                navigate('register')
+                            }}
+                            className={'topbar-btn-sing-up'}
+                            sx={{
+                                my: 2,
+                                color: 'white',
+                                display: 'block',
+                                borderRadius: 16,
+                                mx: 1,
+                                px: 2,
+                            }}
+                        >
+                            <FiLogIn className="topber-btn-icon" />
+                            Sign Up
+                        </Button>
+                    )}
                 </Toolbar>
             </Container>
+            <PleaseSignInDialog
+                open={pleaseSignInDialogStatus}
+                toggleDialog={setPleaseSignInDialogStatus}
+                agreeAction={() => {
+                    navigate('login')
+                }}
+            />
 
             <Modal
                 show={show}

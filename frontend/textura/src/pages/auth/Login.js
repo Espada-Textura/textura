@@ -3,7 +3,7 @@ import ToggleSwiich from '@components/ToggleSwiich'
 import AuthAnimetion from '@utils/AuthInputAnimation'
 import ReactLoading from 'react-loading'
 import { Toast } from 'react-bootstrap'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import Fade from '@mui/material/Fade'
@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form'
 import '@styles/pages/Auth.css'
 
 import { useDispatch, useSelector } from 'react-redux'
+import { getIsSignedIn } from '@redux/users/selectors'
 import { signIn, getCurrentUser } from '@redux/users/operations'
 import { signInAction } from '@redux/users/actions'
 
@@ -28,6 +29,18 @@ import { signInAction } from '@redux/users/actions'
 // } from 'firebase/auth'
 
 function Login() {
+    const selector = useSelector((state) => state)
+    const isSignedIn = getIsSignedIn(selector)
+    const [isRegistering, setRegisteringStatus] = useState(false)
+    let [isLoginError, setLoginErrorStatus] = useState(false)
+    let navigate = useNavigate()
+
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm()
+
     AuthAnimetion('auth-input', 'auth-label')
     const dispatch = useDispatch()
     const [isImgLoaded, setImgLoadedStatus] = useState(false)
@@ -58,16 +71,6 @@ function Login() {
     //         })
     // }
 
-    const [isRegistering, setRegisteringStatus] = useState(false)
-    let [isLoginError, setLoginErrorStatus] = useState(false)
-    let navigate = useNavigate()
-
-    const {
-        register,
-        formState: { errors },
-        handleSubmit,
-    } = useForm()
-
     let imageHiligthPathFromGoogle =
         'https://drive.google.com/uc?export=view&id=1l2qvdx5bqzXaAEDqbENKnsFVrpPMr-JK'
 
@@ -84,7 +87,15 @@ function Login() {
                         let user = userRespData.data()
                         user.uid = signInResp.user.uid
                         user.isSignedIn = true
+
                         dispatch(signInAction(user))
+                        let dateNow = new Date()
+                        let expires = new Date(
+                            dateNow.getTime() + 1000 * 60 * 60 * 3
+                        )
+                        document.cookie = `currentUser=${JSON.stringify(
+                            user
+                        )};expires=${expires.toGMTString()}';`
                         navigate('/')
                     } else {
                         setLoginErrorStatus(true)
@@ -106,6 +117,11 @@ function Login() {
         setOpen(!open)
     }
 
+    useEffect(() => {
+        if (isSignedIn) {
+            navigate('/')
+        }
+    }, [])
     return (
         <div className="col-12 d-flex auth-layout">
             <div className="col-12 col-lg-4 col-md-6 d-flex flex-column justify-content-between p-5 auth-form-layout">

@@ -24,7 +24,12 @@ export const signUp = (data) => {
 
 export const signOut = () => {
     return (dispatch) => {
+        // Clear current user from state
         auth.signOut()
+
+        // Clear current user from cookie
+        let dateNow = new Date()
+        document.cookie = `currentUser=;expires=${dateNow.toGMTString()}';`
         dispatch(signOutAction())
     }
 }

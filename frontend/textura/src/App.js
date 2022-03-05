@@ -15,8 +15,15 @@ import Register from '@pages/auth/Register'
 import Recovery from '@pages/auth/Recovery'
 
 import NotFound from '@pages/NotFound'
+import { getCookie } from '@utils/helper'
+import { useDispatch, useSelector } from 'react-redux'
+import { signInAction } from '@redux/users/actions'
 
 function App() {
+    const dispatch = useDispatch()
+    const currentUser = getCookie('currentUser')
+    if (currentUser) dispatch(signInAction(currentUser))
+
     return (
         <BrowserRouter>
             <Routes>
