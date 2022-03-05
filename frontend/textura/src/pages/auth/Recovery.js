@@ -192,7 +192,7 @@ function Recovery() {
             >
                 <Toast.Header>
                     <strong className="me-auto">Authentication</strong>
-                    <small>Recovery error</small>
+                    <small className="text-danger">Recovery error</small>
                 </Toast.Header>
                 <Toast.Body>
                     Invalid email or email does not exists. <br />

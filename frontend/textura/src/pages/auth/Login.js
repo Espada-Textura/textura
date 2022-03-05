@@ -82,26 +82,31 @@ function Login() {
                 let getUserPromiss = dispatch(
                     getCurrentUser(signInResp.user.uid)
                 )
-                getUserPromiss.then((userRespData) => {
-                    if (userRespData.exists()) {
-                        let user = userRespData.data()
-                        user.uid = signInResp.user.uid
-                        user.isSignedIn = true
+                getUserPromiss
+                    .then((userRespData) => {
+                        if (userRespData.exists()) {
+                            let user = userRespData.data()
+                            user.uid = signInResp.user.uid
+                            user.isSignedIn = true
 
-                        dispatch(signInAction(user))
-                        let dateNow = new Date()
-                        let expires = new Date(
-                            dateNow.getTime() + 1000 * 60 * 60 * 3
-                        )
-                        document.cookie = `currentUser=${JSON.stringify(
-                            user
-                        )};expires=${expires.toGMTString()}';`
-                        navigate('/')
-                    } else {
-                        setLoginErrorStatus(true)
+                            dispatch(signInAction(user))
+                            let dateNow = new Date()
+                            let expires = new Date(
+                                dateNow.getTime() + 1000 * 60 * 60 * 3
+                            )
+                            document.cookie = `currentUser=${JSON.stringify(
+                                user
+                            )};expires=${expires.toGMTString()}';`
+                            navigate('/')
+                        } else {
+                            setLoginErrorStatus(true)
+                            handleCloseLoding()
+                        }
+                    })
+                    .catch((error) => {
                         handleCloseLoding()
-                    }
-                })
+                        setLoginErrorStatus(true)
+                    })
             })
             .catch((error) => {
                 setLoginErrorStatus(true)
@@ -203,7 +208,7 @@ function Login() {
                                     htmlFor="stay"
                                     className="auth-stay-logined-in-text"
                                 >
-                                    Stay logined in
+                                    Stay logined in for 30 dyas
                                 </label>
                             </div>
                             <button
@@ -305,10 +310,14 @@ function Login() {
             >
                 <Toast.Header>
                     <strong className="me-auto">Authentication</strong>
-                    <small>Error</small>
+                    <small className="text-danger">Sign-in error</small>
                 </Toast.Header>
                 <Toast.Body>
-                    Failed to login, Invalid email or password.
+                    Failed to login, <strong>Invalid email</strong> or{' '}
+                    <strong>password.</strong>
+                    <br />
+                    If you have just created a new account please be sure that
+                    you already <strong>activated</strong> an email.
                 </Toast.Body>
             </Toast>
             <Backdrop

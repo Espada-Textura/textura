@@ -369,7 +369,7 @@ function Register() {
             >
                 <Toast.Header>
                     <strong className="me-auto">Authentication</strong>
-                    <small>Registering error</small>
+                    <small className="text-danger">Registering error</small>
                 </Toast.Header>
                 <Toast.Body>
                     Invalid email or email has been registered. Please try
