@@ -3,43 +3,78 @@
     color: var(--main-text-color);
 }
 
-.info-title{
+.info-title {
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 30px;
 }
 
-.info-text{
+.info-text {
     font-size: 20px;
 }
 
-.logo{
-    width: 250px;
-    height: 250px;
-}
-
-.dev-info-title{
+.dev-info-title {
     font-size: 22px;
     font-weight: bold;
     text-align: center;
     margin: 0px;
 }
 
-.dev-name{
+.dev-name {
     font-size: 20px;
     font-weight: bold;
 }
 
-.dev-role{
+.dev-role {
     font-size: 18px;
 }
 
-.dev-team-profile{
+.dev-team-profile {
     width: 280px;
     height: 280px;
 }
 
-.dev-profile{
+.dev-profile {
     width: 200px;
     height: 200px;
+}
+
+.aboutUs-dev-team-info {
+    background-color: #fafafa;
+}
+
+.aboutUs-team-layout {
+    border-radius: 24px;
+    background: rgb(245, 233, 238);
+    background: -moz-radial-gradient(
+        circle,
+        rgba(245, 233, 238, 1) 0%,
+        rgba(245, 248, 255, 1) 100%
+    );
+    background: -webkit-radial-gradient(
+        circle,
+        rgba(245, 233, 238, 1) 0%,
+        rgba(245, 248, 255, 1) 100%
+    );
+    background: radial-gradient(
+        circle,
+        rgba(245, 233, 238, 1) 0%,
+        rgba(245, 248, 255, 1) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f5e9ee",endColorstr="#f5f8ff",GradientType=1);
+}
+.aboutUs-logo {
+    position: relative;
+
+    left: 0px;
+
+    width: 180px;
+    height: 180px;
+}
+
+.aboutUs-skill-layout {
+    /* border-radius: 12px; */
+    /* background-color: #ffffff78; */
+    margin-left: -8px;
+    margin-right: -8px;
 }

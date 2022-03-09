@@ -18,6 +18,10 @@ import { Settings, Logout } from '@mui/icons-material'
 import Divider from '@mui/material/Divider'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
+import { MdLensBlur, MdLogin } from 'react-icons/md'
+import useMediaQuery from '@mui/material/useMediaQuery'
+
+import { useTheme } from '@mui/material/styles'
 
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -55,6 +59,8 @@ const TopBarNew = () => {
     const selector = useSelector((state) => state)
     const isSignedIn = getIsSignedIn(selector)
     const currentUser = getCurrentUser(selector)
+    const theme = useTheme()
+    const matches = useMediaQuery(theme.breakpoints.up('md'))
 
     useEffect(() => {}, [])
 
@@ -134,7 +140,12 @@ const TopBarNew = () => {
     }
 
     return (
-        <AppBar position="static" className="topbar-main-layout" elevation={3}>
+        <AppBar
+            position="static"
+            className="topbar-main-layout"
+            sx={{ opacity: 0.98 }}
+            elevation={0}
+        >
             <Container maxWidth="" className="topbar-main-layout">
                 <Toolbar disableGutters>
                     <Typography
@@ -176,7 +187,7 @@ const TopBarNew = () => {
                             color="inherit"
                         >
                             {/* <MenuIcon /> */}
-                            <MdLineStyle />
+                            <MdLensBlur />
                         </IconButton>
                         <Menu
                             id="menu-appbar"
@@ -358,12 +369,12 @@ const TopBarNew = () => {
                                 color: 'white',
                                 display: 'block',
                                 borderRadius: 16,
-                                mx: 1,
-                                px: 2,
+                                mx: { xs: 0, md: 1 },
+                                px: { xs: 0, md: 2 },
                             }}
                         >
-                            <FiLogIn className="topber-btn-icon" />
-                            Sign Up
+                            <MdLogin className="topber-btn-icon" />
+                            {matches ? 'Sign Up' : ''}
                         </Button>
                     )}
                 </Toolbar>
