@@ -1,25 +1,31 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
 import AuthAnimetion from '@utils/AuthInputAnimation'
 
 import TexturaLogo from '@assets/logo.png'
 import AuthHighlight from '@images/register_highlight.jpg'
 import ReactLoading from 'react-loading'
-import { Toast } from 'react-bootstrap'
+import { Fade, Toast } from 'react-bootstrap'
 import { RegisterValidation } from '@validations/Auth'
+import Backdrop from '@mui/material/Backdrop'
+import CircularProgress from '@mui/material/CircularProgress'
+import Skeleton from '@mui/material/Skeleton'
 
 import { useForm } from 'react-hook-form'
 
 import '@styles/pages/Auth.css'
 
 import firebase from 'firebase/compat/app'
-import { getFirestore, doc, setDoc } from 'firebase/firestore'
+import { getFirestore, doc, setDoc, Timestamp } from 'firebase/firestore'
 import {
     getAuth,
     createUserWithEmailAndPassword,
     sendEmailVerification,
 } from 'firebase/auth'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Grow from '@mui/material/Grow'
+
 const firebaseConfig = {
     apiKey: 'AIzaSyA-l-SFtlQtcSF_BG-b9HX40UBhFUSLYmE',
     authDomain: 'textura-9fcd3.firebaseapp.com',
@@ -41,6 +47,9 @@ function Register() {
     const [isRegistering, setRegisteringStatus] = useState(false)
     const [isRegisterError, setRegisterErrorStatus] = useState(false)
     const [isRegisterComplete, setRegisterCompleteStatus] = useState(false)
+    let [timeDuration, setTimeDuration] = useState(15)
+    let times = 15
+    const [isImgLoaded, setImgLoadedStatus] = useState(false)
     const {
         register,
         formState: { errors },
@@ -52,9 +61,12 @@ function Register() {
         tryToSignUp(data)
     }
 
+    let navigate = useNavigate()
+
     async function tryToSignUp(userData) {
         const auth = getAuth(app)
         const userForm = userData
+
         await createUserWithEmailAndPassword(
             auth,
             userForm.email,
@@ -65,6 +77,7 @@ function Register() {
                 createUser(user.uid, userForm)
                     .then(() => {
                         setRegisteringStatus(true)
+                        setRegisterCompleteStatus(true)
                     })
                     .catch(() => {
                         setRegisteringStatus(false)
@@ -72,7 +85,19 @@ function Register() {
                     })
                 sendEmailVerification(auth.currentUser)
                     .then(() => {
+                        let countDown = setInterval(() => {
+                            if (times > 0) {
+                                times--
+
+                                setTimeDuration(times)
+                            } else {
+                                times = 0
+                                clearInterval(countDown)
+                                navigate('/login')
+                            }
+                        }, 1000)
                         setRegisterCompleteStatus(true)
+                        setRegisteringStatus(false)
                     })
                     .catch((error) => {
                         console.log('Email verification error', error)
@@ -130,139 +155,169 @@ function Register() {
                             <h5 className="auth-logo-text">Textura</h5>
                         </div>
                     </div>
-                    <div className="mt-3 mb-3">
-                        <h1 className="auth-title mt-3">Register</h1>
-                        <h5 className="auth-wellcome-text mt-3">
-                            One Textura account is all you need to access all
-                            Textura services.
-                        </h5>
-                    </div>
-
-                    <form
-                        onSubmit={handleSubmit(onSubmits)}
-                        className="mt-4 form-group"
-                    >
-                        <div className="d-flex form-row">
-                            <div className="auth-input-form col">
-                                <input
-                                    type="text"
-                                    name="firstName"
-                                    className={
-                                        'form-control auth-input ' +
-                                        (errors.firstName ? 'invalid ' : '')
-                                    }
-                                    id="firstName"
-                                    placeholder=""
-                                    {...register(
-                                        'firstName',
-                                        RegisterValidation.firstName
-                                    )}
-                                ></input>
-                                <p className="auth-invalid-message-text">
-                                    {errors.firstName?.message}
-                                </p>
-                                <label
-                                    htmlFor="firstName"
-                                    className={'form-label auth-label'}
-                                >
-                                    First name
-                                </label>
+                    {!isRegisterComplete ? (
+                        <div>
+                            <div className="mt-3 mb-3">
+                                <h1 className="auth-title mt-3">Register</h1>
+                                <h5 className="auth-wellcome-text mt-3">
+                                    One Textura account is all you need to
+                                    access all Textura services.
+                                </h5>
                             </div>
-                            <div className="temp-space"></div>
-                            <div className="auth-input-form col">
-                                <input
-                                    type="text"
-                                    name="lastName"
-                                    className={
-                                        'form-control auth-input ' +
-                                        (errors.lastName ? 'invalid ' : '')
-                                    }
-                                    id="lastName"
-                                    placeholder=""
-                                    {...register(
-                                        'lastName',
-                                        RegisterValidation.lastName
-                                    )}
-                                ></input>
-                                <p className="auth-invalid-message-text">
-                                    {errors.lastName?.message}
-                                </p>
-                                <label
-                                    htmlFor="lastName"
-                                    className={'form-label auth-label'}
-                                >
-                                    Last name
-                                </label>
-                            </div>
-                        </div>
-                        <div className="auth-input-form">
-                            <input
-                                type="text"
-                                name="email"
-                                className={
-                                    'form-control auth-input ' +
-                                    (errors.email ? 'invalid ' : '')
-                                }
-                                id="email"
-                                placeholder=""
-                                {...register('email', RegisterValidation.email)}
-                            ></input>
-                            <p className="auth-invalid-message-text">
-                                {errors.email?.message}
-                            </p>
 
-                            <label
-                                htmlFor="email"
-                                className={'form-label auth-label'}
+                            <form
+                                onSubmit={handleSubmit(onSubmits)}
+                                className="mt-4 form-group"
                             >
-                                Email
-                            </label>
+                                <div className="d-flex form-row">
+                                    <div className="auth-input-form col">
+                                        <input
+                                            type="text"
+                                            name="firstName"
+                                            className={
+                                                'form-control auth-input ' +
+                                                (errors.firstName
+                                                    ? 'invalid '
+                                                    : '')
+                                            }
+                                            id="firstName"
+                                            placeholder=""
+                                            {...register(
+                                                'firstName',
+                                                RegisterValidation.firstName
+                                            )}
+                                        ></input>
+                                        <p className="auth-invalid-message-text">
+                                            {errors.firstName?.message}
+                                        </p>
+                                        <label
+                                            htmlFor="firstName"
+                                            className={'form-label auth-label'}
+                                        >
+                                            First name
+                                        </label>
+                                    </div>
+                                    <div className="temp-space"></div>
+                                    <div className="auth-input-form col">
+                                        <input
+                                            type="text"
+                                            name="lastName"
+                                            className={
+                                                'form-control auth-input ' +
+                                                (errors.lastName
+                                                    ? 'invalid '
+                                                    : '')
+                                            }
+                                            id="lastName"
+                                            placeholder=""
+                                            {...register(
+                                                'lastName',
+                                                RegisterValidation.lastName
+                                            )}
+                                        ></input>
+                                        <p className="auth-invalid-message-text">
+                                            {errors.lastName?.message}
+                                        </p>
+                                        <label
+                                            htmlFor="lastName"
+                                            className={'form-label auth-label'}
+                                        >
+                                            Last name
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="auth-input-form">
+                                    <input
+                                        type="text"
+                                        name="email"
+                                        className={
+                                            'form-control auth-input ' +
+                                            (errors.email ? 'invalid ' : '')
+                                        }
+                                        id="email"
+                                        placeholder=""
+                                        {...register(
+                                            'email',
+                                            RegisterValidation.email
+                                        )}
+                                    ></input>
+                                    <p className="auth-invalid-message-text">
+                                        {errors.email?.message}
+                                    </p>
+
+                                    <label
+                                        htmlFor="email"
+                                        className={'form-label auth-label'}
+                                    >
+                                        Email
+                                    </label>
+                                </div>
+                                <div className="auth-input-form">
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        className={
+                                            'form-control auth-input ' +
+                                            (errors.password ? 'invalid ' : '')
+                                        }
+                                        id="password"
+                                        placeholder=""
+                                        {...register(
+                                            'password',
+                                            RegisterValidation.password
+                                        )}
+                                    ></input>
+                                    <p className="auth-invalid-message-text">
+                                        {errors.password?.message}
+                                    </p>
+                                    <label
+                                        htmlFor="password"
+                                        className={'form-label auth-label'}
+                                    >
+                                        Password
+                                    </label>
+                                </div>
+                                <div className="d-flex justify-content-end">
+                                    <button
+                                        type="submit"
+                                        className="btn auth-button auth-button-animetion d-flex"
+                                        disabled={isRegistering}
+                                    >
+                                        {!isRegistering
+                                            ? 'Next'
+                                            : 'Registering '}
+                                        {isRegistering ? (
+                                            <ReactLoading
+                                                type={'bubbles'}
+                                                color={'#fff'}
+                                                height={'20px'}
+                                                width={'33px'}
+                                            />
+                                        ) : (
+                                            ''
+                                        )}
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                        <div className="auth-input-form">
-                            <input
-                                type="password"
-                                name="password"
-                                className={
-                                    'form-control auth-input ' +
-                                    (errors.password ? 'invalid ' : '')
-                                }
-                                id="password"
-                                placeholder=""
-                                {...register(
-                                    'password',
-                                    RegisterValidation.password
-                                )}
-                            ></input>
-                            <p className="auth-invalid-message-text">
-                                {errors.password?.message}
-                            </p>
-                            <label
-                                htmlFor="password"
-                                className={'form-label auth-label'}
-                            >
-                                Password
-                            </label>
-                        </div>
-                        <div className="d-flex justify-content-end">
-                            <button
-                                type="submit"
-                                className="btn auth-button auth-button-animetion d-flex"
-                                disabled={isRegistering}
-                            >
-                                {!isRegistering ? 'Next' : 'Registering '}
-                                {isRegistering ? (
-                                    <ReactLoading
-                                        type={'bubbles'}
-                                        color={'#fff'}
-                                        height={'20px'}
-                                        width={'33px'}
-                                    />
-                                ) : (
-                                    ''
-                                )}
-                            </button>
-                        </div>
-                    </form>
+                    ) : (
+                        <Fade in={isRegisterComplete}>
+                            <div className="mt-3 mb-3">
+                                <h1 className="auth-title mt-3">
+                                    Registration is completed
+                                </h1>
+                                <h5 className="mt-3">
+                                    We have sent you an email. <br />
+                                    Please check your email and follow the
+                                    process in email to verify your email.
+                                </h5>
+                                <h5 className="auth-wellcome-text mt-3">
+                                    Redirect to your login page in{' '}
+                                    {timeDuration} s
+                                </h5>
+                            </div>
+                        </Fade>
+                    )}
                 </div>
                 <div>
                     <div>
@@ -281,11 +336,18 @@ function Register() {
                 </div>
             </div>
             <div className="col-0 col-md-6 col-xl-8 d-none d-md-flex auth-image-layout">
-                <div className="position-img-outer">
-                    <div className="position-img-inner">
-                        <img className="position-img" src={AuthHighlight} />
-                    </div>
+                <div className="auth-img-position-layout">
+                    <Grow in={isImgLoaded}>
+                        <img
+                            className="position-img"
+                            src={AuthHighlight}
+                            onLoad={() => {
+                                setImgLoadedStatus(true)
+                            }}
+                        />
+                    </Grow>
                 </div>
+
                 <div className="auth-profile-Highlight-layout">
                     <div className="auth-profile-Highlight-layout-content">
                         <div className="d-flex">
@@ -307,13 +369,22 @@ function Register() {
             >
                 <Toast.Header>
                     <strong className="me-auto">Authentication</strong>
-                    <small>Registering error</small>
+                    <small className="text-danger">Registering error</small>
                 </Toast.Header>
                 <Toast.Body>
                     Invalid email or email has been registered. Please try
                     another email.
                 </Toast.Body>
             </Toast>
+            <Backdrop
+                sx={{
+                    color: '#fff',
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                }}
+                open={isRegistering}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </div>
     )
 }

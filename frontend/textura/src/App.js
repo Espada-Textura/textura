@@ -7,14 +7,23 @@ import Home from '@pages/Home'
 import Profile from '@pages/Profile'
 import Art from '@pages/Art'
 import AboutUs from '@pages/AboutUs'
+import ContactUs from '@pages/ContactUs'
+import HelpNFaq from '@pages/HelpNFaqs'
 
 import Login from '@pages/auth/Login'
 import Register from '@pages/auth/Register'
 import Recovery from '@pages/auth/Recovery'
 
 import NotFound from '@pages/NotFound'
+import { getCookie } from '@utils/helper'
+import { useDispatch, useSelector } from 'react-redux'
+import { signInAction } from '@redux/users/actions'
 
 function App() {
+    const dispatch = useDispatch()
+    const currentUser = getCookie('currentUser')
+    if (currentUser) dispatch(signInAction(currentUser))
+
     return (
         <BrowserRouter>
             <Routes>
@@ -22,7 +31,9 @@ function App() {
                     <Route index element={<Home />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="art" element={<Art />} />
-                    <Route path="aboutus" element={<AboutUs/>} />
+                    <Route path="aboutus" element={<AboutUs />} />
+                    <Route path="contactus" element={<ContactUs />} />
+                    <Route path="helpnfaq" element={<HelpNFaq />} />
                 </Route>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />

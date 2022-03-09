@@ -3,25 +3,55 @@ import AuthAnimetion from '@utils/AuthInputAnimation'
 
 import TexturaLogo from '@assets/logo.png'
 import AuthHighlight from '@images/recovery_highlight.png'
+import { useDispatch, useSelector } from 'react-redux'
+import { resetPassword } from '@redux/users/operations'
+import ReactLoading from 'react-loading'
+import { Toast } from 'react-bootstrap'
+import Backdrop from '@mui/material/Backdrop'
+import CircularProgress from '@mui/material/CircularProgress'
+import Fade from '@mui/material/Fade'
+import Grow from '@mui/material/Grow'
+import { useForm } from 'react-hook-form'
+import { RecoveryValidation } from '@validations/Auth'
 
 import '@styles/pages/Auth.css'
 import { useState } from 'react'
 
 function Recovery() {
     AuthAnimetion('auth-input', 'auth-label')
+    const dispatch = useDispatch()
 
-    let [currentStage, setStage] = useState(0)
+    const [isRequesting, setRequestingStatus] = useState(false)
+    const [isRecoveryError, setRecoveryErrorStatus] = useState(false)
+    const [isRecoveryComplete, setRecoveryCompleteStatus] = useState(false)
+    const [isImgLoaded, setImgLoadedStatus] = useState(false)
 
-    const upStage = () => {
-        currentStage < 2 ? setStage(currentStage + 1) : setStage(currentStage)
-    }
-    const downStage = () => {
-        currentStage > 0 ? setStage(currentStage - 1) : setStage(currentStage)
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm()
+
+    const onSubmits = (data) => {
+        setRequestingStatus(true)
+        setRecoveryErrorStatus(false)
+        setRecoveryCompleteStatus(false)
+
+        let recoveryPromiss = dispatch(resetPassword(data.email))
+        recoveryPromiss
+            .then((resp) => {
+                setRecoveryCompleteStatus(true)
+                setRequestingStatus(false)
+            })
+            .catch((error) => {
+                setRecoveryErrorStatus(true)
+                setRequestingStatus(false)
+            })
     }
 
     return (
         <div className="col-12 d-flex auth-layout">
-            <div className="col-12 col-xl-4 col-lg-6 d-flex flex-column justify-content-between p-5">
+            <div className="col-12 col-sm-12 col-md-6 col-xl-4 d-flex flex-column justify-content-between p-5 auth-form-layout">
                 <div>
                     <div className="d-flex">
                         <div className="text-center">
@@ -34,128 +64,82 @@ function Recovery() {
                             <h5 className="auth-logo-text">Textura</h5>
                         </div>
                     </div>
-                    <div className="mt-3 mb-3">
-                        <h1 className="auth-title mt-3">Recovery</h1>
-                    </div>
-                    {currentStage === 0 ? (
-                        <div id="Stage1">
+                    {!isRecoveryComplete ? (
+                        <div>
                             <div className="mt-3 mb-3">
-                                <h5 className="auth-wellcomet-text mt-3">
+                                <h1 className="auth-title mt-3">Recovery</h1>
+                                <h5 className="auth-wellcome-text mt-3">
                                     Enter your Textura email to get started.
                                 </h5>
                             </div>
-                            <div className="mt-4 form-group">
-                                <div className="mb-4 auth-input-form">
+                            <form
+                                onSubmit={handleSubmit(onSubmits)}
+                                className="mt-4 form-group"
+                            >
+                                <div className="auth-input-form">
                                     <input
-                                        type="email"
-                                        className="form-control auth-input"
+                                        type="text"
+                                        name="email"
+                                        className={
+                                            'form-control auth-input ' +
+                                            (errors.email ? 'invalid ' : '')
+                                        }
                                         id="email"
                                         placeholder=""
+                                        {...register(
+                                            'email',
+                                            RecoveryValidation.email
+                                        )}
                                     ></input>
+                                    <p className="auth-invalid-message-text">
+                                        {errors.email?.message}
+                                    </p>
+
                                     <label
                                         htmlFor="email"
-                                        className="form-label auth-label"
+                                        className={'form-label auth-label'}
                                     >
                                         Email
                                     </label>
                                 </div>
-                            </div>
-                            <div className="d-flex justify-content-end">
-                                <button
-                                    onClick={upStage}
-                                    className="btn auth-button"
-                                >
-                                    Next
-                                </button>
-                            </div>
+
+                                <div className="d-flex justify-content-end">
+                                    <button
+                                        type="submit"
+                                        className="btn auth-button auth-button-animetion d-flex"
+                                        disabled={isRequesting}
+                                    >
+                                        {!isRequesting
+                                            ? 'Next'
+                                            : 'Registering '}
+                                        {isRequesting ? (
+                                            <ReactLoading
+                                                type={'bubbles'}
+                                                color={'#fff'}
+                                                height={'20px'}
+                                                width={'33px'}
+                                            />
+                                        ) : (
+                                            ''
+                                        )}
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     ) : (
-                        ''
-                    )}
-                    {currentStage === 1 ? (
-                        <div id="Stage2">
+                        <Fade in={isRecoveryComplete}>
                             <div className="mt-3 mb-3">
-                                <h5 className="auth-wellcomet-text mt-3">
-                                    We have sent you an verification email.{' '}
-                                    <br /> Input verification code which contain
-                                    in email.
+                                <h1 className="auth-title mt-3">
+                                    Recovery is completed
+                                </h1>
+                                <h5 className="auth-wellcome-text mt-3">
+                                    We have sent you an email. <br />
+                                    Please check your email and follow the
+                                    process in email to change your new
+                                    password.
                                 </h5>
                             </div>
-                            <div className="mt-4 form-group">
-                                <div className="mb-4 auth-input-form">
-                                    <input
-                                        type="number"
-                                        className="form-control auth-input"
-                                        id="OTP"
-                                        placeholder=""
-                                    ></input>
-                                    <label
-                                        htmlFor="email"
-                                        className="form-label auth-label"
-                                    >
-                                        Verification code
-                                    </label>
-                                </div>
-                            </div>
-                            <div className="d-flex justify-content-end">
-                                <button
-                                    onClick={upStage}
-                                    className="btn auth-button"
-                                >
-                                    Next
-                                </button>
-                            </div>
-                        </div>
-                    ) : (
-                        ''
-                    )}
-                    {currentStage === 2 ? (
-                        <div id="Stage3">
-                            <div className="mt-3 mb-3">
-                                <h5 className="auth-wellcomet-text mt-3">
-                                    Verification code has been verified
-                                    successfully.
-                                    <br /> Input your new password.
-                                </h5>
-                            </div>
-                            <div className="mt-4 form-group">
-                                <div className="mb-4 auth-input-form">
-                                    <input
-                                        type="password"
-                                        className="form-control auth-input"
-                                        id="password"
-                                        placeholder=""
-                                    ></input>
-                                    <label
-                                        htmlFor="password"
-                                        className="form-label auth-label"
-                                    >
-                                        New password
-                                    </label>
-                                </div>
-                                <div className="mb-4 auth-input-form">
-                                    <input
-                                        type="password"
-                                        className="form-control auth-input"
-                                        id="confirmPassword"
-                                        placeholder=""
-                                    ></input>
-                                    <label
-                                        htmlFor="confirmPassword"
-                                        className="form-label auth-label"
-                                    >
-                                        Confirm password
-                                    </label>
-                                </div>
-                            </div>
-                            <div className="d-flex justify-content-end">
-                                <button className="btn auth-button">
-                                    Next
-                                </button>
-                            </div>
-                        </div>
-                    ) : (
-                        ''
+                        </Fade>
                     )}
                 </div>
 
@@ -173,11 +157,17 @@ function Recovery() {
                     </div>
                 </div>
             </div>
-            <div className="col-8 col-xl-8 col-lg-8 col-md-6 d-none d-md-flex auth-image-layout">
-                <div className="position-img-outer">
-                    <div className="position-img-inner">
-                        <img className="position-img" src={AuthHighlight} />
-                    </div>
+            <div className="col-0 col-md-6 col-xl-8 d-none d-md-flex auth-image-layout">
+                <div className="auth-img-position-layout">
+                    <Grow in={isImgLoaded}>
+                        <img
+                            className="position-img"
+                            src={AuthHighlight}
+                            onLoad={() => {
+                                setImgLoadedStatus(true)
+                            }}
+                        />
+                    </Grow>
                 </div>
                 <div className="auth-profile-Highlight-layout">
                     <div className="auth-profile-Highlight-layout-content">
@@ -192,6 +182,32 @@ function Recovery() {
                     </div>
                 </div>
             </div>
+            <Toast
+                onClose={() => setRecoveryErrorStatus(false)}
+                show={isRecoveryError}
+                className="auth-toast"
+                delay={20000}
+                autohide
+                animation={true}
+            >
+                <Toast.Header>
+                    <strong className="me-auto">Authentication</strong>
+                    <small className="text-danger">Recovery error</small>
+                </Toast.Header>
+                <Toast.Body>
+                    Invalid email or email does not exists. <br />
+                    Please recheck your email.
+                </Toast.Body>
+            </Toast>
+            <Backdrop
+                sx={{
+                    color: '#fff',
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                }}
+                open={isRequesting}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </div>
     )
 }

@@ -10,8 +10,10 @@ module.exports = function override(config) {
         '@styles': 'src/styles',
         '@fonts': 'src/styles/fonts',
         '@utils': 'src/utils',
-        '@backend': 'src/firebase',
+        '@fire': 'src/firebase',
         '@validations': 'src/utils/Validations',
+        '@redux': 'src/reducks',
+        '@datas': 'src/datas',
     })(config)
 
     return config

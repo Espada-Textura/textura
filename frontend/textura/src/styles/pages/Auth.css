@@ -7,7 +7,7 @@
 }
 .auth-image-layout {
     transition: width 0.3s ease-out;
-    background-color: #8db7cf;
+    background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .auth-image {
@@ -29,7 +29,7 @@
     margin: 0px;
     color: var(--main-text-color);
     font-style: normal;
-    font-weight: lighter;
+    font-weight: normal;
     font-size: 16px;
     line-height: 19px;
     text-transform: capitalize;
@@ -144,20 +144,13 @@
     background: linear-gradient(96.43deg, #ee546d -1.21%, #d2427e 100%);
 }
 
-.position-img-outer {
-    height: 100vh;
-    margin: 0 auto;
+.auth-img-position-layout {
     overflow: hidden;
 }
-.position-img-outer .position-img-inner {
-    display: inline-block;
-    position: relative;
-    right: -50%;
-}
-.position-img-outer .position-img-inner .position-img {
-    height: 100vh;
-    position: relative;
-    left: -50%;
+
+.position-img {
+    height: 100%;
+    object-fit: cover;
 }
 
 .auth-profile-Highlight-layout {

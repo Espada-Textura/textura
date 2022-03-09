@@ -13,6 +13,7 @@ import { AiFillSetting, AiFillEdit } from 'react-icons/ai'
 import { GiExitDoor } from 'react-icons/gi'
 import profilePic from '@assets/images/ado.jpg'
 import '@styles/pages/Profile.css'
+import ArtsList from '@components/ArtsList'
 
 function Profile() {
     useEffect(() => {
