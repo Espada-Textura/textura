@@ -1,12 +1,19 @@
-.proPage-mainLayout {
+@media screen and (max-width: 320px) {
+    body {
+        width: fit-content;
+    }
+}
+
+.propage-mainlayout {
     position: relative;
     z-index: 0;
-    display: grid;
-    grid-template-columns: 20% 1fr;
+    display: grid !important;
     grid-template-areas:
-        'proPage-cover proPage-cover'
-        'proPage-nav proPage-post';
-}
+        'propage-cover propage-cover'
+        'propage-nav propage-post';
+
+    grid-template-columns: 1fr 3fr;
+} /*
 
 .proPage-cover {
     position: sticky;
@@ -169,7 +176,7 @@
     border-radius: 8px;
 }
 
-.proPage-followInfo {
+ .proPage-followInfo {
     display: grid;
     position: relative;
     grid-template-columns: 1fr 1fr 1fr;
@@ -178,9 +185,10 @@
     align-items: center;
 
     margin: 15px 25px;
+    padding: 0% 40px;
 }
 
-.proPage-followInfo::before {
+ .proPage-followInfo::before {
     content: '';
     position: absolute;
 
@@ -188,9 +196,9 @@
     height: 100%;
 
     border-bottom: 1px solid #c4c4c4;
-}
+} 
 
-.proPage-followInfo > div {
+ .proPage-followInfo > div {
     font-size: 18px;
     color: grey;
 
@@ -254,4 +262,195 @@
     grid-area: proPage-post;
     margin: 0vmax;
     position: relative;
+} */
+.propage-cover-container {
+    position: relative;
+    height: 300px;
+    grid-area: propage-cover;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(0, 0, 0, 0.6));
+}
+
+#propage-procover {
+    position: absolute;
+    object-fit: cover;
+    height: 100%;
+    max-width: 100%;
+    width: 100%;
+    z-index: -1;
+}
+
+.propage-editpro-btn {
+    position: relative;
+    font-size: 18px;
+    font-weight: 600;
+    max-height: 50px;
+    background: white;
+    color: #f37eaf;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.propage-editpro-btn:hover {
+    background: #f37eaf;
+    color: white;
+}
+
+#propage-editpro-icon {
+    font-size: 20px;
+}
+
+#propage-editpro-text {
+    font-size: 18px;
+}
+
+.propage-profile {
+    column-gap: 10px;
+}
+
+.propage-propic {
+    position: relative;
+    max-height: 130px;
+    border: 3px solid white;
+    border-radius: 10px;
+}
+
+.propage-name {
+    font-family: 'Lato-Black', sans-serif;
+    /* font-size: 36px; */
+    color: white;
+}
+
+.propage-username {
+    font-size: 24px;
+    color: white;
+}
+
+.propage-navcontainer {
+    grid-area: propage-nav;
+    /* column-gap: 15px; */
+    max-width: 420px;
+    position: relative;
+    height: max-content;
+}
+
+.propage-post {
+    grid-area: propage-post;
+}
+
+@media screen and (max-width: 590.5px) {
+    #propage-editpro-text {
+        display: none;
+    }
+
+    #propage-editpro-icon {
+        margin: 14px !important;
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 744px) {
+    ul.propage-navmenu {
+        display: none !important;
+        max-width: 100%;
+    }
+    .propage-navcontainer {
+        grid-area: initial !important;
+        max-width: 100%;
+    }
+
+    .propage-mainlayout {
+        grid-template-areas:
+            'propage-cover'
+            'propage-post' !important;
+        grid-template-columns: 100%;
+    }
+}
+
+.propage-poppularityinfo *,
+.propage-navmenu * {
+    margin: 0;
+    list-style-type: none;
+}
+
+.propage-poppularityinfo .propage-followerinfo::before {
+    content: '';
+    width: 100%;
+    height: 70%;
+    border-right: 2px solid rgb(189, 189, 189);
+    border-left: 2px solid rgb(189, 189, 189);
+
+    position: absolute;
+    left: 0;
+    top: 20%;
+}
+
+.propage-navmenu li .propage-navtag {
+    position: relative;
+
+    display: flex;
+    flex-direction: row;
+    column-gap: 25px;
+
+    justify-items: start;
+    align-items: center;
+
+    height: 50px;
+    width: 100%;
+
+    font-size: 16px;
+    text-decoration: none;
+    color: black;
+
+    padding-left: 25px;
+    border-radius: 5px;
+}
+
+.propage-navmenu li .propage-navtag:hover {
+    background-color: #f7f7f7;
+}
+
+.propage-icon {
+    font-size: 22px;
+}
+
+.propage-active {
+    background-color: #e9e8e8;
+}
+
+.propage-active::before {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    left: 0;
+    top: 0%;
+    background: linear-gradient(to bottom, #d4145a, #fbb03b);
+    border-radius: 2.5px;
+}
+
+.propage-navmenu,
+#propage-logout-btn,
+#propage-bio {
+    position: relative;
+}
+
+.propage-navmenu::before {
+    content: '';
+    position: absolute;
+    width: 85%;
+    height: 1px;
+    top: 0;
+    border-radius: 0.5px;
+    background-color: rgb(189, 189, 189);
+}
+
+#propage-logout-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    border-radius: 0.5px;
+    background-color: rgb(189, 189, 189);
 }
