@@ -19,7 +19,6 @@ import Divider from '@mui/material/Divider'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import { MdLensBlur, MdLogin } from 'react-icons/md'
-import useMediaQuery from '@mui/material/useMediaQuery'
 
 import { useTheme } from '@mui/material/styles'
 
@@ -38,6 +37,14 @@ import {
 import { useState, useEffect } from 'react'
 
 import '@styles/components/Topbar.css'
+
+// Dialog
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 //  images
 import { FiLogIn, FiPlusCircle } from 'react-icons/fi'
@@ -61,6 +68,7 @@ const TopBarNew = () => {
     const currentUser = getCurrentUser(selector)
     const theme = useTheme()
     const matches = useMediaQuery(theme.breakpoints.up('md'))
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
     useEffect(() => {}, [])
 
@@ -387,7 +395,7 @@ const TopBarNew = () => {
                 }}
             />
 
-            <Modal
+            {/* <Modal
                 show={show}
                 onHide={() => setShow(false)}
                 dialogClassName="modal-90w"
@@ -396,7 +404,21 @@ const TopBarNew = () => {
                 <Modal.Body className="topbar-popup-body">
                     <UploadForm />
                 </Modal.Body>
-            </Modal>
+            </Modal> */}
+
+            <Dialog
+                fullScreen={fullScreen}
+                open={show}
+                onClose={() => setShow(false)}
+                aria-labelledby="responsive-dialog-title"
+                scroll="body"
+            >
+                <DialogContent>
+                    <div className="">
+                        <UploadForm colse={''} />
+                    </div>
+                </DialogContent>
+            </Dialog>
             <Backdrop
                 sx={{
                     color: '#fff',

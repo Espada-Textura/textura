@@ -108,47 +108,45 @@ function ArtsList(props) {
     }
 
     return (
-        <div className="col-12 p-4">
-            <Box sx={{ width: 1, minHeight: 829 }}>
-                <Masonry columns={{ xs: 1, sm: 3, lg: 4 }} spacing={2}>
-                    {(props.arts ? props.arts : itemData).map((item, index) => (
-                        <Grow
-                            key={index}
-                            in={true}
-                            style={{
-                                transformOrigin: '0 0 0',
-                                cursor: 'pointer',
-                            }}
-                            {...(true ? { timeout: 200 } : {})}
-                            onClick={handleClickOpen}
-                        >
-                            <div>
-                                <img
-                                    src={`${item.path}?w=162&auto=format`}
-                                    srcSet={`${item.path}?w=162&auto=format&dpr=2 2x`}
-                                    alt={item.title}
-                                    loading="lazy"
-                                    style={{
-                                        borderBottomLeftRadius: 0,
-                                        borderBottomRightRadius: 0,
-                                        borderRadius: 12,
-                                        display: 'block',
-                                        width: '100%',
-                                    }}
-                                />
-                                <div className="d-flex pt-2">
-                                    <Avatar
-                                        alt="Remy Sharp"
-                                        src=""
-                                        sx={{ width: 24, height: 24 }}
-                                    />
-                                    <p>{item.title}</p>
-                                </div>
+        <div className="col-12 d-flex flex-row justify-content-center p-3">
+            <Masonry columns={{ xs: 1, sm: 3, lg: 4 }} spacing={2}>
+                {(props.arts ? props.arts : itemData).map((item, index) => (
+                    <Grow
+                        key={index}
+                        in={true}
+                        style={{
+                            transformOrigin: '0 0 0',
+                            cursor: 'pointer',
+                        }}
+                        {...(true ? { timeout: 200 } : {})}
+                        onClick={handleClickOpen}
+                    >
+                        <div>
+                            <img
+                                src={`${item.path}?w=162&auto=format`}
+                                srcSet={`${item.path}?w=162&auto=format&dpr=2 2x`}
+                                alt={item.title}
+                                loading="lazy"
+                                style={{
+                                    borderBottomLeftRadius: 0,
+                                    borderBottomRightRadius: 0,
+                                    borderRadius: 12,
+                                    display: 'block',
+                                    width: '100%',
+                                }}
+                            />
+                            <div className="d-flex mt-1">
+                                {/* <Avatar
+                                    alt="Remy Sharp"
+                                    src=""
+                                    sx={{ width: 24, height: 24 }}
+                                /> */}
+                                <p className="m-0">{item.title}</p>
                             </div>
-                        </Grow>
-                    ))}
-                </Masonry>
-            </Box>
+                        </div>
+                    </Grow>
+                ))}
+            </Masonry>
             <Dialog
                 fullScreen={fullScreen}
                 open={open}

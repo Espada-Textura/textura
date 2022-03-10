@@ -20,11 +20,7 @@ function Art() {
         setArts(allArts(selector))
     }, [allArts(selector)])
 
-    return (
-        <div className="col-12">
-            {<ArtsList arts={arts ? arts : []}></ArtsList>}
-        </div>
-    )
+    return <div className="col-12">{<ArtsList></ArtsList>}</div>
 }
 
 export default Art
