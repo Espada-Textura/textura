@@ -5,7 +5,7 @@
 </div>
 <img src="/frontend/textura/public/icon.png" width="84"> </img>
 
-[Textura](https://textura-9fcd3.web.app/) weppage
+[Textura](https://textura-9fcd3.web.app/) webpage
 
 [Textura](https://www.figma.com/proto/vS67iKvcz0eSE5iBHUxMAT/Textura?node-id=643%3A3004&starting-point-node-id=643%3A3004&show-proto-sidebar=1) prototype by figma
 
