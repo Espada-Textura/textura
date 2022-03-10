@@ -8,6 +8,8 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 
 import Chip from '@mui/material/Chip'
+import ArtistProfile from '@images/ado.jpg'
+
 import '@styles/pages/AboutUs.css'
 import developers from '@datas/developers'
 
