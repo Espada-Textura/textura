@@ -3,6 +3,8 @@ import EspadaLogo from '@images/Espada.svg'
 import { FiMail } from 'react-icons/fi'
 import { FaFacebookSquare } from 'react-icons/fa'
 
+import ArtistProfile from '@images/ado.jpg'
+
 import '@styles/pages/AboutUs.css'
 
 function AboutUs() {
@@ -119,12 +121,21 @@ function AboutUs() {
                                 <b>Yorn Chanvisal</b>
                             </h4>
                             <h5 className="dev-role mb-3">
-                                Frontend Developer
+                                IT Engineering Student/ Frontend Developer Of
+                                Textura
                             </h5>
-                            <p className="mb-4">Im handsome.</p>
+                            <p className="mb-4">
+                                Chanvisal is a Second Year College Student who
+                                majors in IT Engineering at Royal University of
+                                Phnom Penh, Cambodia. He has been developing
+                                Textura alongside his teammates, and take part
+                                in Frontend.
+                            </p>
                             <div className="contact">
                                 <FiMail size={30} />
-                                <FaFacebookSquare size={26} />
+                                <a href="https://web.facebook.com/profile.php?id=100022241988928">
+                                    <FaFacebookSquare size={26} />
+                                </a>
                             </div>
                         </div>
                     </div>
