@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { styled } from '@mui/material/styles'
-import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Grow from '@mui/material/Grow'
 
@@ -10,70 +9,68 @@ import Grid from '@mui/material/Grid'
 
 import '@styles/components/UploadForm.css'
 import { MdCloudUpload } from 'react-icons/md'
-// import UploadPic from './UploadPic';
 
+import LinearProgress from '@mui/material/LinearProgress'
+import Fade from '@mui/material/Fade'
+import Backdrop from '@mui/material/Backdrop'
+import CircularProgress from '@mui/material/CircularProgress'
+
+// redux
+import { useDispatch, useSelector } from 'react-redux'
+import { createArt } from '@redux/art/operations'
+import { getUpdateRequesetStatus } from '@redux/system/selectors'
+import { resetRequesetStatusAction } from '@redux/system/actions'
+
+// drag and drop config
 import { FileUploader } from 'react-drag-drop-files'
 const fileTypes = ['JPG', 'PNG', 'GIF']
 
-let Sytel = () => {}
-
 function UploadForm(props) {
+    // redux
+    const dispatch = useDispatch()
+    const selector = useSelector((state) => state)
+
     const {
         register,
         formState: { errors, isValid },
         handleSubmit,
     } = useForm()
 
+    const [progress, setProgress] = React.useState(0)
     const [file, setFile] = React.useState(null)
-    const onSubmits = (data) => {}
+    const [open, setOpen] = React.useState(false)
+    const handleCloseLoding = () => {
+        setOpen(false)
+    }
+    const handleToggleLoding = () => {
+        setOpen(!open)
+    }
+    const onSubmits = (data) => {
+        handleToggleLoding()
+        let submitData = { ...data }
+        submitData.file = file
+        dispatch(createArt(submitData))
+    }
 
     const handleChange = (data) => {
         setFile(data)
     }
 
-    const cTextField = styled(TextField)({
-        '& label.Mui-focused': {
-            color: '#10649C',
-            fontSize: 13,
-        },
-        '& .MuiInput-underline:after': {
-            borderBottomColor: '#EBF5FD',
-        },
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                border: '3px solid #EBF5FD',
-                borderRadius: 15,
-
-                fontFamily: 'Lato',
-                fontSize: 12,
-                fontStyle: 'normal',
-                fontWeight: 400,
-                lineHeight: '22px',
-                letterSpacing: '0em',
-                textAlign: 'left',
-
-                width: '100%',
-            },
-            '&:hover fieldset': {
-                borderColor: '#10649C',
-                color: '#10649C',
-            },
-            '&.Mui-focused fieldset': {
-                color: '#FFFFFF',
-                borderRadius: 10,
-
-                fontFamily: 'Lato',
-                fontSize: 12,
-                fontStyle: 'normal',
-                fontWeight: 400,
-                lineHeight: '22px',
-                letterSpacing: '0em',
-                textAlign: 'left',
-
-                backgroundColor: 'transparent',
-            },
-        },
-    })
+    // system
+    React.useEffect(() => {
+        setProgress(
+            getUpdateRequesetStatus(selector).progress
+                ? getUpdateRequesetStatus(selector).progress
+                : 0
+        )
+        // close upload form after request successed
+        if (getUpdateRequesetStatus(selector).requestSuccessed) {
+            props.close()
+            dispatch(resetRequesetStatusAction())
+        } else if (getUpdateRequesetStatus(selector).requestError) {
+            handleCloseLoding()
+        }
+    }, [getUpdateRequesetStatus(selector)])
 
     return (
         <div className="d-flex flex-column">
@@ -85,41 +82,7 @@ function UploadForm(props) {
                     <p>Uplaod art you want to share with the world.</p>
                 </div>
             </div>
-
-            {/* <div className="upload-form-picture-box">
-                <div className="upload-form-uplaod-picture-box-icon-text">
-                    <div className="upload-form-upload-picture-box-icon"></div>
-                    <div className="upload-form-upload-box-text">
-                        <p>Drag and drop art here</p>
-                    </div>
-                </div>
-                <div className="upload-form-picture-box-Or">
-                    <p>Or</p>
-                </div>
-                <div className="upload-form-picture-box-button">
-                    <button id="upload-form-picture-box-button-main">
-                        Browse File
-                    </button>
-                </div>
-            </div> */}
             <div className="upload-form-input-all">
-                {/* <Box
-                    component="form"
-                    sx={{
-                        '& .MuiTextField-root': {
-                            m: 1,
-                            width: '-webkit-fill-available',
-                            maxWidth: '100%',
-                            margin: 0.8,
-                            background: '#EBF5FD',
-                            border: '1px solid EBF5FD',
-                            borderRadius: 15,
-                            color: 'white',
-                        },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                > */}
                 <form
                     onSubmit={handleSubmit(onSubmits)}
                     className="mt-4 form-group"
@@ -242,59 +205,27 @@ function UploadForm(props) {
                             Upload
                         </button>
                     </div>
-                </form>
-
-                {/* <CssTextField
-                        id="outlined-Title"
-                        label="Title"
-                        placeholder="Title"
-                        fullWidth
-                        size="small"
-                        InputProps={{ style: { fontSize: 14 } }}
-                        InputLabelProps={{ style: { fontSize: 14 } }}
-                        className={'invalid' + (errors.email ? 'invalid ' : '')}
-                        {...register('title', CreateArtValidation.title)}
-                    /> */}
-
-                {/* <CssTextField
-                        id="outlined-Description"
-                        label="Description"
-                        placeholder="Description"
-                        fullWidth
-                        size="small"
-                        InputProps={{ style: { fontSize: 14 } }}
-                        InputLabelProps={{ style: { fontSize: 14 } }}
-                        multiline
-                    />
-                    <div className="flex-item">
-                        <div className="item">
-                            <CssTextField
-                                id="outlined-Tag"
-                                label="Tag"
-                                placeholder="Tag"
-                                size="small"
-                                InputProps={{ style: { fontSize: 14 } }}
-                                InputLabelProps={{ style: { fontSize: 14 } }}
+                    <div className="d-flex flex-row justify-content-end pt-3">
+                        <Backdrop
+                            sx={{
+                                color: '#fff',
+                                zIndex: (theme) => theme.zIndex.drawer + 1,
+                            }}
+                            open={open}
+                        >
+                            <CircularProgress color="inherit" />
+                        </Backdrop>
+                        <Fade
+                            in={getUpdateRequesetStatus(selector).requestting}
+                        >
+                            <LinearProgress
+                                className="col-12"
+                                variant="determinate"
+                                value={progress}
                             />
-                        </div>
-                        <div className="item">
-                            <CssTextField
-                                id="outlined-Tool"
-                                label="Tool"
-                                placeholder="Tool"
-                                size="small"
-                                color="success"
-                                InputProps={{ style: { fontSize: 14 } }}
-                                InputLabelProps={{ style: { fontSize: 14 } }}
-                            />
-                        </div>
+                        </Fade>
                     </div>
-                </Box>
-
-                <div className="upload-form-button-container">
-                    <button id="upload-form-button-cancel">Cancel</button>
-                    <button id="upload-form-button-upload">Upload</button>
-                </div> */}
+                </form>
             </div>
         </div>
     )

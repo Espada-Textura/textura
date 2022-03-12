@@ -16,8 +16,7 @@ import { Modal } from 'react-bootstrap'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import { Settings, Logout } from '@mui/icons-material'
 import Divider from '@mui/material/Divider'
-import Backdrop from '@mui/material/Backdrop'
-import CircularProgress from '@mui/material/CircularProgress'
+
 import { MdLensBlur, MdLogin } from 'react-icons/md'
 
 import { useTheme } from '@mui/material/styles'
@@ -55,6 +54,9 @@ import ProfileImg from '@images/ado.jpg'
 
 const TopBarNew = () => {
     const [show, setShow] = useState(false)
+    const handleClose = () => setShow(false)
+    const handleShow = () => setShow(true)
+
     const [anchorElNav, setAnchorElNav] = React.useState(null)
     const [anchorElUser, setAnchorElUser] = React.useState(null)
     const [pleaseSignInDialogStatus, setPleaseSignInDialogStatus] =
@@ -91,9 +93,6 @@ const TopBarNew = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null)
     }
-
-    const handleClose = () => setShow(false)
-    const handleShow = () => setShow(true)
 
     let demoSetting = {
         tag: 'Profile',
@@ -409,26 +408,16 @@ const TopBarNew = () => {
             <Dialog
                 fullScreen={fullScreen}
                 open={show}
-                onClose={() => setShow(false)}
+                onClose={handleClose}
                 aria-labelledby="responsive-dialog-title"
                 scroll="body"
             >
                 <DialogContent>
                     <div className="">
-                        <UploadForm colse={''} />
+                        <UploadForm close={handleClose} />
                     </div>
                 </DialogContent>
             </Dialog>
-            <Backdrop
-                sx={{
-                    color: '#fff',
-                    zIndex: (theme) => theme.zIndex.drawer + 1,
-                }}
-                open={open}
-                onClick={handleCloseLoding}
-            >
-                <CircularProgress color="inherit" />
-            </Backdrop>
         </AppBar>
     )
 }
