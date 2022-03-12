@@ -13,6 +13,11 @@
     font-size: 20px;
 }
 
+.logo {
+    width: 250px;
+    height: 250px;
+}
+
 .dev-info-title {
     font-size: 22px;
     font-weight: bold;
@@ -77,4 +82,7 @@
     /* background-color: #ffffff78; */
     margin-left: -8px;
     margin-right: -8px;
+    object-position: center;
+    object-fit: cover;
+    border-radius: 50%;
 }

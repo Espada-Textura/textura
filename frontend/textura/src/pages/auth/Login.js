@@ -6,7 +6,6 @@ import { Toast } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
-import Fade from '@mui/material/Fade'
 import Grow from '@mui/material/Grow'
 
 import TexturaLogo from '@assets/logo.png'

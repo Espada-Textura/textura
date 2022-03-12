@@ -14,17 +14,13 @@ function Art() {
     const dispatch = useDispatch()
     const selector = useSelector((state) => state)
     useEffect(() => {
-        dispatch(getArts())
+        if (allArts(selector).length === 0) dispatch(getArts())
     }, [])
     useEffect(() => {
         setArts(allArts(selector))
     }, [allArts(selector)])
 
-    return (
-        <div className="col-12">
-            {<ArtsList arts={arts ? arts : []}></ArtsList>}
-        </div>
-    )
+    return <div className="col-12">{<ArtsList arts={arts}></ArtsList>}</div>
 }
 
 export default Art

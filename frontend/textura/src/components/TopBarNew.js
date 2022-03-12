@@ -16,10 +16,8 @@ import { Modal } from 'react-bootstrap'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import { Settings, Logout } from '@mui/icons-material'
 import Divider from '@mui/material/Divider'
-import Backdrop from '@mui/material/Backdrop'
-import CircularProgress from '@mui/material/CircularProgress'
+
 import { MdLensBlur, MdLogin } from 'react-icons/md'
-import useMediaQuery from '@mui/material/useMediaQuery'
 
 import { useTheme } from '@mui/material/styles'
 
@@ -39,6 +37,14 @@ import { useState, useEffect } from 'react'
 
 import '@styles/components/Topbar.css'
 
+// Dialog
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import useMediaQuery from '@mui/material/useMediaQuery'
+
 //  images
 import { FiLogIn, FiPlusCircle } from 'react-icons/fi'
 import { FaHome, FaSearch } from 'react-icons/fa'
@@ -48,6 +54,9 @@ import ProfileImg from '@images/ado.jpg'
 
 const TopBarNew = () => {
     const [show, setShow] = useState(false)
+    const handleClose = () => setShow(false)
+    const handleShow = () => setShow(true)
+
     const [anchorElNav, setAnchorElNav] = React.useState(null)
     const [anchorElUser, setAnchorElUser] = React.useState(null)
     const [pleaseSignInDialogStatus, setPleaseSignInDialogStatus] =
@@ -61,6 +70,7 @@ const TopBarNew = () => {
     const currentUser = getCurrentUser(selector)
     const theme = useTheme()
     const matches = useMediaQuery(theme.breakpoints.up('md'))
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
     useEffect(() => {}, [])
 
@@ -83,9 +93,6 @@ const TopBarNew = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null)
     }
-
-    const handleClose = () => setShow(false)
-    const handleShow = () => setShow(true)
 
     let demoSetting = {
         tag: 'Profile',
@@ -387,7 +394,7 @@ const TopBarNew = () => {
                 }}
             />
 
-            <Modal
+            {/* <Modal
                 show={show}
                 onHide={() => setShow(false)}
                 dialogClassName="modal-90w"
@@ -396,17 +403,21 @@ const TopBarNew = () => {
                 <Modal.Body className="topbar-popup-body">
                     <UploadForm />
                 </Modal.Body>
-            </Modal>
-            <Backdrop
-                sx={{
-                    color: '#fff',
-                    zIndex: (theme) => theme.zIndex.drawer + 1,
-                }}
-                open={open}
-                onClick={handleCloseLoding}
+            </Modal> */}
+
+            <Dialog
+                fullScreen={fullScreen}
+                open={show}
+                onClose={handleClose}
+                aria-labelledby="responsive-dialog-title"
+                scroll="body"
             >
-                <CircularProgress color="inherit" />
-            </Backdrop>
+                <DialogContent>
+                    <div className="">
+                        <UploadForm close={handleClose} />
+                    </div>
+                </DialogContent>
+            </Dialog>
         </AppBar>
     )
 }

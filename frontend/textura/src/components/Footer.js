@@ -14,7 +14,7 @@ function Footer() {
             <hr></hr>
             <div className="footer-main-layout d-flex flex-lg-row flex-column justify-content-between">
                 <div className="footer-info-left d-flex flex-row justify-content-between col-12 col-lg-3">
-                    <div className="footer-margin">
+                    <div className="footer-list">
                         <h5 className="footer-link-text-title mb-3">ABOUT</h5>
                         <ul>
                             <li type="none">
@@ -43,7 +43,7 @@ function Footer() {
                             </li>
                         </ul>
                     </div>
-                    <div className="footer-margin">
+                    <div className="footer-list">
                         <h5 className="footer-link-text-title mb-3">EXPLORE</h5>
                         <ul>
                             <li type="none">
