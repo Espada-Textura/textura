@@ -18,10 +18,19 @@ import NotFound from '@pages/NotFound'
 import { getCookie } from '@utils/helper'
 import { useDispatch, useSelector } from 'react-redux'
 import { signInAction } from '@redux/users/actions'
+import { auth } from '@fire/index'
+import { onAuthStateChanged } from 'firebase/auth'
 
 function App() {
     const dispatch = useDispatch()
     const currentUser = getCookie('currentUser')
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const uid = user.uid
+        } else {
+        }
+    })
+
     if (currentUser) dispatch(signInAction(currentUser))
 
     return (
