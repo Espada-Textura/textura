@@ -190,7 +190,6 @@ function UploadForm(props) {
                             />
                         </Grid>
                     </Grid>
-
                     <div className="d-flex flex-row justify-content-end pt-3">
                         <button
                             onClick={(event) => {

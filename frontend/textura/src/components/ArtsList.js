@@ -5,17 +5,27 @@ import Paper from '@mui/material/Paper'
 import Masonry from '@mui/lab/Masonry'
 import { styled } from '@mui/material/styles'
 import Grow from '@mui/material/Grow'
-import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
+import Backdrop from '@mui/material/Backdrop'
+import Modal from '@mui/material/Modal'
+import Fade from '@mui/material/Fade'
+import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
+import ArtDetail from '@components/ArtDetail'
 
 function ArtsList(props) {
+    const [currentArt, setCurrentArt] = React.useState({})
+    const modalStyle = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '100vw',
+        height: '100vh',
+        border: 'none',
+        boxShadow: 0,
+    }
+
     const Label = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
@@ -119,7 +129,10 @@ function ArtsList(props) {
                             cursor: 'pointer',
                         }}
                         {...(true ? { timeout: 200 } : {})}
-                        onClick={handleClickOpen}
+                        onClick={() => {
+                            setCurrentArt(item)
+                            handleClickOpen()
+                        }}
                     >
                         <div>
                             <img
@@ -147,7 +160,7 @@ function ArtsList(props) {
                     </Grow>
                 ))}
             </Masonry>
-            <Dialog
+            {/* <Dialog
                 fullScreen={fullScreen}
                 open={open}
                 onClose={handleClose}
@@ -171,7 +184,26 @@ function ArtsList(props) {
                         Agree
                     </Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog> */}
+            <div>
+                <Modal
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    open={open}
+                    onClose={handleClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                >
+                    <Fade in={open}>
+                        <Box sx={modalStyle}>
+                            <ArtDetail art={currentArt} close={handleClose} />
+                        </Box>
+                    </Fade>
+                </Modal>
+            </div>
         </div>
     )
 }
