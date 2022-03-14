@@ -5,28 +5,39 @@ import IconButton from '@mui/material/IconButton'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Skeleton from '@mui/material/Skeleton'
+import Typography from '@mui/material/Typography'
 
 function ArtDetail(props) {
+    function getDate(date) {
+        return date.substring(0, date.indexOf('T'))
+    }
     return (
         <div className="art-detail-layout flex-row">
             <div className="art-detail-left-bar-layout p-3 d-none d-lg-flex flex-column">
                 <div className="d-flex col-12 mb-3 ">
                     <Avatar
-                        alt="Cindy Baker"
-                        src="/static/images/avatar/3.jpg"
+                        alt={props.art.user.firstName + props.art.user.lastName}
+                        src={props.art.user.avatarIcon}
                         style={{
                             width: 43,
                             height: 43,
                         }}
                     />
                     <div className="d-flex flex-column pt-1">
-                        <h6 className="m-0 mx-3">MISA Pisatto</h6>
+                        <h6 className="m-0 mx-3">
+                            {props.art.user.firstName} {props.art.user.lastName}
+                        </h6>
                         <h6 className="m-0 mx-3 text-secondary">
-                            misapisatto@gmail.com
+                            {props.art.user.email}
                         </h6>
                     </div>
                 </div>
-                <h4 className="col-12 mt-3">{props.art.title}</h4>
+
+                <h4 className="col-12 mt-3 mb-0">{props.art.title}</h4>
+
+                <Typography variant="caption" display="block" gutterBottom>
+                    {getDate(props.art.timeCreated)}
+                </Typography>
                 <p>{props.art.description}</p>
                 <Box>
                     <Skeleton animation="wave" />
@@ -44,7 +55,6 @@ function ArtDetail(props) {
                 }}
             >
                 <img
-                    className=""
                     src={`${props.art.path}`}
                     style={{
                         borderRadius: 12,
