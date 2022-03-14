@@ -84,18 +84,25 @@ function Login() {
                 getUserPromiss
                     .then((userRespData) => {
                         if (userRespData.exists()) {
-                            let user = userRespData.data()
-                            user.uid = signInResp.user.uid
-                            user.isSignedIn = true
-
-                            dispatch(signInAction(user))
                             let dateNow = new Date()
                             let expires = new Date(
                                 dateNow.getTime() + 1000 * 60 * 60 * 3
                             )
-                            document.cookie = `currentUser=${JSON.stringify(
-                                user
-                            )};expires=${expires.toGMTString()}';`
+                            let user = userRespData.data()
+                            user.uid = signInResp.user.uid
+                            user.isSignedIn = true
+                            dispatch(signInAction(user))
+                            let jsonAvatarIcon = JSON.stringify({
+                                avatarIcon: user.avatarIcon,
+                            })
+                            document.cookie = `avatarIcon=${
+                                user.avatarIcon
+                            };expires=${expires.toGMTString()}';`
+
+                            delete user.avatarIcon
+                            let jsonUser = JSON.stringify(user)
+                            document.cookie = `currentUser=${jsonUser};expires=${expires.toGMTString()}';`
+
                             navigate('/')
                         } else {
                             setLoginErrorStatus(true)

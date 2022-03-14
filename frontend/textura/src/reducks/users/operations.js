@@ -1,6 +1,7 @@
 import { signInAction, signOutAction } from './actions'
-import { auth, db } from '@fire/index'
+import { app, db, storage, auth } from '@fire/index'
 import { doc, getDoc } from 'firebase/firestore'
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import {
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
@@ -37,5 +38,29 @@ export const signOut = () => {
 export const resetPassword = (email) => {
     return async (dispatch) => {
         return sendPasswordResetEmail(auth, email)
+    }
+}
+
+export const editAvatar = (file) => {
+    return async (dispatch, getState) => {
+        let user = getState().users
+        const storageRef = ref(storage, `users/${user.uid}`)
+        const uploadTask = uploadBytesResumable(storageRef, file)
+        // uploadTask.then((snapshot) => {
+        //     let artsRef = collection(db, 'arts')
+        //     const pathReference = ref(storage, snapshot.metadata.fullPath)
+        //     getDownloadURL(pathReference).then((url) => {
+        //         console.log(url)
+        //     })
+        // })
+        const pathReference = ref(
+            storage,
+            'gs://textura-9fcd3.appspot.com/Users/Tnpq6yWFJwbMkTQyxgCxbYmLscb2.jpg'
+        )
+        getDownloadURL(pathReference).then((url) => {
+            console.log(url)
+        })
+
+        return false
     }
 }

@@ -306,7 +306,18 @@ const TopBarNew = () => {
                                     onClick={handleOpenUserMenu}
                                     sx={{ p: 0 }}
                                 >
-                                    <Avatar alt="Remy Sharp" src={ProfileImg} />
+                                    <Avatar
+                                        alt={
+                                            currentUser.firstName
+                                                ? currentUser.firstName
+                                                : ''
+                                        }
+                                        src={
+                                            currentUser.avatarIcon
+                                                ? currentUser.avatarIcon
+                                                : ''
+                                        }
+                                    />
                                 </IconButton>
                             </Tooltip>
 
@@ -332,8 +343,16 @@ const TopBarNew = () => {
                                     }}
                                 >
                                     <Avatar
-                                        alt="Remy Sharp"
-                                        src={ProfileImg}
+                                        alt={
+                                            currentUser.firstName
+                                                ? currentUser.firstName
+                                                : ''
+                                        }
+                                        src={
+                                            currentUser.avatarIcon
+                                                ? currentUser.avatarIcon
+                                                : ''
+                                        }
                                         sx={{ mr: '16px' }}
                                     />
                                     {currentUser.firstName +
