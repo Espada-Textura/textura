@@ -67,8 +67,8 @@ function ArtsList(props) {
                     >
                         <div>
                             <img
-                                src={`${item.path}?w=162&auto=format`}
-                                srcSet={`${item.path}?w=162&auto=format&dpr=2 2x`}
+                                src={item.path}
+                                srcSet={item.path}
                                 alt={item.title}
                                 loading="lazy"
                                 style={{
@@ -77,6 +77,8 @@ function ArtsList(props) {
                                     borderRadius: 12,
                                     display: 'block',
                                     width: '100%',
+                                    minHeight: '50px',
+                                    backgroundColor: '#f0f0f0',
                                 }}
                             />
                             <div className="d-flex mt-1">
