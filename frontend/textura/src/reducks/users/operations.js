@@ -55,7 +55,7 @@ export const editAvatar = (file) => {
         // })
         const pathReference = ref(
             storage,
-            'gs://textura-9fcd3.appspot.com/Users/Tnpq6yWFJwbMkTQyxgCxbYmLscb2.jpg'
+            `gs://textura-9fcd3.appspot.com/users/${user.uid}`
         )
         getDownloadURL(pathReference).then((url) => {
             console.log(url)
