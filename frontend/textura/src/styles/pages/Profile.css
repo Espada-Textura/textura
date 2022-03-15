@@ -13,256 +13,7 @@
         'propage-nav propage-post';
 
     grid-template-columns: 1fr 3fr;
-} /*
-
-.proPage-cover {
-    position: sticky;
-    grid-area: proPage-cover;
-    display: grid;
-    grid-template-columns: 50% 50%;
-
-    height: 300px;
-    background-image: url('https://drive.google.com/uc?export=view&id=1rG9YQh8LNzFAO6RrzMbTcrDkfGsgaLt-');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
 }
-
-.proPage-blurBack {
-    position: absolute;
-    bottom: 0;
-    height: 55%;
-    z-index: -1;
-    width: 100%;
-    background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0),
-        rgb(255, 255, 255)
-    );
-}
-
-.proPage-profile {
-    display: grid;
-
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: max-content;
-    column-gap: 20px;
-
-    align-self: flex-end;
-    justify-self: right;
-
-    margin: 10px 50px;
-}
-
-.proPage-proText {
-    display: grid;
-    grid-template-columns: max-content;
-    grid-auto-flow: row;
-    grid-template-rows: 45px 30px;
-    column-gap: 10px;
-    z-index: 1;
-    text-align: right;
-    align-self: center;
-    align-items: center;
-    justify-self: right;
-}
-
-.proPage-name {
-    font-family: 'Lato-Black';
-    font-size: 40px;
-    font-weight: bolder;
-    color: rgb(0, 0, 0);
-    margin: 0%;
-}
-
-.proPage-username {
-    font-size: 22px;
-    color: rgb(99, 99, 99);
-    margin: 0%;
-
-    text-align: right;
-}
-
-.proPage-proPicOutLine {
-    display: grid;
-    width: 130px;
-    height: 130px;
-    position: relative;
-    align-self: center;
-    justify-content: center;
-}
-
-#proPage-proPic,
-.proPage-proPic-edit {
-    max-width: 130px;
-    height: 130px;
-    margin: 0%;
-    border-radius: 5px;
-    align-self: center;
-    justify-self: center;
-    z-index: 2 !important;
-    position: absolute;
-}
-
-.proPage-proPic-edit {
-    color: #ff7eb3;
-    font-weight: bolder;
-
-    opacity: 0;
-    background-color: #02000073;
-    width: 100%;
-    height: 100%;
-}
-
-.proPage-proPic-edit:hover {
-    outline: none;
-    border: none;
-    opacity: 1 !important;
-    transition: 0.2s;
-}
-
-.proPage-proPic-edit p {
-    margin: 0;
-    text-align: center;
-}
-
-#proPage-changeIcon {
-    width: 30px;
-    height: 30px;
-    align-self: center;
-}
-
-.proPage-editPro-btn::before {
-    content: '';
-    position: absolute;
-    background: linear-gradient(to right, #f187b3, #ff7e89);
-    filter: blur(10px);
-    transform: translateZ(-2px) scale(0.9);
-    width: 100%;
-    height: 100%;
-}
-
-.proPage-editPro-btn {
-    max-width: 150px;
-    height: 45px;
-
-    display: grid;
-    grid-template-columns: min-content, min-content;
-    grid-auto-flow: column;
-    align-items: center;
-    align-self: flex-end;
-    position: relative;
-
-    outline: none;
-    border: none;
-    border-radius: 10px;
-    margin: 25px 50px;
-
-    font-size: 18px;
-    background-color: white;
-    color: #ff758c;
-    transform-style: preserve-3d;
-}
-
-.proPage-editPro-btn:hover {
-    background: linear-gradient(to right, #f187b3, #ff7e89);
-    color: white;
-}
-
-#proPage-editPro-icon {
-    width: 23px;
-    height: 23px;
-    margin: auto;
-    border-radius: 8px;
-}
-
- .proPage-followInfo {
-    display: grid;
-    position: relative;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 75px max-content;
-    justify-items: center;
-    align-items: center;
-
-    margin: 15px 25px;
-    padding: 0% 40px;
-}
-
- .proPage-followInfo::before {
-    content: '';
-    position: absolute;
-
-    width: 90%;
-    height: 100%;
-
-    border-bottom: 1px solid #c4c4c4;
-} 
-
- .proPage-followInfo > div {
-    font-size: 18px;
-    color: grey;
-
-    position: relative;
-
-    display: grid;
-    max-width: max-content;
-    grid-auto-flow: row;
-    grid-template-rows: min-content min-content;
-    row-gap: 5px;
-    grid-template-columns: 1fr;
-
-    justify-items: center;
-    align-items: center;
-
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.proPage-postInfo::before,
-.proPage-followerInfo::before {
-    content: '';
-    position: absolute;
-    right: 0;
-    margin: auto;
-    height: 40px;
-    width: 50%;
-    border-right: 1px solid #c4c4c4;
-}
-
-#proPage-postCount,
-#proPage-followerCount,
-#proPage-followingCount {
-    font-weight: bold;
-    color: black;
-}
-
-.proPage-followInfo > div > p {
-    margin: 0%;
-}
-
-#proPage-bio {
-    font-size: 16px;
-    color: black;
-    text-align: center;
-    justify-content: center;
-    grid-column: 1 / -1;
-    padding: 10px 0px;
-}
-
-.proPage-navContainer {
-    grid-area: proPage-nav;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: fit-content;
-}
-
-.proPage-postPanel {
-    grid-area: proPage-post;
-    margin: 0vmax;
-    position: relative;
-} */
 .propage-cover-container {
     position: relative;
     height: 300px;
@@ -291,7 +42,7 @@
 }
 
 .propage-editpro-btn:hover {
-    background: #f37eaf;
+    background-color: #f37eaf !important;
     color: white;
 }
 
@@ -322,7 +73,7 @@
 
 .propage-username {
     font-size: 24px;
-    color: white;
+    color: #ffffffc2;
 }
 
 .propage-navcontainer {
@@ -331,6 +82,16 @@
     max-width: 420px;
     position: relative;
     height: max-content;
+}
+
+.propage-navcontainer::after {
+    content: '';
+    position: absolute;
+    height: 97%;
+    width: 1px;
+    top: 10px;
+    right: 0;
+    background-color: rgb(189, 189, 189);
 }
 
 .propage-post {
@@ -348,11 +109,54 @@
     }
 }
 
-@media screen and (max-width: 744px) {
-    ul.propage-navmenu {
-        display: none !important;
+@media screen and (max-width: 576px) {
+    div.propage-navmenu {
+        display: flex;
+        flex-direction: row;
         max-width: 100%;
+        justify-content: space-evenly;
+        width: 100%;
+        padding-top: 1px !important;
+        padding-bottom: 0px !important;
     }
+
+    div.propage-morebtn {
+        display: block !important;
+        align-self: center;
+    }
+
+    .propage-icon {
+        display: none !important;
+    }
+
+    .propage-active {
+        background-color: white !important;
+        font-weight: bold;
+    }
+
+    .propage-active::before {
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 4px !important;
+        top: 100% !important;
+        background: linear-gradient(to right, #d4145a, #fbb03b) !important;
+        border-radius: 2px !important;
+    }
+
+    .propage-hide,
+    .propage-dropdown-hide {
+        display: none !important;
+    }
+
+    .propage-navmenu div .propage-navtag {
+        padding-left: 0px !important;
+    }
+
+    .propage-widget-title {
+        display: none;
+    }
+
     .propage-navcontainer {
         grid-area: initial !important;
         max-width: 100%;
@@ -384,7 +188,7 @@
     top: 20%;
 }
 
-.propage-navmenu li .propage-navtag {
+.propage-navmenu div .propage-navtag {
     position: relative;
 
     display: flex;
@@ -405,7 +209,7 @@
     border-radius: 5px;
 }
 
-.propage-navmenu li .propage-navtag:hover {
+.propage-navmenu div .propage-navtag:hover {
     background-color: #f7f7f7;
 }
 
@@ -453,4 +257,63 @@
     width: 100%;
     border-radius: 0.5px;
     background-color: rgb(189, 189, 189);
+}
+
+.propage-postpanel {
+    position: relative;
+    height: 580px;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scrollbar-width: none;
+}
+
+#dropdown-basic {
+    background-color: white;
+    color: black;
+    outline: 0;
+    border: none;
+}
+
+.btn,
+.btn-success {
+    background-color: white !important;
+    border: none in !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+@media screen and (max-width: 515px) {
+    #propage-archives-nav {
+        display: none !important;
+    }
+
+    #propage-archives-dnav {
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 415px) {
+    #propage-activities-nav {
+        display: none !important;
+    }
+
+    #propage-activites-dnav {
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 340px) {
+    #propage-friends-nav {
+        display: none !important;
+    }
+
+    #propage-friends-dnav {
+        display: block !important;
+    }
 }

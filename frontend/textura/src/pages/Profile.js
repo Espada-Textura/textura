@@ -14,18 +14,26 @@ import { GiExitDoor } from 'react-icons/gi'
 import profilePic from '@assets/images/ado.jpg'
 import '@styles/pages/Profile.css'
 import ArtsList from '@components/ArtsList'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 function Profile() {
     useEffect(() => {
-        const navmenu = document.getElementsByClassName('propage-navtag')
-        for (let item = 0; item < navmenu.length; item++) {
-            navmenu[item].addEventListener('click', () => {
-                document
-                    .getElementsByClassName('propage-active')[0]
-                    .classList.remove('propage-active')
-                navmenu[item].classList.add('propage-active')
-            })
+        const navtag = document.getElementsByClassName('propage-navtag')
+
+        //!------- Active State -------!//
+        function activeState() {
+            for (let index = 0; index < navtag.length; index++) {
+                navtag[index].addEventListener('click', () => {
+                    document
+                        .getElementsByClassName('propage-active')[0]
+                        .classList.remove('propage-active')
+                    navtag[index].classList.add('propage-active')
+                })
+            }
         }
+        //!------- End Active State -------!//
+
+        activeState()
     }, [])
 
     return (
@@ -74,23 +82,23 @@ function Profile() {
 
             {/*---------------------------- NAV CONTAINER  ----------------------------*/}
             <div className="propage-navcontainer bg-white d-flex flex-column">
-                <div className="propage-poppularityinfo d-flex flex-row align-items-center justify-content-center p-2 px-4">
+                <div className="propage-poppularityinfo d-flex flex-row align-items-center justify-content-center p-2 px-0">
                     <div className="propage-postinfo text-center px-3 position-relative">
-                        <p className="fw-lighter">Posts</p>
+                        <p>Posts</p>
                         <p id="propage-postcount" className="fw-bold">
                             60
                         </p>
                     </div>
 
                     <div className="propage-followerinfo text-center px-3 position-relative">
-                        <p className="fw-lighter">Followers</p>
+                        <p>Followers</p>
                         <p id="propage-followercount" className="fw-bold">
                             5k
                         </p>
                     </div>
 
                     <div className="propage-followinginfo text-center px-3 position-relative">
-                        <p className="fw-lighter">Followings</p>
+                        <p>Followings</p>
                         <p id="propage-followingcount" className="fw-bold">
                             2k
                         </p>
@@ -102,51 +110,51 @@ function Profile() {
                     Facebook-{'>'} @giovanni_max textura.art/im_auser
                 </div>
 
-                <ul className="propage-navmenu px-4 pt-4">
-                    <li>
+                <div className="propage-navmenu px-4 pt-4 m-0">
+                    <div>
                         <a className="propage-navtag propage-active" href="#">
                             <MdRssFeed className="propage-icon" />
-                            Timeline Feeds
+                            Posts
                         </a>
-                    </li>
-                    <li>
+                    </div>
+                    <div>
                         <a className="propage-navtag" href="#">
                             <MdAssignmentInd className="propage-icon" />
                             About
                         </a>
-                    </li>
-                    <li>
+                    </div>
+                    <div id="propage-friends-nav">
                         <a className="propage-navtag" href="#">
                             <MdSupervisorAccount className="propage-icon " />
                             Friends
                         </a>
-                    </li>
-                    <li>
+                    </div>
+                    <div id="propage-activities-nav">
                         <a className="propage-navtag" href="#">
                             <FiActivity className="propage-icon " />
                             Activities
                         </a>
-                    </li>
-                    <li>
+                    </div>
+                    <div id="propage-archives-nav">
                         <a className="propage-navtag" href="#">
                             <MdInventory className="propage-icon " />
                             Archives
                         </a>
-                    </li>
-                    <li>
+                    </div>
+                    <div className="propage-hide">
                         <a className="propage-navtag" href="#">
                             <FaTags className="propage-icon " />
                             Popular Tags
                         </a>
-                    </li>
-                    <li>
+                    </div>
+                    <div className="propage-hide">
                         <a className="propage-navtag" href="#">
                             <AiFillSetting className="propage-icon " />
                             Settings
                         </a>
-                    </li>
+                    </div>
 
-                    <li>
+                    <div className="propage-hide">
                         <a
                             className="propage-navtag mt-3"
                             id="propage-logout-btn"
@@ -155,15 +163,74 @@ function Profile() {
                             <GiExitDoor className="propage-icon " />
                             Log Out
                         </a>
-                    </li>
-                </ul>
+                    </div>
+
+                    <Dropdown className="d-none propage-morebtn">
+                        <Dropdown.Toggle
+                            variant="success"
+                            id="dropdown-basic"
+                            className="p-0"
+                        >
+                            More
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu id="propage-dropdown-menu">
+                            <Dropdown.Item
+                                href="#"
+                                className="propage-dropdown-hide"
+                                id="propage-friends-dnav"
+                            >
+                                <div>
+                                    <MdSupervisorAccount className="propage-icon " />
+                                    Friends
+                                </div>
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                                href="#"
+                                className="propage-dropdown-hide"
+                                id="propage-activites-dnav"
+                            >
+                                <div>
+                                    <FiActivity className="propage-icon " />
+                                    Activities
+                                </div>
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                                href="#"
+                                className="propage-dropdown-hide"
+                                id="propage-archives-dnav"
+                            >
+                                <div>
+                                    <MdInventory className="propage-icon " />
+                                    Archives
+                                </div>
+                            </Dropdown.Item>
+                            <Dropdown.Item href="#">
+                                <div>
+                                    <FaTags className="propage-icon " />
+                                    Popular Tags
+                                </div>
+                            </Dropdown.Item>
+                            <Dropdown.Item href="#">
+                                <div>
+                                    <AiFillSetting className="propage-icon " />
+                                    Settings
+                                </div>
+                            </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </div>
             </div>
             {/*---------------------------- END NAV CONTAINER  ----------------------------*/}
 
             {/*---------------------------- POST PANEL  ----------------------------*/}
-            <div className="propage-postpanel bg-white m-2 mt-3">
-                <p className="fs-4 fw-bold m-0">Post</p>
-                <div className="propage-postpics"></div>
+            <div className="propage-postpanel bg-white m-2 mt-3 ">
+                <p className="propage-widget-title fs-4 fw-bold m-0 px-4">
+                    Post
+                </p>
+                <div>
+                    <ArtsList className="propage-postpics pt-0"></ArtsList>
+                </div>
             </div>
             {/*---------------------------- END POST PANEL ----------------------------*/}
         </div>
