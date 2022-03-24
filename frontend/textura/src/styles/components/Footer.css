@@ -5,7 +5,7 @@
 
 .footer-logo-text {
     letter-spacing: 3px;
-    font-size: 22px;
+    font-size: 20px;
     text-transform: uppercase;
     font-weight: bold;
 }
@@ -15,31 +15,29 @@ ul {
 }
 
 .footer-info-left {
-    font-size: 22px;
+    font-size: 20px;
 }
 
-.footer-list {
-    font-size: 18px;
-    font-weight: regular;
-}
-
-.footer-web-info {
-    font-size: 18px;
-    font-weight: regular;
+.footer-link-text-title {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .footer-link-text {
     color: var(--main-text-color);
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .footer-link-text:hover {
     color: var(--a-hover-text-color);
 }
 
-.footer-link-text-title {
-    font-size: 22px;
+.footer-web-info {
+    font-size: 16px;
+}
+
+.community-title {
     font-weight: bold;
 }
 
@@ -61,9 +59,7 @@ ul {
 }
 
 .footer-copyright-text {
+    font-size: 16px;
     margin: 25px;
-    display: flex;
-    justify-content: flex-end;
-    font-weight: normal;
-    color: rgb(110, 110, 110);
+    color: rgb(130, 130, 130);
 }
