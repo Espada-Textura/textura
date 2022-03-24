@@ -1,0 +1,21 @@
+.art-detail-layout {
+    display: flex;
+}
+.art-detail-left-bar-layout {
+    position: relative;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    min-width: 300px;
+    width: 300px;
+}
+.art-detail-main-layout {
+    padding-right: 0px !important;
+    flex: 1;
+}
+
+.art-detail-right-bar-layout {
+    min-width: 80px;
+    width: 80px;
+}

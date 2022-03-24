@@ -15,7 +15,7 @@ import Register from '@pages/auth/Register'
 import Recovery from '@pages/auth/Recovery'
 
 import NotFound from '@pages/NotFound'
-import { getCookie } from '@utils/helper'
+import { getCookie, getCookieNoneParse } from '@utils/helper'
 import { useDispatch, useSelector } from 'react-redux'
 import { signInAction } from '@redux/users/actions'
 import { auth } from '@fire/index'
@@ -23,7 +23,9 @@ import { onAuthStateChanged } from 'firebase/auth'
 
 function App() {
     const dispatch = useDispatch()
-    const currentUser = getCookie('currentUser')
+    let currentUser = getCookie('currentUser')
+    let currentUserAvatar = getCookieNoneParse('avatarIcon')
+
     onAuthStateChanged(auth, (user) => {
         if (user) {
             const uid = user.uid
@@ -31,7 +33,10 @@ function App() {
         }
     })
 
-    if (currentUser) dispatch(signInAction(currentUser))
+    if (currentUser) {
+        currentUser.avatarIcon = currentUserAvatar
+        dispatch(signInAction(currentUser))
+    }
 
     return (
         <BrowserRouter>

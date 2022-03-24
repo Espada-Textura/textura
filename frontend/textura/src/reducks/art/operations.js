@@ -40,6 +40,7 @@ export const createArt = (payload) => {
     return async (dispatch, getState) => {
         dispatch(resetRequesetStatusAction())
         let artsState = getState().art.arts
+        let user = getState().users
         var chars =
             '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
         var pathLength = 20
@@ -66,6 +67,13 @@ export const createArt = (payload) => {
                     timeCreated: snapshot.metadata.timeCreated,
                     bucket: snapshot.metadata.bucket,
                     userId: auth.currentUser.uid,
+                    user: {
+                        uid: auth.currentUser.uid,
+                        email: user.email,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        avatarIcon: user.avatarIcon,
+                    },
                 }
                 getDownloadURL(pathReference)
                     .then((url) => {

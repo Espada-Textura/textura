@@ -17,6 +17,8 @@ import '@styles/pages/Auth.css'
 
 import firebase from 'firebase/compat/app'
 import { getFirestore, doc, setDoc, Timestamp } from 'firebase/firestore'
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { storage } from '@fire/index'
 import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -113,11 +115,32 @@ function Register() {
 
     async function createUser(uid, userData) {
         const db = getFirestore(app)
-        await setDoc(doc(db, 'users', uid), {
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            email: userData.email,
+        const storageRef = ref(storage, `users/${uid}.jpg`)
+        const uploadTask = uploadBytesResumable(storageRef, '')
+        uploadTask.then((snapshot) => {
+            const pathReference = ref(storage, snapshot.metadata.fullPath)
+            getDownloadURL(pathReference).then((url) => {
+                setDoc(doc(db, 'users', uid), {
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    email: userData.email,
+                    avatarIcon: url,
+                })
+            })
         })
+
+        // const pathReference = ref(
+        //     storage,
+        //     `gs://textura-9fcd3.appspot.com/users/${user.uid}`
+        // )
+        // getDownloadURL(pathReference).then((url) => {
+        //     console.log(url)
+        //     await setDoc(doc(db, 'users', uid), {
+        //         firstName: userData.firstName,
+        //         lastName: userData.lastName,
+        //         email: userData.email,
+        //     })
+        // })
     }
 
     let createAccount = function () {
