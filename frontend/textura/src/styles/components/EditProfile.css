@@ -78,16 +78,6 @@ p.editpro-proname {
     position: relative;
 }
 
-.editpro-nav::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 1px;
-    height: 50%;
-    background-color: #c4c4c4;
-}
-
 .editpro-nav-item {
     padding-bottom: 5%;
 }

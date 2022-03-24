@@ -9,35 +9,36 @@ import TextareaAutosize from '@mui/base/TextareaAutosize'
 
 function EditProfile(props) {
     const body = document.getElementsByTagName('body')[0]
-    const topbar = document.getElementsByClassName('main-layout-header')[0]
-
-    const observer = new ResizeObserver((entries) => {
-        let width = entries[0].contentRect.width
-        if (
-            props.trigger == false &&
-            width <= 576 &&
-            topbar.classList.contains('invisible')
-        ) {
-            topbar.classList.remove('invisible')
-        } else if (width > 576 && topbar.classList.contains('invisible')) {
-            topbar.classList.remove('invisible')
-        } else if (
-            props.trigger &&
-            width <= 576 &&
-            !topbar.classList.contains('invisible')
-        ) {
-            topbar.classList.add('invisible')
-        }
-    })
-
+    let topbar = document.getElementsByClassName('main-layout-header')[0]
     if (props.trigger) {
         body.classList.add('overflow-hidden')
         topbar.classList.add('invisible')
     }
 
     useEffect(() => {
-        observer.observe(body)
+        topbar = document.getElementsByClassName('main-layout-header')[0]
 
+        const observer = new ResizeObserver((entries) => {
+            let width = entries[0].contentRect.width
+
+            if (
+                props.trigger == false &&
+                width <= 576 &&
+                topbar.classList.contains('invisible')
+            ) {
+                topbar.classList.remove('invisible')
+            } else if (width > 576 && topbar.classList.contains('invisible')) {
+                topbar.classList.remove('invisible')
+            } else if (
+                props.trigger &&
+                width <= 576 &&
+                !topbar.classList.contains('invisible')
+            ) {
+                topbar.classList.add('invisible')
+            }
+        })
+
+        observer.observe(body)
         const nav = document.getElementsByClassName('editpro-nav-item')
 
         for (let index = 0; index < nav.length; index++) {
@@ -220,6 +221,9 @@ function EditProfile(props) {
                                         minHeight: '25%',
                                         padding: '1% 2%',
                                     }}
+                                    placeholder="First, I drink coffee ☕. Then I do things 👨‍💻.
+                                    Follow Facebook-> @giovanni_max
+                                    textura.art/im_auser "
                                 />
                             </div>
                         </div>
