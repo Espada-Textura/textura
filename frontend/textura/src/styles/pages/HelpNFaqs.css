@@ -1,0 +1,10 @@
+.contactUs-main-layout {
+    height: auto;
+    color: var(--main-text-color);
+}
+
+.developing-page {
+    min-height: 700px;
+    font-weight: bold;
+    font-size: 36px;
+}
