@@ -1,0 +1,298 @@
+.editpro-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    height: 100vh;
+
+    width: 100%;
+    z-index: 2000;
+    overflow-y: scroll;
+}
+
+.editpro-inner {
+    background-color: white;
+    width: 100%;
+    max-width: 80%;
+    height: 85%;
+    position: relative;
+    top: 3%;
+    border-radius: 20px;
+    overflow-y: scroll;
+}
+
+.editpro-close {
+    outline: none;
+    border: none;
+    z-index: 1000;
+
+    position: absolute;
+    right: 1%;
+    top: 1%;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.editpro-header {
+    padding: 0 7.5%;
+    position: relative;
+}
+
+.editpro-workplace {
+    overflow-wrap: break-word;
+    overflow-y: scroll;
+}
+
+.editpro-header::after {
+    content: '';
+    position: absolute;
+    width: 90%;
+    height: 2px;
+    align-self: center;
+    bottom: 0;
+    background-color: #c4c4c4;
+}
+
+.editpro-propic {
+    max-height: 100%;
+    max-width: 100px !important;
+    position: relative;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 0 !important;
+}
+
+p.editpro-proname {
+    margin: 0;
+    padding: 0;
+    font-weight: 900;
+}
+
+.editpro-email {
+    font-size: large;
+}
+
+.editpro-nav-item a {
+    text-decoration: none;
+    color: black;
+}
+
+.editpro-nav {
+    position: relative;
+}
+
+.editpro-nav-item {
+    padding-bottom: 5%;
+}
+
+.editpro-nav-item:hover,
+.editpro-nav-item:hover a {
+    font-weight: bold;
+}
+
+.editpro-nav-actived a {
+    color: #f37eaf !important;
+    font-weight: bold;
+}
+
+.editpro-dropdown-item a {
+    text-decoration: none;
+    color: black;
+}
+
+@media screen and (max-width: 315px) {
+    #editpro-personal-info {
+        display: none !important;
+    }
+
+    #editpro-dropdown-personal-info {
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 403px) {
+    .editpro-name {
+        text-align: center;
+    }
+
+    #editpro-popularity {
+        display: none;
+    }
+
+    #editpro-dropdown-popularity {
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #editpro-dropdown-contact {
+        display: block !important;
+    }
+
+    #editpro-contact {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .editpro-inner {
+        max-height: 100% !important;
+        border-radius: 0;
+        height: 100%;
+        top: 0;
+        overflow-y: scroll !important;
+    }
+
+    .editpro-container {
+        top: 0%;
+        z-index: 1020 !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .editpro-inner {
+        max-width: 576px;
+    }
+
+    .editpro-nav {
+        border-right: none !important;
+        align-content: center;
+        justify-content: space-between !important;
+        padding: 0 !important;
+
+        display: flex !important;
+        flex-direction: row !important;
+    }
+
+    .editpro-nav-actived::after {
+        bottom: 0;
+        top: 110%;
+        left: 0%;
+        content: '';
+        position: absolute;
+        height: 3px;
+        width: 100%;
+        background-color: #f37eaf;
+    }
+
+    .editpro-nav-item {
+        text-align: center;
+        padding: 0 !important;
+        position: relative;
+    }
+
+    .editpro-morebtn {
+        display: flex !important;
+        align-items: center;
+    }
+
+    #editpro-personal-data,
+    #editpro-activity-log,
+    #editpro-dropdown-popularity,
+    #editpro-dropdown-contact,
+    #editpro-dropdown-personal-info {
+        display: none;
+    }
+
+    .editpro-nav::after {
+        display: none !important;
+    }
+
+    .editpro-workplace {
+        padding: 0 !important;
+    }
+
+    .editpro-header::after {
+        display: none !important;
+    }
+
+    .editpro-content {
+        padding-top: 0 !important;
+    }
+
+    .editpro-pcc {
+        padding-top: 3%;
+    }
+}
+
+.editpro-title {
+    font-size: 13px;
+    font-weight: 900;
+    color: #4f4f4f;
+}
+
+.editpro-pcc-propic {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 10px;
+}
+
+.editpro-pcc-cpic {
+    max-height: 100px;
+    border-radius: 10px;
+}
+
+.editpro-save-cancle button,
+.editpro-changebtns button {
+    outline: none;
+    border: none;
+}
+
+.editpro-savebtn,
+.editpro-closebtn {
+    height: 45px;
+    background-color: #f37eaf;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 80px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+    margin-bottom: 2.5%;
+}
+
+.editpro-closebtn {
+    background-color: white;
+    color: #f37eaf;
+}
+
+.editpro-pcc-section {
+    display: flex;
+    flex-direction: row;
+    column-gap: 5%;
+}
+
+.editpro-pcc-pf,
+.editpro-pcc-pc {
+    column-gap: 5%;
+    row-gap: 5%;
+}
+
+.editpro-change-btn,
+.editpro-delete-btn {
+    max-width: 40px;
+    max-height: 40px;
+    width: 100%;
+    width: 40px;
+    height: 100%;
+    display: flex;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.editpro-changebtns {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 40px;
+    padding: 1% 0;
+}
+
+.editpro-change-btn {
+    background-color: #f37eaf;
+    color: white;
+}
+
+.editpro-delete-btn {
+    background-color: white;
+    color: #f37eaf;
+}
