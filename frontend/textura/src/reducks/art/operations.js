@@ -10,6 +10,7 @@ import {
     where,
     getDocs,
     addDoc,
+    orderBy,
     serverTimestamp,
     FieldValue,
 } from 'firebase/firestore'
@@ -24,7 +25,28 @@ export const getArts = () => {
     return async (dispatch, getState) => {
         let artsRef = collection(db, 'arts')
         let artsResp = []
-        getDocs(artsRef).then((querySnapshot) => {
+        const q = query(artsRef, orderBy('timeCreated'))
+        getDocs(q).then((querySnapshot) => {
+            querySnapshot.forEach((resp) => {
+                let art = resp.data()
+                art.id = resp.id
+                artsResp.push(art)
+            })
+
+            dispatch(getArtsAction(artsResp.reverse()))
+        })
+
+        // const q = query(citiesRef, where("state", "==", "CA"));
+    }
+}
+
+export const getArtsByProfile = () => {
+    return async (dispatch, getState) => {
+        let artsRef = collection(db, 'arts')
+        let user = getState().users
+        let artsResp = []
+        let q = query(artsRef, where('userId', '==', user.uid))
+        getDocs(q).then((querySnapshot) => {
             querySnapshot.forEach((resp) => {
                 let art = resp.data()
                 art.id = resp.id
@@ -32,10 +54,9 @@ export const getArts = () => {
             })
             dispatch(getArtsAction(artsResp))
         })
-
-        // const q = query(citiesRef, where("state", "==", "CA"));
     }
 }
+
 export const createArt = (payload) => {
     return async (dispatch, getState) => {
         dispatch(resetRequesetStatusAction())

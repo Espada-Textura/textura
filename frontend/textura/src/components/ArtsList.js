@@ -52,7 +52,7 @@ function ArtsList(props) {
         <div className="col-12 d-flex flex-row justify-content-center p-3">
             <Masonry columns={{ xs: 1, sm: 3, lg: 4 }} spacing={2}>
                 {(props.arts ? props.arts : []).map((item, index) => (
-                    <Grow
+                    <Fade
                         key={index}
                         in={true}
                         style={{
@@ -70,7 +70,6 @@ function ArtsList(props) {
                                 src={item.path}
                                 srcSet={item.path}
                                 alt={item.title}
-                                loading="lazy"
                                 style={{
                                     borderBottomLeftRadius: 0,
                                     borderBottomRightRadius: 0,
@@ -98,7 +97,7 @@ function ArtsList(props) {
                                 <p className="mx-2">{item.title}</p>
                             </div>
                         </div>
-                    </Grow>
+                    </Fade>
                 ))}
             </Masonry>
 

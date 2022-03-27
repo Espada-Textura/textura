@@ -14,7 +14,7 @@ function Art() {
     const dispatch = useDispatch()
     const selector = useSelector((state) => state)
     useEffect(() => {
-        if (allArts(selector).length === 0) dispatch(getArts())
+        dispatch(getArts())
     }, [])
     useEffect(() => {
         setArts(allArts(selector))

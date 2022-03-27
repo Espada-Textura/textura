@@ -1,6 +1,6 @@
 import '@styles/components/ArtDetail.css'
 
-import { MdCancel } from 'react-icons/md'
+import { MdCancel, MdModeEditOutline } from 'react-icons/md'
 import IconButton from '@mui/material/IconButton'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
@@ -81,8 +81,26 @@ function ArtDetail(props) {
                     <MdCancel
                         className=""
                         style={{
-                            width: 46,
-                            height: 46,
+                            width: 38,
+                            height: 38,
+                        }}
+                    />
+                </IconButton>
+                <IconButton
+                    sx={{ p: 2 }}
+                    aria-label="upload picture"
+                    component="span"
+                    variant="contained"
+                    style={{ color: '#fff' }}
+                    onClick={() => {
+                        props.close()
+                    }}
+                >
+                    <MdModeEditOutline
+                        className=""
+                        style={{
+                            width: 38,
+                            height: 38,
                         }}
                     />
                 </IconButton>

@@ -19,8 +19,25 @@ import { AiFillSetting, AiFillEdit } from 'react-icons/ai'
 import { GiExitDoor } from 'react-icons/gi'
 import Dropdown from 'react-bootstrap/Dropdown'
 
+import { useDispatch, useSelector } from 'react-redux'
+import { getIsSignedIn, getCurrentUser } from '@redux/users/selectors'
+import { getArtsByProfile } from '@redux/art/operations'
+import { allArts } from '@redux/art/selectors'
+
 function Profile() {
     const [showPopup, setshowPopup] = useState(false)
+    let [arts, setArts] = useState([])
+    const dispatch = useDispatch()
+    const selector = useSelector((state) => state)
+    const currentUser = getCurrentUser(selector)
+
+    useEffect(() => {
+        dispatch(getArtsByProfile())
+    }, [])
+
+    useEffect(() => {
+        setArts(allArts(selector))
+    }, [allArts(selector)])
 
     useEffect(() => {
         const navtag = document.getElementsByClassName('propage-navtag')
@@ -85,17 +102,17 @@ function Profile() {
                     <div className="propage-profile d-flex flex-row align-items-center m-3 ms-0">
                         <div className="propage-protext d-flex flex-column">
                             <p className="propage-name text-end m-0 fs-1">
-                                Profile Name
+                                {currentUser.firstName} {currentUser.lastName}
                             </p>
                             <p className="propage-username text-end m-0 fs-6">
-                                @iam_auser
+                                {currentUser.email}
                             </p>
                         </div>
 
                         <img
                             className="img-fluid propage-propic"
                             //id="propage-proPic"
-                            src={profilePic}
+                            src={currentUser.avatarIcon}
                             alt="Profile Picture"
                         ></img>
                     </div>
@@ -254,7 +271,10 @@ function Profile() {
                         Post
                     </p>
                     <div>
-                        <ArtsList className="propage-postpics pt-0"></ArtsList>
+                        <ArtsList
+                            arts={arts}
+                            className="propage-postpics pt-0"
+                        ></ArtsList>
                     </div>
                 </div>
                 {/*---------------------------- END POST PANEL ----------------------------*/}
