@@ -17,3 +17,9 @@ export function getCookieNoneParse(name) {
     })
     return cookie
 }
+
+export function generateVisibleGoogleDriveImageURL(
+    url = '1nrmIHG32nN8lyq7_0D21Ht0XnSyr7W4v'
+) {
+    return `https://drive.google.com/uc?export=view&id=${url}`
+}

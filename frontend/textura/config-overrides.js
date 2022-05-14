@@ -14,6 +14,7 @@ module.exports = function override(config) {
         '@validations': 'src/utils/Validations',
         '@redux': 'src/reducks',
         '@datas': 'src/datas',
+        '@helper': 'src/utils/helper',
     })(config)
 
     return config

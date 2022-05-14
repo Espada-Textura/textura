@@ -42,13 +42,13 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Main />}>
-                    <Route index element={<Home />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="art" element={<Art />} />
                     <Route path="aboutus" element={<AboutUs />} />
                     <Route path="contactus" element={<ContactUs />} />
                     <Route path="helpnfaq" element={<HelpNFaq />} />
                 </Route>
+                <Route index element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/recovery" element={<Recovery />} />

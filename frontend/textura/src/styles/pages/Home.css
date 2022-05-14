@@ -1,89 +1,38 @@
 .home-main-layout {
-    height: auto;
-    color: var(--main-text-color);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    background-color: black;
+    /* overflow: hidden; */
 }
 
-.home-btn-create-post {
-    background: linear-gradient(114.66deg, #ffb800 15.42%, #ff5d5d 83.95%);
-    border-radius: 10px;
-    color: var(--text-coler) !important;
-    font-family: 'Lato' !important;
-    /* height: 70px; */
-    /* width: 550px; */
+.home-main-backgroung-layout {
+    position: fixed;
+    height: inherit;
+    width: inherit;
+    z-index: 1;
 }
-
-.home-btn-sign-up {
-    background: linear-gradient(267deg, #8d2ee4 -17.94%, #2d9bea 97.51%);
-    border-radius: 10px;
-    color: var(--text-coler) !important;
-    font-family: 'Lato' !important;
-    /* height: 70px; */
-    /* width: 550px; */
-}
-
-.home-icon {
-    position: relative;
-    top: -2px;
-    margin-right: 10px;
-}
-
-.home-info-title {
-    font-family: 'Lato';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 48px;
-    /* identical to box height */
-
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-
-    color: #000000;
-}
-
-.home-info-text {
-    font-size: 28px;
-    font-weight: lighter;
-    font-family: 'Lato' !important;
-}
-
-.leaderboard-title {
-    font-size: 18px;
-    font-weight: bold;
-    font-family: 'Lato' !important;
-}
-
-.artist-profile {
-    width: 240px;
-    height: 240px;
-    object-position: center;
-    object-fit: cover;
-}
-
-.ranked-art {
-    width: 240px;
-    height: 240px;
-    object-position: center;
-    object-fit: cover;
-}
-
-.home-background {
-    background: url('@images/HomePage_Pic.png') no-repeat center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    height: 80vh;
-    /* background-size: auto; */
-}
-
-.home-main-info-layout {
-    height: 100%;
+.home-main-content-layout {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 10;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    transition-property: background-color;
-    transition-duration: 1s;
+    justify-content: space-between;
+}
+
+.home-main-content-layout-activity-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: 100vw;
+    overflow: scroll;
+}
+
+.background-img {
+    height: 100vh;
+    width: 100vw;
 }
 
 @media (min-width: 768px) {
@@ -92,4 +41,9 @@
         transition-property: background-color;
         transition-duration: 0.1s;
     }
+}
+
+h3,
+h6 {
+    color: white;
 }
