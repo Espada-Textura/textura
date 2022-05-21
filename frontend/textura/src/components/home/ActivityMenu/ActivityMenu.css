@@ -1,9 +1,8 @@
 .container {
-    min-width: 350px;
+    min-width: 300px;
     position: relative;
-    max-width: 500px;
     max-height: 500px;
-    width: 350px;
+    /* width: 350px; */
     height: 400px;
     display: flex;
     align-items: flex-end;
@@ -13,15 +12,14 @@
 }
 
 .container.active {
-    transform: scale(1);
+    /* transform: scale(); */
 }
 
 .card {
     position: relative;
     background-size: cover;
-    max-width: 500px;
     max-height: 600px;
-    width: 350px;
+    width: inherit;
     height: 200px;
     cursor: pointer;
     transform: height;
@@ -29,7 +27,6 @@
     border: none;
     border-radius: 16px 16px;
     background-position: center;
-    background-image: url(https://drive.google.com/uc?export=view&id=10ZikNlF86q_oB2Jy_c97UfDL8mv_rlo8);
 }
 .card:hover {
     height: 400px;
@@ -41,7 +38,7 @@
     position: absolute;
     bottom: 0;
     height: 46px;
-    width: 350px;
+    width: inherit;
     border-radius: 10px 10px 16px 16px;
     background: linear-gradient(
         29.92deg,
@@ -65,14 +62,11 @@
 }
 
 .title {
-    /* bottom: 0; */
     margin: 14px;
-    /* position: absolute; */
     font-family: 'Lato';
     font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19px;
+    font-weight: 500;
+    font-size: 18px;
     color: white;
 }
 
