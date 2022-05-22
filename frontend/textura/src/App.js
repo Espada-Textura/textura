@@ -41,14 +41,16 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Main />}>
-                    <Route path="profile" element={<Profile />} />
-                    <Route path="art" element={<Art />} />
-                    <Route path="aboutus" element={<AboutUs />} />
-                    <Route path="contactus" element={<ContactUs />} />
-                    <Route path="helpnfaq" element={<HelpNFaq />} />
+                <Route path="/">
+                    <Route index element={<Home />} />
+                    <Route element={<Main />}>
+                        <Route path="profile" element={<Profile />} />
+                        <Route path="art" element={<Art />} />
+                        <Route path="aboutus" element={<AboutUs />} />
+                        <Route path="contactus" element={<ContactUs />} />
+                        <Route path="helpnfaq" element={<HelpNFaq />} />
+                    </Route>
                 </Route>
-                <Route index element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/recovery" element={<Recovery />} />

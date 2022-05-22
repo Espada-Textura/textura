@@ -80,22 +80,6 @@ function ArtsList(props) {
                                     backgroundColor: '#f0f0f0',
                                 }}
                             />
-                            <div className="d-flex mt-1">
-                                <Avatar
-                                    alt={
-                                        item.user.firstName
-                                            ? item.user.firstName
-                                            : ''
-                                    }
-                                    src={
-                                        item.user.avatarIcon
-                                            ? item.user.avatarIcon
-                                            : ''
-                                    }
-                                    sx={{ width: 24, height: 24 }}
-                                />
-                                <p className="mx-2">{item.title}</p>
-                            </div>
                         </div>
                     </Fade>
                 ))}

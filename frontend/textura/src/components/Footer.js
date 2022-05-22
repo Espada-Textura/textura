@@ -11,7 +11,6 @@ import '@styles/components/Footer.css'
 function Footer() {
     return (
         <div>
-            <hr></hr>
             <div className="footer-main-layout d-flex flex-lg-row flex-column justify-content-between">
                 <div className="footer-info-left d-flex flex-row justify-content-between col-12 col-lg-6">
                     <div className="footer-list">
@@ -210,7 +209,6 @@ function Footer() {
                     </div>
                 </div>
             </div>
-            <hr></hr>
             <div className="footer-copyright-text d-flex justify-content-between">
                 <div>&copy; 2022 TEXTURA. All Right Reserved.</div>
                 <div>By - Espada Team, Cambodia</div>
