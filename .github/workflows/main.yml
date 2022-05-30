@@ -22,7 +22,7 @@ jobs:
         run: |
           ls
           cd frontend
-          npm ci
+          npm install
           
 
       - name: Build dependencies
