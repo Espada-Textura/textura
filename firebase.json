@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "./textura/build",
+    "public": "./build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
