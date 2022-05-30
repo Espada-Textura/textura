@@ -19,16 +19,22 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - name: Install dependencies
-        run: npm ci
+        run: |
+          ls
+          cd frontend
+          npm install
+          
 
       - name: Build dependencies
-        run: npm run build
+        run: |
+          cd frontend
+          npm run build
       
       - name: Archive production artifact
-        uses: actions/checkout-artifact@main
+        uses: actions/checkout@main
         with:
           name: build
-          path: build
+          path: frontend/build
   deploy:
     name: Deploy
     needs: build
@@ -40,12 +46,12 @@ jobs:
         uses: actions/download-artifact@main
         with:
           name: build
-          path: build
+          path: frontend/build
       - name: Deploy to firebase
         uses: w9jds/firebsae-action@master
         with:
           args: deploy --only hosting
         env:
-          FIREBASE_TOKEN: ${{ secretes.FIRBASE_TOKEN }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           
         
