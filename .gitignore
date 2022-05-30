@@ -65,8 +65,5 @@ node_modules/
 # dotenv environment variables file
 .env
 
-frontend/public
-
 .DS_Store
-
 .idea
