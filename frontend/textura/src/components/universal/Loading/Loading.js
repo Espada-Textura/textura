@@ -2,7 +2,7 @@ import './Loading.css'
 
 function Loading() {
     return (
-        <div>
+        <div className="loading-layout">
             <div className="loadingio-spinner-blocks-fhze938aqwq">
                 <div className="ldio-mvxohi746r">
                     <div className="div1"></div>

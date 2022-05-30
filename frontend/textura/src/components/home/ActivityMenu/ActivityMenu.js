@@ -6,7 +6,7 @@ function ActivityMenu(props) {
     const cardStyles = {
         backgroundImage: `url('${
             props.image
-                ? props.image
+                ? props.image + '&sz=w100-h100'
                 : 'https://drive.google.com/uc?export=view&id=10ZikNlF86q_oB2Jy_c97UfDL8mv_rlo8'
         }')`,
     }
@@ -18,7 +18,7 @@ function ActivityMenu(props) {
             }}
         >
             <div className="card" style={cardStyles}>
-                <div className={`background`} />
+                <div rel="preload" className={`background`} />
                 <div className={`title-background`}>
                     <h3 className="title">
                         {props.title ? props.title : 'Unknown'}

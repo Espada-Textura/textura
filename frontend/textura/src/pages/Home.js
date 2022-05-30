@@ -16,7 +16,7 @@ import { generateVisibleGoogleDriveImageURL } from '@helper'
 // Components
 import ActivityMenu from '@components/home/ActivityMenu'
 import Grow from '@mui/material/Grow'
-import Slide from '@mui/material/Slide'
+import Fade from '@mui/material/Fade'
 import Footer from '@components/Footer'
 import { FiChevronsDown, FiChevronDown } from 'react-icons/fi'
 import {
@@ -31,9 +31,22 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getArts } from '@redux/art/operations'
 import { allArts } from '@redux/art/selectors'
 import React, { useEffect, useState, useRef } from 'react'
+import { getIsSignedIn, getCurrentUser } from '@redux/users/selectors'
+import ProfileAvatar from '@components/universal/profileAvatar'
+import Loading from '@components/universal/Loading'
 
 function Home() {
-    // menus
+    // data
+    const selector = useSelector((state) => state)
+    const isSignedIn = getIsSignedIn(selector)
+    const currentUser = getCurrentUser(selector)
+    const [mounted, toggleMounted] = useState(false)
+    const [isPageLoading, togglePageLoading] = useState(true)
+    const [showFooter, toggleShowFooter] = useState(false)
+    const [footerHigth, setFooterHigth] = useState(0)
+    const location = useLocation()
+    const navigate = useNavigate()
+    const footerRef = useRef(null)
     const allMenu = [
         {
             title: 'Now Trending ART',
@@ -41,6 +54,7 @@ function Home() {
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna.',
             width: 350,
             image: '10ZikNlF86q_oB2Jy_c97UfDL8mv_rlo8',
+            path: 'art',
         },
         {
             title: 'Now Trending ART',
@@ -48,43 +62,25 @@ function Home() {
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna.',
             width: 350,
             image: '1LxfNe067obyHGxcNHinX6NljPPw4QHR4',
+            path: 'art',
         },
         {
             title: 'ARTs',
             content:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna.',
-            width: 350,
+            width: 450,
             image: '1tZmhWvGXsY-JrZSwGjUYXS1Rs0DtYvNj',
+            path: 'art',
         },
         {
-            title: 'Setting',
+            title: 'login',
             content:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna.',
             width: 300,
             image: '1xPqmBYPBc9H5vxFpn4kfOOfRtRsgbck1',
+            path: 'login',
         },
     ]
-
-    // Animation
-    const [mounted, toggleMounted] = useState(false)
-    const [showFooter, toggleShowFooter] = useState(false)
-    const [footerHigth, setFooterHigth] = useState(0)
-
-    // Elements
-    const footerRef = useRef(null)
-
-    const navigate = useNavigate()
-    let location = useLocation()
-    const PushTo = function (e, pathname = '') {
-        e.preventDefault()
-        if (location.pathname !== '/' + pathname) navigate(pathname)
-    }
-    // Data
-    let [arts, setArts] = useState([])
-
-    // redux
-    const dispatch = useDispatch()
-    const selector = useSelector((state) => state)
 
     // Actions
     useEffect(() => {
@@ -97,8 +93,27 @@ function Home() {
         // setArts(allArts(selector))
     }, [allArts(selector)])
 
+    useEffect(() => {
+        window.addEventListener('load', function () {
+            togglePageLoading(false)
+        })
+    }, [])
+
+    // menus
+
+    const PushTo = function (e, pathname = '') {
+        e.preventDefault()
+        if (location.pathname !== '/' + pathname) navigate(pathname)
+    }
+
     return (
         <div className="home-main-layout">
+            {/* <Fade in={isPageLoading}>
+                <div>
+                    <Loading />
+                </div>
+            </Fade> */}
+
             <div>
                 <img
                     className="background-img"
@@ -109,16 +124,29 @@ function Home() {
                 ></img>
             </div>
             <div className="home-main-content-layout">
-                <div className="p-5">
+                <div
+                    className="p-5 d-flex flex-row justify-content-between align-items-center"
+                    xs={{ width: '100%' }}
+                >
                     <div
-                        className="d-flex flex-row "
+                        className="d-flex flex-row align-items-center"
                         onClick={() => {
                             toggleShowFooter(!showFooter)
                         }}
                     >
-                        <h3>TEXTURA |</h3>
-                        <h6 className="p-2">ART COMMINUNITY</h6>
+                        <h3 className="animate-charcter">TEXTURA </h3>
+                        <h3 className="px-2"> | </h3>
+                        <h6 className="py-2">ART COMMINUNITY</h6>
                     </div>
+                    <Grow
+                        in={isSignedIn}
+                        style={{ transformOrigin: 'bottom right 60px' }}
+                        {...(isSignedIn ? { timeout: 1000 } : {})}
+                    >
+                        <div>
+                            <ProfileAvatar currentUser={currentUser} />
+                        </div>
+                    </Grow>
                 </div>
 
                 <div>
@@ -131,12 +159,18 @@ function Home() {
                                 <Grow
                                     key={index}
                                     in={mounted}
-                                    style={{ transformOrigin: '0 0 0' }}
+                                    style={{
+                                        transformOrigin: 'bottom left 100px',
+                                    }}
                                     {...(mounted
                                         ? { timeout: 500 * (index + 1) }
                                         : {})}
                                 >
-                                    <div>
+                                    <div
+                                        onClick={(event) => {
+                                            PushTo(event, element.path)
+                                        }}
+                                    >
                                         <ActivityMenu
                                             title={element.title}
                                             content={element.content}
