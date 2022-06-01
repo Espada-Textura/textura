@@ -3,7 +3,7 @@
   
   <h1>Textura Web Application</h1>
 </div>
-<img src="/frontend/textura/public/icon.png" width="84"> </img>
+<img src="/frontend/public/icon.png" width="84"> </img>
 
 [Textura](https://textura-9fcd3.web.app/) webpage
 
