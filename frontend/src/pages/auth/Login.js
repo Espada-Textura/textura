@@ -8,6 +8,9 @@ import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import Grow from '@mui/material/Grow'
 
+// Components
+import Loading from '@components/universal/Loading'
+
 import TexturaLogo from '@assets/logo.png'
 import { LoginValidation } from '@validations/Auth'
 import { useForm } from 'react-hook-form'
@@ -333,7 +336,7 @@ function Login() {
                 }}
                 open={open}
             >
-                <CircularProgress color="inherit" />
+                <Loading />
             </Backdrop>
         </div>
     )

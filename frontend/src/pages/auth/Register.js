@@ -8,8 +8,7 @@ import ReactLoading from 'react-loading'
 import { Fade, Toast } from 'react-bootstrap'
 import { RegisterValidation } from '@validations/Auth'
 import Backdrop from '@mui/material/Backdrop'
-import CircularProgress from '@mui/material/CircularProgress'
-import Skeleton from '@mui/material/Skeleton'
+import Loading from '@components/universal/Loading'
 
 import { useForm } from 'react-hook-form'
 
@@ -406,7 +405,7 @@ function Register() {
                 }}
                 open={isRegistering}
             >
-                <CircularProgress color="inherit" />
+                <Loading />
             </Backdrop>
         </div>
     )

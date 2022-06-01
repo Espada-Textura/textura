@@ -23,6 +23,7 @@ import { resetRequesetStatusAction } from '@redux/system/actions'
 
 // drag and drop config
 import { FileUploader } from 'react-drag-drop-files'
+import Loading from '@components/universal/Loading'
 const fileTypes = ['JPG', 'PNG', 'GIF']
 
 function UploadForm(props) {
@@ -212,7 +213,7 @@ function UploadForm(props) {
                             }}
                             open={open}
                         >
-                            <CircularProgress color="inherit" />
+                            <Loading />
                         </Backdrop>
                         <Fade
                             in={getUpdateRequesetStatus(selector).requestting}

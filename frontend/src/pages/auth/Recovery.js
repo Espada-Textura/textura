@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import AuthAnimetion from '@utils/AuthInputAnimation'
-
+import Loading from '@components/universal/Loading'
 import TexturaLogo from '@assets/logo.png'
 import AuthHighlight from '@images/recovery_highlight.png'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,7 +13,6 @@ import Fade from '@mui/material/Fade'
 import Grow from '@mui/material/Grow'
 import { useForm } from 'react-hook-form'
 import { RecoveryValidation } from '@validations/Auth'
-
 import '@styles/pages/Auth.css'
 import { useState } from 'react'
 
@@ -206,7 +205,7 @@ function Recovery() {
                 }}
                 open={isRequesting}
             >
-                <CircularProgress color="inherit" />
+                <Loading />
             </Backdrop>
         </div>
     )
