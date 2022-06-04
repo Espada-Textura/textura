@@ -11,8 +11,11 @@ import {
     getDocs,
     addDoc,
     orderBy,
+    updateDoc,
     serverTimestamp,
-    FieldValue,
+    increment,
+    doc,
+    deleteDoc,
 } from 'firebase/firestore'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import {
@@ -35,8 +38,6 @@ export const getArts = () => {
 
             dispatch(getArtsAction(artsResp.reverse()))
         })
-
-        // const q = query(citiesRef, where("state", "==", "CA"));
     }
 }
 
@@ -88,6 +89,7 @@ export const createArt = (payload) => {
                     timeCreated: snapshot.metadata.timeCreated,
                     bucket: snapshot.metadata.bucket,
                     userId: auth.currentUser.uid,
+                    views: 0,
                     user: {
                         uid: auth.currentUser.uid,
                         email: user.email,
@@ -149,14 +151,57 @@ export const createArt = (payload) => {
                     requestting: requesttingStatus,
                 })
             )
-            // switch (snapshot.state) {
-            //     case 'paused':
-            //         console.log('Upload is paused')
-            //         break
-            //     case 'running':
-            //         console.log('Upload is running')
-            //         break
-            // }
         })
+    }
+}
+
+export const updateView = (art) => {
+    return async (dispatch, getState) => {
+        if (!art.hasOwnProperty('id') || !art.hasOwnProperty('userId'))
+            return null
+        if (art.id.length < 10) return null
+        let artsRef = doc(db, `arts/${art.id}`)
+        return updateDoc(artsRef, {
+            views: increment(1),
+            requsetMethod: 'view',
+            timeUpdated: serverTimestamp(),
+        })
+    }
+}
+
+export const updateArt = (art) => {
+    return async (dispatch, getState) => {
+        // Auth security
+        if (!auth.currentUser) return null
+
+        // Art security
+        if (!art.hasOwnProperty('id') || !art.hasOwnProperty('userId'))
+            return null
+
+        // Privacy security
+        if (auth.currentUser.uid !== art.userId) return null
+
+        let artsRef = doc(db, `arts/${art.id}`)
+        let data = Object.assign({}, art)
+        delete data.id
+        data.requsetMethod = 'view'
+        return updateDoc(artsRef, data)
+    }
+}
+
+export const deleteArt = (art) => {
+    return async (dispatch, getState) => {
+        // Auth security
+        if (!auth.currentUser) return null
+
+        // Art security
+        if (!art.hasOwnProperty('id') || !art.hasOwnProperty('userId'))
+            return null
+
+        // Privacy security
+        if (auth.currentUser.uid !== art.userId) return null
+
+        let artsRef = doc(db, `arts/${art.id}`)
+        return deleteDoc(artsRef)
     }
 }

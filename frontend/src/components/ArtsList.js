@@ -13,9 +13,13 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import ArtDetail from '@components/ArtDetail'
 import Avatar from '@mui/material/Avatar'
+import { useDispatch } from 'react-redux'
+import { updateView } from '@redux/art/operations'
 
 function ArtsList(props) {
     const [currentArt, setCurrentArt] = React.useState({})
+    const dispatch = useDispatch()
+
     const modalStyle = {
         position: 'absolute',
         top: '50%',
@@ -78,6 +82,9 @@ function ArtsList(props) {
                                     width: '100%',
                                     minHeight: '50px',
                                     backgroundColor: '#f0f0f0',
+                                }}
+                                onClick={() => {
+                                    dispatch(updateView(item))
                                 }}
                             />
                         </div>
