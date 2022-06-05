@@ -5,7 +5,6 @@ import {
     useMatch,
     useLocation,
 } from 'react-router-dom'
-import { useTransition, useTrail, animated, config } from 'react-spring'
 
 // Style
 import '@styles/pages/Home.css'
