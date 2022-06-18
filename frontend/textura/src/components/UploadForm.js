@@ -15,6 +15,8 @@ import Fade from '@mui/material/Fade'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 
+import artIcon from '@assets/images/Art Vector.svg'
+
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { createArt } from '@redux/art/operations'
@@ -23,6 +25,7 @@ import { resetRequesetStatusAction } from '@redux/system/actions'
 
 // drag and drop config
 import { FileUploader } from 'react-drag-drop-files'
+import { borderRadius } from '@mui/system'
 const fileTypes = ['JPG', 'PNG', 'GIF']
 
 function UploadForm(props) {
@@ -56,6 +59,30 @@ function UploadForm(props) {
         setFile(data)
     }
 
+    //material ui component customziation
+    const textField_style = {
+        '& .MuiOutlinedInput-notchedOutline': {
+            border: '2px solid #e64e4e !important',
+            borderRadius: '10px !important',
+        },
+
+        '& .MuiOutlinedInput-notchedOutline:hover': {
+            border: '2px solid #e64e4e !important',
+            borderRadius: '10px !important',
+        },
+
+        '& .MuiOutlinedInput-notchedOutline': {
+            border: '2px solid #e64e4e !important',
+            borderRadius: '10px !important',
+        },
+
+        '& .MuiInputLabel-outlined': {
+            color: 'rgba(0,0,0,0.5)',
+            fontWeight: 'bold',
+            fontVariant: 'small-caps',
+        },
+    }
+
     // system
     React.useEffect(() => {
         setProgress(
@@ -74,12 +101,9 @@ function UploadForm(props) {
 
     return (
         <div className="d-flex flex-column">
-            <div className="upload-form-text">
-                <div className="upload-form-text-header">
-                    <p> UPLOAD MY ART </p>
-                </div>
-                <div className="upload-form-text-paragraph">
-                    <p>Uplaod art you want to share with the world.</p>
+            <div className="upload-form-text m-0">
+                <div className="upload-form-text-header h2 m-0">
+                    <p className="m-0"> Upload Art </p>
                 </div>
             </div>
             <div className="upload-form-input-all">
@@ -87,7 +111,14 @@ function UploadForm(props) {
                     onSubmit={handleSubmit(onSubmits)}
                     className="mt-4 form-group"
                 >
-                    <Grid container spacing={2}>
+                    <Grid
+                        container
+                        spacing={2}
+                        sx={{
+                            paddingLeft: '1rem',
+                            paddingRight: '1rem',
+                        }}
+                    >
                         <Grid item xs={12}>
                             <FileUploader
                                 className="col-12"
@@ -96,17 +127,29 @@ function UploadForm(props) {
                                 types={fileTypes}
                                 classes={
                                     file
-                                        ? 'uploead-from-drag-and-drop-layout-selected'
-                                        : 'uploead-from-drag-and-drop-layout'
+                                        ? 'upload-from-drag-and-drop-layout-selected'
+                                        : 'upload-from-drag-and-drop-layout'
                                 }
                                 children={
-                                    <div className="text-center">
+                                    <div className="text-center align-center">
                                         {!file ? (
-                                            <div className="upload-form-upload-box-text">
-                                                <MdCloudUpload className="uploead-from-upload-icon" />
+                                            <div className="upload-form-upload-box-text align-self-center">
+                                                <img
+                                                    src={artIcon}
+                                                    className="p-2"
+                                                ></img>
                                                 <p>
-                                                    Drag and drop art here or
-                                                    click here to browse art
+                                                    Drag and Drop Your Art Here
+                                                </p>
+                                                <div className="d-flex align-center justify-content-center">
+                                                    <div className="upload-form-line d-inline-block" />
+                                                    <p className="d-inline-block p-1">
+                                                        Or
+                                                    </p>
+                                                    <div className="upload-form-line d-inline-block" />
+                                                </div>
+                                                <p id="upload-form-browse-button">
+                                                    Browse
                                                 </p>
                                             </div>
                                         ) : (
@@ -132,12 +175,13 @@ function UploadForm(props) {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                variant="filled"
-                                className="col-12"
+                                sx={textField_style}
+                                variant="outlined"
+                                className="col-12 upload-form-textfield"
                                 size="small"
                                 id="title"
                                 error={errors.title ? true : false}
-                                label="Title"
+                                label="TITLE"
                                 defaultValue=""
                                 helperText={errors.title?.message}
                                 {...register(
@@ -148,12 +192,13 @@ function UploadForm(props) {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                variant="filled"
-                                className="col-12"
+                                sx={textField_style}
+                                variant="outlined"
+                                className="col-12 upload-form-textfield"
                                 size="small"
                                 id="description"
                                 error={errors.description ? true : false}
-                                label="Description"
+                                label="DESCRIPTION"
                                 defaultValue=""
                                 helperText={errors.description?.message}
                                 {...register(
@@ -165,12 +210,13 @@ function UploadForm(props) {
 
                         <Grid item xs={12} md={6}>
                             <TextField
-                                variant="filled"
+                                sx={textField_style}
+                                variant="outlined"
                                 size="small"
-                                className="col-12"
+                                className="col-12 upload-form-textfield"
                                 id="tag"
                                 error={errors.tag ? true : false}
-                                label="Tag"
+                                label="TAG"
                                 defaultValue=""
                                 helperText={errors.tag?.message}
                                 {...register('tag', CreateArtValidation.tag)}
@@ -178,12 +224,13 @@ function UploadForm(props) {
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <TextField
-                                variant="filled"
-                                className="col-12"
+                                sx={textField_style}
+                                variant="outlined"
+                                className="col-12 upload-form-textfield"
                                 size="small"
                                 id="tool"
                                 error={errors.tool ? true : false}
-                                label="Tool"
+                                label="TOOL"
                                 defaultValue=""
                                 helperText={errors.tool?.message}
                                 {...register('tool', CreateArtValidation.tool)}
@@ -196,12 +243,12 @@ function UploadForm(props) {
                                 event.preventDefault()
                                 props.close()
                             }}
-                            className="upload-form-button-upload mx-3 chancel"
+                            className="upload-form-button-upload mx-3 cancel"
                         >
                             Cancel
                         </button>
                         <button className="upload-form-button-upload">
-                            Upload
+                            Post
                         </button>
                     </div>
                     <div className="d-flex flex-row justify-content-end pt-3">
