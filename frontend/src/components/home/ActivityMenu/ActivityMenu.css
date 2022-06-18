@@ -1,0 +1,106 @@
+.container {
+    min-width: 300px;
+    position: relative;
+    max-height: 500px;
+    /* width: 350px; */
+    height: 400px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    padding: 0;
+    margin-right: 12px;
+}
+
+.container.active {
+    /* transform: scale(); */
+}
+
+.card {
+    position: relative;
+    background-size: cover;
+    max-height: 600px;
+    width: inherit;
+    height: 200px;
+    cursor: pointer;
+    transform: height;
+    transition-duration: 0.2s;
+    border: none;
+    border-radius: 16px 16px;
+    background-position: center;
+}
+.card:hover {
+    height: 400px;
+    transform: height;
+    transition-duration: 0.2s;
+}
+
+.title-background {
+    position: absolute;
+    bottom: 0;
+    height: 46px;
+    width: inherit;
+    border-radius: 10px 10px 16px 16px;
+    background: linear-gradient(
+        29.92deg,
+        rgba(41, 3, 31, 0.8) -9.52%,
+        rgba(139, 71, 134, 0.4) 88.77%
+    );
+
+    background-color: rgba(240, 248, 255, 0.441);
+    transform: height;
+    transition-duration: 0.5s;
+    overflow: hidden;
+    opacity: 0.7;
+    backdrop-filter: blur(10px);
+}
+
+.card:hover > .title-background {
+    height: 140px;
+    transform: height;
+    transition-duration: 0.5s;
+    overflow: scroll;
+}
+
+.title {
+    margin: 14px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    color: white;
+}
+
+.title-detail {
+    margin: 14px;
+    font-family: 'Lato';
+    color: white;
+}
+
+.animate-charcter {
+    text-transform: uppercase;
+    background-image: linear-gradient(
+        -35deg,
+        #e64e4e 0%,
+        #e64e4e 30%,
+        #ff0000 67%,
+        #fff800 70%,
+        #e64e4e 80%,
+        #e64e4e 100%
+    );
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    color: #fff;
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 2s linear infinite;
+    display: inline-block;
+}
+
+@keyframes textclip {
+    to {
+        background-position: 200% center;
+    }
+}
