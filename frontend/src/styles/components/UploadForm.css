@@ -18,54 +18,18 @@
 .upload-form-text {
     display: flex;
     text-align: center;
-    align-items: center;
+    align-content: center;
     flex-wrap: wrap;
-    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .upload-form-text-header {
     font-family: Lato;
     font-style: normal;
     font-weight: bold;
-    font-size: 36px;
-    line-height: 35px;
-
-    color: #10649c;
-}
-
-.upload-form-text-paragraph {
-    width: 353px;
-    height: 22px;
-
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 22px;
-
-    color: #6c98bb;
-}
-
-.upload-form-picture-box {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-
-    margin-top: 1rem;
-
-    width: 96%;
-    height: 360px;
-
-    background: linear-gradient(
-        180.35deg,
-        #ffffff -26%,
-        rgba(212, 226, 238, 0.17) -25.99%,
-        rgba(26, 145, 232, 0.09) 122.09%
-    );
-    border-radius: 24px;
-    border: 2px rgb(41, 41, 241) dashed;
-    padding: 1rem;
+    color: #e64e4e;
 }
 
 .upload-form-uplaod-picture-box-icon-text {
@@ -87,11 +51,20 @@
 .upload-form-upload-box-text {
     font-family: Lato;
     font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
+    font-weight: 700;
+    font-size: 0.9rem;
     line-height: 20px;
 
-    color: #10649c;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.upload-form-upload-box-text p {
+    margin: 0.3rem 0 !important;
+}
+
+#upload-form-browse-button {
+    font-weight: bold;
+    color: #e64e4e;
 }
 
 .upload-form-picture-box-Or {
@@ -150,80 +123,53 @@
     margin-top: 5px;
 }
 
-#upload-form-button-cancel {
-    width: 125px;
-    height: 40px;
-
-    font-family: Lato;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 22px;
-    letter-spacing: 0em;
-    text-align: center;
-    color: #ffffff;
-
-    float: right;
-
-    background: #219def;
-
-    border-radius: 10px;
-    margin: 5px;
-    border: none;
-}
-
 .upload-form-button-upload {
-    width: 125px;
+    width: 100%;
+    max-width: 100px;
     height: 40px;
 
     font-family: Lato;
     font-size: 16px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 22px;
     letter-spacing: 0em;
     text-align: center;
     color: #ffffff;
 
-    background: linear-gradient(97.35deg, #227ebc 0.42%, #1492e7 94.68%);
+    background: linear-gradient(#f47d60, #e64e51);
 
-    border-radius: 10px;
+    border-radius: 20px;
 
-    border-radius: 10px;
     border: none;
 }
-.upload-form-button-upload.chancel {
-    background: #616c73;
-    color: #ffffff;
+.upload-form-button-upload.cancel {
+    background: #ffffff;
+    color: #e64e51;
+    border: 2px solid #e64e4e;
 }
 
 .upload-form-button-upload:hover {
-    box-shadow: 0px 0px 15px rgba(40, 145, 215, 0.5);
+    box-shadow: 0px 2px 5px #e64e5150;
 }
 
-.uploead-from-upload-icon {
-    width: 100px;
-    height: 100px;
-    color: rgba(40, 145, 215, 0.5);
-}
-.uploead-from-drag-and-drop-layout {
+.upload-from-drag-and-drop-layout {
     width: 100%;
-    background: linear-gradient(
-        180.35deg,
-        #ffffff -26%,
-        rgba(212, 226, 238, 0.17) -25.99%,
-        rgba(26, 145, 232, 0.09) 122.09%
-    );
-    border-radius: 24px;
-    border: 3px rgba(40, 145, 215, 1) dashed;
+    background: #e64e4e10;
+    border-radius: 25px;
+    border: 3px #e64e4e dashed;
     transition-property: border;
     transition-duration: 1;
-    padding-top: 54px;
-    padding-bottom: 54px;
+    padding-top: 20px;
+    padding-bottom: 5px;
     cursor: pointer;
 }
 
-.uploead-from-drag-and-drop-layout-selected {
+.upload-from-drag-and-drop-layout:hover {
+    background: #e64e4e20;
+}
+
+.upload-from-drag-and-drop-layout-selected {
     width: 100%;
     transition-property: border;
     transition-duration: 1;
@@ -243,4 +189,19 @@
 .upload-form-input-form-active {
     background: #c7daea;
     border-radius: 5px !important;
+}
+
+.upload-form-textfield {
+    background: white;
+    color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+}
+
+.upload-form-line {
+    background: #e64e4e;
+    width: 100%;
+    max-width: 50px;
+    height: 1.5px;
+    align-self: center;
+    border-radius: 1px;
 }
