@@ -1,10 +1,103 @@
 .contactUs-main-layout {
     height: auto;
     color: var(--main-text-color);
+   
 }
 
-.developing-page {
-    min-height: 700px;
-    font-weight: bold;
-    font-size: 36px;
+
+.top-logo {
+    width: 65px;
+    height: 65px;
+   
 }
+
+.top-section {
+    
+    height: 260px !important;
+}
+
+.second-section {
+    max-width: 600px !important;
+    border: 2px solid #f79bc1  !important;
+    border-radius: 5px;
+    
+}
+
+
+@media only screen and (max-width: 576px) {
+    .top-section {
+        height: 190px !important;
+        background-color:  #f79bc1;
+      
+    }
+}
+
+
+@media only screen and (min-width: 1420px) {
+    .header-text {
+        padding-left: 320px !important;
+    }
+}
+
+
+
+
+
+.form-control {
+    max-width: 450px !important;
+    max-height: 35px !important;
+    border: 1px solid  #FF7EB3 !important;
+    border-width: 1.7px !important;
+   
+}
+
+.form-control[type=text]:focus , .form-control:focus {
+    box-shadow: 0px 0px 10px #ea71a3 !important;
+}
+
+.form-control:hover {
+    box-shadow: 2px 2px 5px #FF7EB3 !important;
+}
+
+.question-text {
+    padding: -5px;
+    margin: -2px;
+    font-size: 14px;
+    color: black;
+}
+
+
+
+
+
+.btn-custom:hover{
+    background-color: #f3c8da !important;
+}
+
+.answer-text {
+    margin-top: -10px;
+    margin-bottom: -20px;
+    font-size: 14px;
+    color: black;
+    z-index: -1;
+    border-top: none !important;
+    
+
+}
+
+.dropdown-toggle{
+    color: #ea71a3 !important;
+}
+
+.card {
+    height: auto;
+    z-index: -1;
+}
+.card-body {
+    padding-top: 18px;
+    background-color: #f9b7d3 !important;
+    /* max-height: 48px !important; */
+    
+}
+
+

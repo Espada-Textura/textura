@@ -10,208 +10,192 @@ import '@styles/components/Footer.css'
 
 function Footer() {
     return (
-        <div>
-            <div className="footer-main-layout d-flex flex-lg-row flex-column justify-content-between">
-                <div className="footer-info-left d-flex flex-row justify-content-between col-12 col-lg-6">
-                    <div className="footer-list">
-                        <h5 className="footer-link-text-title mb-3">ABOUT</h5>
-                        <ul>
-                            <li type="none">
-                                <Link
-                                    to="/aboutus"
-                                    className="footer-link-text"
-                                >
-                                    About Us
-                                </Link>
-                            </li>
-                            <li type="none">
-                                <Link
-                                    to="/contactus"
-                                    className="footer-link-text"
-                                >
-                                    Contact Us
-                                </Link>
-                            </li>
-                            <li type="none">
-                                <Link
-                                    to="/helpnfaq"
-                                    className="footer-link-text"
-                                >
-                                    Branding
-                                </Link>
-                            </li>
-                            <li type="none">
-                                <Link
-                                    to="/helpnfaq"
-                                    className="footer-link-text"
-                                >
-                                    Events
-                                </Link>
-                            </li>
-                            <li type="none">
-                                <Link
-                                    to="/helpnfaq"
-                                    className="footer-link-text"
-                                >
-                                    Terms
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="footer-list">
-                        <h5 className="footer-link-text-title mb-3">PAGE</h5>
-                        <ul>
-                            <li type="none">
-                                <Link to="/" className="footer-link-text">
-                                    Home
-                                </Link>
-                            </li>
-                            <li type="none">
-                                <Link to="/art" className="footer-link-text">
-                                    Arts
-                                </Link>
-                            </li>
-                            <li type="none">
-                                <Link
-                                    to="/profile"
-                                    className="footer-link-text"
-                                >
-                                    Profile
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="footer-list">
-                        <h5 className="footer-link-text-title mb-3">EXPLORE</h5>
-                        <ul>
-                            <li type="none">
-                                <Link
-                                    to="/helpnfaq"
-                                    className="footer-link-text"
-                                >
-                                    Helps
-                                </Link>
-                            </li>
-                            <li type="none">
-                                <Link
-                                    to="/helpnfaq"
-                                    className="footer-link-text"
-                                >
-                                    FAQs
-                                </Link>
-                            </li>
-                            <li type="none">
-                                <Link
-                                    to="/helpnfaq"
-                                    className="footer-link-text"
-                                >
-                                    Forum
-                                </Link>
-                            </li>
-                            <li type="none">
-                                <Link
-                                    to="/contactus"
-                                    className="footer-link-text"
-                                >
-                                    Feedbacks
-                                </Link>
-                            </li>
-                            <li type="none">
-                                <Link
-                                    to="/helpnfaq"
-                                    className="footer-link-text"
-                                >
-                                    Shop
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="footer-list">
-                        <h5 className="footer-link-text-title mb-3">
-                            DEVELOPER
-                        </h5>
-                        <ul>
-                            <li type="none">
-                                <Link
-                                    to="/aboutus"
-                                    className="footer-link-text"
-                                >
-                                    Our Developer
-                                </Link>
-                            </li>
-                            <li type="none">
-                                <Link
-                                    to="/helpnfaq"
-                                    className="footer-link-text"
-                                >
-                                    Support Us
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
+        <div className="container-fluid bg-dark pt-3 ">
+            <div className="row">
+                <div className="col-lg-4 col-sm-12 pb-5 pb-sm-4 logo-setion">
+                    <img
+                        src={TexturaLogo}
+                        className="ms-2 footer-logo"
+                        alt="Textura Logo"
+                    />
+                    <p className="fs-5 text-light ">TEXTURA </p>
+                    <p className="col-9 footer-logo-text text-secondary">
+                        Textura is a website, community, for digital artists
+                        share their works. Share your arts with us.
+                    </p>
+                    <p className="fs-6 text-light ">Our community </p>
+                    <img
+                        src={FacebookLogo}
+                        className="footer-com-logo"
+                        alt="FacebookLogo"
+                    />
+                    <img
+                        src={IGLogo}
+                        className="footer-com-logo"
+                        alt="IGLogo"
+                    />
+                    <img
+                        src={TwitterLogo}
+                        className="footer-com-logo"
+                        alt="TwitterLogo"
+                    />
+                    <img
+                        src={GitHubLogo}
+                        className="footer-com-logo"
+                        alt="IGLogo"
+                    />
                 </div>
-                <div className="footer-info-right">
-                    <div>
-                        <img
-                            src={TexturaLogo}
-                            alt="Textura Logo"
-                            width="115px"
-                            height="115px"
-                        ></img>
-                        <div className="footer-logo-text">Textura</div>
-                    </div>
-                    <div className="footer-web-info">
-                        <p className="non-margin">
-                            Textura is a website, community, for digital artists
-                            share their works.<br></br>Share your arts with us.
-                        </p>
-                        <br></br>
-                        <div className="community-title mb-2">COMMUNITY</div>
-                        <div className="footer-web-info-logo d-flex">
-                            <div className="footer-logo-link">
-                                <Link to="/">
-                                    <img
-                                        className="small-logo"
-                                        src={TexturaLogo}
-                                        alt="Textura Logo"
-                                    ></img>
-                                </Link>
-                            </div>
-                            <div className="footer-logo-link">
-                                <img
-                                    className="small-logo"
-                                    src={FacebookLogo}
-                                    alt="Facebook Logo"
-                                ></img>
-                            </div>
-                            <div className="footer-logo-link">
-                                <img
-                                    className="small-logo"
-                                    src={IGLogo}
-                                    alt="Instagram Logo"
-                                ></img>
-                            </div>
-                            <div className="footer-logo-link">
-                                <img
-                                    className="small-logo"
-                                    src={TwitterLogo}
-                                    alt="Twitter Logo"
-                                ></img>
-                            </div>
-                            <div className="footer-logo-link">
-                                <img
-                                    className="small-logo"
-                                    src={GitHubLogo}
-                                    alt="GitHub Logo"
-                                ></img>
-                            </div>
+                <div className="col-lg-8 col-sm-12">
+                    {/* new row */}
+                    <div className="row">
+                        <div className="col-6">
+                            <p
+                                className="footer-underline-head text-secondary fs-6 fw-bolder mb-2"
+                                children="About"
+                            />
+                            <ul className="list-quality text-start">
+                                <li>
+                                    <Link
+                                        className="list-item text-light lh-lg"
+                                        to="/aboutus"
+                                        children="About Us"
+                                    />
+                                </li>
+                                <li>
+                                    <Link
+                                        className="list-item text-light lh-1"
+                                        to="ContactUs"
+                                        children="Contact Us"
+                                    />
+                                </li>
+                                <li>
+                                    <Link
+                                        className="list-item text-light lh-lg"
+                                        to="/helpnfaq"
+                                        children="Branding"
+                                    />
+                                </li>
+                                <li>
+                                    <Link
+                                        className="list-item text-light lh-1"
+                                        to="/helpnfaq"
+                                        children="Events"
+                                    />
+                                </li>
+                                <li>
+                                    <Link
+                                        className="list-item text-light lh-lg"
+                                        to="/helpnfaq"
+                                        children="Terms"
+                                    />
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="col-6 ">
+                            <p className="footer-underline-head text-secondary fs-md-6 fw-bolder mb-2">
+                                {' '}
+                                Explore{' '}
+                            </p>
+                            <ul className="list-quality text-start align-top">
+                                <li>
+                                    <Link
+                                        className="list-item text-light lh-lg"
+                                        to="/helpnfaq"
+                                        children="Helps"
+                                    />
+                                </li>
+                                <li>
+                                    <Link
+                                        className="list-item text-light lh-lg"
+                                        to="/helpnfaq"
+                                        children="FAQs"
+                                    />
+                                </li>
+                                <li>
+                                    <Link
+                                        className="list-item text-light lh-lg"
+                                        to="/helpnfaq"
+                                        children="Forum"
+                                    />
+                                </li>
+                                <li>
+                                    <Link
+                                        className="list-item text-light lh-lg"
+                                        to="/helpnfaq"
+                                        children="Feedbacks"
+                                    />
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div className="col-6">
+                            <p className="footer-underline-head text-secondary fs-md-6 fw-bolder mb-2">
+                                Page
+                            </p>
+                            <ul className=" list-quality text-start align-top">
+                                <li>
+                                    <Link
+                                        className="list-item text-light lh-lg"
+                                        to="/"
+                                        children="Home"
+                                    />
+                                </li>
+                                <li>
+                                    <Link
+                                        className="list-item text-light lh-lg"
+                                        to="Art"
+                                        children="Art"
+                                    />
+                                </li>
+                                <li>
+                                    <Link
+                                        className="list-item text-light lh-lg"
+                                        to="Profile"
+                                        children="Profile"
+                                    />
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="col-6">
+                            <p className="footer-underline-head text-secondary fs-md-6 fw-bolder mb-2">
+                                {' '}
+                                Delveloper{' '}
+                            </p>
+                            <ul className="list-quality text-start align-top">
+                                <li>
+                                    <Link
+                                        className="list-item text-light lh-lg"
+                                        to="/aboutus"
+                                        children="Our developer"
+                                    />
+                                </li>
+                                <li>
+                                    <Link
+                                        className="list-item text-light lh-lg"
+                                        to="/helpnfaq"
+                                        children="Support developer"
+                                    />
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="footer-copyright-text d-flex justify-content-between">
-                <div>&copy; 2022 TEXTURA. All Right Reserved.</div>
-                <div>By - Espada Team, Cambodia</div>
+
+            <div
+                className="col-14 bg-bottom text-light row align-middle"
+                width="1200px"
+            >
+                <div className="col-12 col-md-6 align-middle pt-2 ">
+                    <p className="footer-logo-text text-center text-xxl-start ">
+                        © 2022 TEXTURA. All Right Reserved
+                    </p>
+                </div>
+                <div className="col-12 col-md-6 align-middle pt-md-2 pb-1">
+                    <p className="footer-logo-text text-center text-xxl-end ">
+                        By - Espada Team, Cambodia
+                    </p>
+                </div>
             </div>
         </div>
     )
