@@ -105,10 +105,45 @@ function ArtsList(props) {
                                         }}
                                         className="views-icon"
                                     />
-                                    {item.views}
+                                    {item.views ? item.views : 0}
+                                </div>
+                                <div className="align-items-center pt-1 pb-1">
+                                    {item.title}
                                 </div>
                                 <div className="d-flex align-items-center">
-                                    {item.title}
+                                    <Avatar
+                                        alt={
+                                            item.user.firstName +
+                                            item.user.lastName
+                                        }
+                                        src={item.user.avatarIcon}
+                                        style={{
+                                            width: 38,
+                                            height: 38,
+                                        }}
+                                    />
+                                    <div className="flex">
+                                        <div className="art-info-username pt-1">
+                                            <h6
+                                                style={{
+                                                    color: 'black',
+                                                    fontWeight: 'bold',
+                                                }}
+                                            >
+                                                {item.user.firstName}{' '}
+                                                {item.user.lastName}
+                                            </h6>
+                                        </div>
+                                        <div className="art-info-username">
+                                            <Typography
+                                                variant="caption"
+                                                display="block"
+                                                gutterBottom
+                                            >
+                                                {getDate(item.timeCreated)}
+                                            </Typography>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
