@@ -1,0 +1,9 @@
+.bg-first {
+    background-color: rgb(234, 245, 246,0.7);
+    margin-bottom: 1rem;
+    
+}
+
+.container {
+    max-width: 760px !important;
+}

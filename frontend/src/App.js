@@ -10,6 +10,7 @@ import AboutUs from '@pages/AboutUs'
 import ContactUs from '@pages/ContactUs'
 import HelpNFaq from '@pages/HelpNFaqs'
 
+
 import Login from '@pages/auth/Login'
 import Register from '@pages/auth/Register'
 import Recovery from '@pages/auth/Recovery'
@@ -49,6 +50,7 @@ function App() {
                         <Route path="aboutus" element={<AboutUs />} />
                         <Route path="contactus" element={<ContactUs />} />
                         <Route path="helpnfaq" element={<HelpNFaq />} />
+                       
                     </Route>
                 </Route>
                 <Route path="/login" element={<Login />} />
@@ -57,6 +59,7 @@ function App() {
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
+    
     )
 }
 
