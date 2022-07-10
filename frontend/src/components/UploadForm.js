@@ -200,6 +200,7 @@ function UploadForm(props) {
                                 id="description"
                                 error={errors.description ? true : false}
                                 label="DESCRIPTION"
+                                multiline
                                 defaultValue=""
                                 helperText={errors.description?.message}
                                 {...register(
