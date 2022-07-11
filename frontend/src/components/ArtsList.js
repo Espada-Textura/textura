@@ -1,20 +1,25 @@
 import '@styles/components/ArtsList.css'
+
 import * as React from 'react'
+
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Masonry from '@mui/lab/Masonry'
-import { styled } from '@mui/material/styles'
 import Grow from '@mui/material/Grow'
 import Backdrop from '@mui/material/Backdrop'
 import Modal from '@mui/material/Modal'
 import Fade from '@mui/material/Fade'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { useTheme } from '@mui/material/styles'
 import ArtDetail from '@components/ArtDetail'
 import Avatar from '@mui/material/Avatar'
+import { styled } from '@mui/material/styles'
+import { useTheme } from '@mui/material/styles'
+
 import { useDispatch } from 'react-redux'
 import { updateView } from '@redux/art/operations'
+
+import { FaEye } from 'react-icons/fa'
 
 function ArtsList(props) {
     const [currentArt, setCurrentArt] = React.useState({})
@@ -51,7 +56,9 @@ function ArtsList(props) {
     const handleClose = () => {
         setOpen(false)
     }
-
+    function getDate(date) {
+        return date.substring(0, date.indexOf('T'))
+    }
     return (
         <div className="col-12 d-flex flex-row justify-content-center p-3">
             <Masonry columns={{ xs: 1, sm: 3, lg: 4 }} spacing={2}>
@@ -69,8 +76,9 @@ function ArtsList(props) {
                             handleClickOpen()
                         }}
                     >
-                        <div>
+                        <div className="img-wrapper">
                             <img
+                                className="img-darken"
                                 src={item.path}
                                 srcSet={item.path}
                                 alt={item.title}
@@ -87,6 +95,57 @@ function ArtsList(props) {
                                     dispatch(updateView(item))
                                 }}
                             />
+
+                            <div className="art-info fade-display slide-up-display flex align-items-center">
+                                <div className="d-flex align-items-center">
+                                    <FaEye
+                                        style={{
+                                            width: '22px',
+                                            height: '22px',
+                                        }}
+                                        className="views-icon"
+                                    />
+                                    {item.views ? item.views : 0}
+                                </div>
+                                <div className="align-items-center pt-1 pb-1">
+                                    {item.title}
+                                </div>
+                                <div className="d-flex align-items-center">
+                                    <Avatar
+                                        alt={
+                                            item.user.firstName +
+                                            item.user.lastName
+                                        }
+                                        src={item.user.avatarIcon}
+                                        style={{
+                                            width: 38,
+                                            height: 38,
+                                        }}
+                                    />
+                                    <div className="flex">
+                                        <div className="art-info-username pt-1">
+                                            <h6
+                                                style={{
+                                                    color: 'black',
+                                                    fontWeight: 'bold',
+                                                }}
+                                            >
+                                                {item.user.firstName}{' '}
+                                                {item.user.lastName}
+                                            </h6>
+                                        </div>
+                                        <div className="art-info-username">
+                                            <Typography
+                                                variant="caption"
+                                                display="block"
+                                                gutterBottom
+                                            >
+                                                {getDate(item.timeCreated)}
+                                            </Typography>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </Fade>
                 ))}

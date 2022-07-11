@@ -1,0 +1,48 @@
+.img-wrapper {
+    position: relative;
+}
+
+.art-info {
+    position: absolute;
+    padding: 10px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    min-height: 50px;
+    max-height: 120px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.img-wrapper > img,
+.img-wrapper > .art-info {
+    transition: 0.15s ease-in-out;
+}
+
+.img-wrapper > .art-info.fade-display {
+    opacity: 0;
+}
+
+.img-wrapper:hover > .art-info.fade-display {
+    opacity: 1;
+}
+
+.img-wrapper > .art-info.slide-up-display {
+    transform: translateY(-75%);
+}
+
+.img-wrapper:hover > .art-info.slide-up-display {
+    transform: translateY(-100%);
+}
+
+.img-wrapper:hover > img.img-darken {
+    filter: brightness(50%);
+}
+
+.views-icon {
+    padding-right: 5px;
+}
+
+.art-info-username {
+    align-items: center;
+    padding-left: 10px;
+}
