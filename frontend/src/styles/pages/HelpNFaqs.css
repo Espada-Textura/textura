@@ -1,37 +1,29 @@
 .contactUs-main-layout {
     height: auto;
     color: var(--main-text-color);
-   
 }
-
 
 .top-logo {
     width: 65px;
     height: 65px;
-   
 }
 
 .top-section {
-    
     height: 260px !important;
 }
 
 .second-section {
     max-width: 600px !important;
-    border: 2px solid #f79bc1  !important;
+    border: 2px solid #f79bc1 !important;
     border-radius: 5px;
-    
 }
-
 
 @media only screen and (max-width: 576px) {
     .top-section {
         height: 190px !important;
-        background-color:  #f79bc1;
-      
+        background-color: #f79bc1;
     }
 }
-
 
 @media only screen and (min-width: 1420px) {
     .header-text {
@@ -39,24 +31,20 @@
     }
 }
 
-
-
-
-
-.form-control {
-    max-width: 450px !important;
-    max-height: 35px !important;
-    border: 1px solid  #FF7EB3 !important;
-    border-width: 1.7px !important;
-   
+.help-form-control {
+    width: 450px;
+    height: 35px;
+    border: 1px solid #ff7eb3;
+    border-width: 1.7px;
 }
 
-.form-control[type=text]:focus , .form-control:focus {
+.help-form-control[type='text']:focus,
+.form-control:focus {
     box-shadow: 0px 0px 10px #ea71a3 !important;
 }
 
-.form-control:hover {
-    box-shadow: 2px 2px 5px #FF7EB3 !important;
+.help-form-control:hover {
+    box-shadow: 2px 2px 5px #ff7eb3 !important;
 }
 
 .question-text {
@@ -66,11 +54,7 @@
     color: black;
 }
 
-
-
-
-
-.btn-custom:hover{
+.btn-custom:hover {
     background-color: #f3c8da !important;
 }
 
@@ -81,11 +65,9 @@
     color: black;
     z-index: -1;
     border-top: none !important;
-    
-
 }
 
-.dropdown-toggle{
+.dropdown-toggle {
     color: #ea71a3 !important;
 }
 
@@ -97,7 +79,4 @@
     padding-top: 18px;
     background-color: #f9b7d3 !important;
     /* max-height: 48px !important; */
-    
 }
-
-

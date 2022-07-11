@@ -80,7 +80,7 @@ export default function HelpNFaq() {
                     </div>
                     <div className="d-flex justify-content-center mb-5 ">
                         <input
-                            className="form-control"
+                            className="help-form-control"
                             type="text"
                             placeholder="Tell Us Your Issue"
                             aria-label="default input example"

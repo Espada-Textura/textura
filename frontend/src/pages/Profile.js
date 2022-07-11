@@ -64,7 +64,7 @@ function Profile() {
                         id="propage-procover"
                         className="sticky-top"
                         src="https://drive.google.com/uc?export=view&id=1rG9YQh8LNzFAO6RrzMbTcrDkfGsgaLt-"
-                        alt="cover picture"
+                        alt="cover"
                     ></img>
                     <div>
                         <button
