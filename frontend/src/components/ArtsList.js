@@ -74,6 +74,7 @@ function ArtsList(props) {
                         onClick={() => {
                             setCurrentArt(item)
                             handleClickOpen()
+                            dispatch(updateView(item))
                         }}
                     >
                         <div className="img-wrapper">
@@ -90,9 +91,6 @@ function ArtsList(props) {
                                     width: '100%',
                                     minHeight: '50px',
                                     backgroundColor: '#f0f0f0',
-                                }}
-                                onClick={() => {
-                                    dispatch(updateView(item))
                                 }}
                             />
 

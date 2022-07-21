@@ -71,11 +71,11 @@
     color: #ea71a3 !important;
 }
 
-.card {
+.help-card {
     height: auto;
     z-index: -1;
 }
-.card-body {
+.help-card-body {
     padding-top: 18px;
     background-color: #f9b7d3 !important;
     /* max-height: 48px !important; */

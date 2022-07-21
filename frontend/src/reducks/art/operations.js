@@ -1,4 +1,9 @@
-import { getArtsAction } from './actions'
+import {
+    deleteArtAction,
+    getArtsAction,
+    updateArtAction,
+    updateArtViewAction,
+} from './actions'
 import {
     updateRequesetStatusAction,
     resetRequesetStatusAction,
@@ -48,6 +53,7 @@ export const getArtsByProfile = () => {
         let artsResp = []
         let q = query(artsRef, where('userId', '==', user.uid))
         getDocs(q).then((querySnapshot) => {
+            console.log(querySnapshot)
             querySnapshot.forEach((resp) => {
                 let art = resp.data()
                 art.id = resp.id
@@ -161,10 +167,14 @@ export const updateView = (art) => {
             return null
         if (art.id.length < 10) return null
         let artsRef = doc(db, `arts/${art.id}`)
-        return updateDoc(artsRef, {
+
+        updateDoc(artsRef, {
             views: increment(1),
             requsetMethod: 'view',
             timeUpdated: serverTimestamp(),
+        }).then(() => {
+            art.views++
+            dispatch(updateArtViewAction(art))
         })
     }
 }
@@ -185,11 +195,13 @@ export const updateArt = (art) => {
         let data = Object.assign({}, art)
         delete data.id
         data.requsetMethod = 'view'
-        return updateDoc(artsRef, data)
+        updateDoc(artsRef, data).then(() => {
+            dispatch(updateArtAction(art))
+        })
     }
 }
 
-export const deleteArt = (art) => {
+export const deleteArt = (art, close) => {
     return async (dispatch, getState) => {
         // Auth security
         if (!auth.currentUser) return null
@@ -202,6 +214,10 @@ export const deleteArt = (art) => {
         if (auth.currentUser.uid !== art.userId) return null
 
         let artsRef = doc(db, `arts/${art.id}`)
-        return deleteDoc(artsRef)
+
+        deleteDoc(artsRef).then((resp) => {
+            dispatch(deleteArtAction(art))
+            close()
+        })
     }
 }

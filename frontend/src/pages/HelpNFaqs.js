@@ -120,7 +120,7 @@ export default function HelpNFaq() {
                         </button>
 
                         <div className="collapse" id={qObj.qId}>
-                            <div className="card card-body text-white ">
+                            <div className="help-card help-card-body text-white ">
                                 <p className="card-text answer-text">
                                     {qObj.qTextAns}
                                 </p>

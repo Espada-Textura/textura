@@ -6,26 +6,65 @@ import { AiFillHeart } from 'react-icons/ai'
 import { IoMdChatbubbles } from 'react-icons/io'
 import { CgClose } from 'react-icons/cg'
 import { RiShareFill } from 'react-icons/ri'
+import { FaTrashAlt, FaEye } from 'react-icons/fa'
 
 import IconButton from '@mui/material/IconButton'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogContent from '@mui/material/DialogContent'
+import DialogActions from '@mui/material/DialogActions'
+
 import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
 import { Button } from '@mui/material'
 import TextField from '@mui/material/TextField'
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { getCurrentUser } from '@redux/users/selectors'
+import { deleteArt } from '@redux/art/operations'
+import { useForm } from 'react-hook-form'
+import { CreateArtValidation } from '@validations/Art'
 
 function ArtDetail(props) {
     const [like, setLike] = useState(false)
+    // const [artForm, setArtForm] = useState({})
     const handleClick = () => setLike(!like)
 
     const selector = useSelector((state) => state)
     const currentUser = getCurrentUser(selector)
+    const dispatch = useDispatch()
 
     function getDate(date) {
         return date.substring(0, date.indexOf('T'))
     }
+
+    const [isConfirmModel, toggleConfirmModel] = useState(false)
+    const closeConfirmModel = () => {
+        toggleConfirmModel(false)
+    }
+    const openConfirmModel = () => {
+        toggleConfirmModel(true)
+    }
+
+    const [isUpdateDialog, toggleUpdateDialog] = useState(false)
+    const closeUpdateDialog = () => {
+        toggleUpdateDialog(false)
+    }
+    const openUpdateDialog = () => {
+        toggleUpdateDialog(true)
+    }
+
+    const {
+        register,
+        formState: { errors, isValid },
+        handleSubmit,
+    } = useForm({
+        defaultValues: props.Art,
+    })
+
+    console.log(register)
+
     return (
         <div
             className="art-detail-layout d-flex flex-column flex-lg-row"
@@ -39,10 +78,7 @@ function ArtDetail(props) {
                 <div className="d-lg-flex flex-column ">
                     <div className="d-flex col-12 mb-3 ">
                         <Avatar
-                            alt={
-                                props.art.user.firstName +
-                                props.art.user.lastName
-                            }
+                            alt={`${currentUser.firstName} ${currentUser.lastName}`}
                             src={props.art.user.avatarIcon}
                             style={{
                                 width: 45,
@@ -72,9 +108,22 @@ function ArtDetail(props) {
                         </div>
                     </div>
 
-                    <h4 className="col-12 h5 art-detail-art-title">
-                        {props.art.title}
-                    </h4>
+                    <div className="d-flex justify-content-between col-12">
+                        <h4 className=" h5 art-detail-art-title">
+                            {props.art.title}
+                        </h4>
+                        <div className="d-flex align-items-center">
+                            <FaEye
+                                style={{
+                                    width: '22px',
+                                    height: '22px',
+                                }}
+                                className="views-icon"
+                            />
+                            {props.art.views ? props.art.views : 0}
+                        </div>
+                    </div>
+
                     <p style={{ overflowY: 'scroll' }}>
                         {props.art.description}
                     </p>
@@ -124,7 +173,7 @@ function ArtDetail(props) {
                 <div className="art-detail-comments pt-3 w-100">
                     <div className="art-detail-commenter d-flex flex-row">
                         <Avatar
-                            alt={currentUser.firstName + currentUser.lastName}
+                            alt={`${currentUser.firstName} ${currentUser.lastName}`}
                             src={currentUser.avatarIcon}
                             style={{
                                 width: 40,
@@ -147,7 +196,7 @@ function ArtDetail(props) {
                                 }}
                                 variant="outlined"
                                 className="art-detail-textfield"
-                                fullWidth="100%"
+                                fullWidth={true}
                                 size="small"
                                 id="comment box"
                                 placeholder="Write a comment..."
@@ -224,6 +273,10 @@ function ArtDetail(props) {
                     aria-label="tool-button"
                     variant="contained"
                     style={{ color: '#000', background: 'white' }}
+                    onClick={() => {
+                        openUpdateDialog()
+                        // setArtForm(props.art)
+                    }}
                 >
                     <BsBrushFill
                         className=""
@@ -287,7 +340,111 @@ function ArtDetail(props) {
                         }}
                     />
                 </IconButton>
+
+                {currentUser.uid === props.art.user.uid ? (
+                    <IconButton
+                        sx={{ p: 2 }}
+                        aria-label="archive-button"
+                        variant="contained"
+                        style={{ color: '#000', background: 'white' }}
+                        onClick={openConfirmModel}
+                    >
+                        <FaTrashAlt
+                            className=""
+                            style={{
+                                padding: 2,
+                                width: 26,
+                                height: 26,
+                            }}
+                        />
+                    </IconButton>
+                ) : (
+                    ''
+                )}
             </section>
+            <Dialog
+                id="confirm-dialog"
+                open={isConfirmModel}
+                keepMounted
+                onClose={closeConfirmModel}
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle>{'Are your sure?'}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                        Do you really want to delete this art ?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        onClick={() => {
+                            closeConfirmModel()
+                            dispatch(deleteArt(props.art, props.close))
+                        }}
+                    >
+                        Yes
+                    </Button>
+                    <Button color="error" onClick={closeConfirmModel}>
+                        No
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <Dialog
+                id="update-art-dialog"
+                open={isUpdateDialog}
+                onClose={closeUpdateDialog}
+            >
+                <DialogTitle>Subscribe</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        To subscribe to this website, please enter your email
+                        address here. We will send updates occasionally.
+                    </DialogContentText>
+                    <TextField
+                        margin="dense"
+                        id="title"
+                        label="Title"
+                        type="text"
+                        fullWidth
+                        color="secondary"
+                        {...register('tag', CreateArtValidation.title)}
+                    />
+                    <TextField
+                        margin="dense"
+                        id="description"
+                        label="Description"
+                        type="text"
+                        fullWidth
+                        color="secondary"
+                        {...register(
+                            'description',
+                            CreateArtValidation.description
+                        )}
+                    />
+                    <TextField
+                        margin="dense"
+                        id="description"
+                        label="Tag"
+                        type="text"
+                        fullWidth
+                        color="secondary"
+                        {...register('tag', CreateArtValidation.tag)}
+                    />
+                    <TextField
+                        margin="dense"
+                        id="description"
+                        label="Tool"
+                        type="text"
+                        fullWidth
+                        color="secondary"
+                        {...register('tool', CreateArtValidation.tool)}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={closeUpdateDialog}>Cancel</Button>
+                    <Button onClick={closeUpdateDialog}>Subscribe</Button>
+                </DialogActions>
+            </Dialog>
         </div>
     )
 }
