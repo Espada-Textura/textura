@@ -60,6 +60,14 @@ button[aria-label='art-detail-poster-avatar'] {
     .art-detail-main-layout {
         max-height: 400px !important;
     }
+
+    .art-detail-left-side-btn {
+        width: 100%;
+    }
+
+    .MuiModal-root.css-79ws1d-MuiModal-root {
+        overflow: scroll;
+    }
 }
 /* 
 * {
