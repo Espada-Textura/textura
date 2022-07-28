@@ -53,7 +53,6 @@ export const getArtsByProfile = () => {
         let artsResp = []
         let q = query(artsRef, where('userId', '==', user.uid))
         getDocs(q).then((querySnapshot) => {
-            console.log(querySnapshot)
             querySnapshot.forEach((resp) => {
                 let art = resp.data()
                 art.id = resp.id
@@ -179,7 +178,7 @@ export const updateView = (art) => {
     }
 }
 
-export const updateArt = (art) => {
+export const updateArt = (art, close) => {
     return async (dispatch, getState) => {
         // Auth security
         if (!auth.currentUser) return null
@@ -191,12 +190,16 @@ export const updateArt = (art) => {
         // Privacy security
         if (auth.currentUser.uid !== art.userId) return null
 
+        if (art.id.length < 10) return null
         let artsRef = doc(db, `arts/${art.id}`)
-        let data = Object.assign({}, art)
-        delete data.id
-        data.requsetMethod = 'view'
-        updateDoc(artsRef, data).then(() => {
+
+        updateDoc(artsRef, {
+            ...art,
+            requsetMethod: 'view',
+            timeUpdated: serverTimestamp(),
+        }).then(() => {
             dispatch(updateArtAction(art))
+            close()
         })
     }
 }

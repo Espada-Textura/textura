@@ -22,7 +22,7 @@ import TextField from '@mui/material/TextField'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCurrentUser } from '@redux/users/selectors'
-import { deleteArt } from '@redux/art/operations'
+import { deleteArt, updateArt } from '@redux/art/operations'
 import { useForm } from 'react-hook-form'
 import { CreateArtValidation } from '@validations/Art'
 
@@ -58,12 +58,21 @@ function ArtDetail(props) {
     const {
         register,
         formState: { errors, isValid },
-        handleSubmit,
+        getValues,
     } = useForm({
-        defaultValues: props.Art,
+        defaultValues: {
+            ...props.art,
+        },
     })
 
-    console.log(register)
+    let tryToUpdate = (data) => {
+        dispatch(
+            updateArt(getValues(), () => {
+                closeUpdateDialog()
+                props.close()
+            })
+        )
+    }
 
     return (
         <div
@@ -268,25 +277,28 @@ function ArtDetail(props) {
                     />
                 </IconButton>
 
-                <IconButton
-                    sx={{ p: 2 }}
-                    aria-label="tool-button"
-                    variant="contained"
-                    style={{ color: '#000', background: 'white' }}
-                    onClick={() => {
-                        openUpdateDialog()
-                        // setArtForm(props.art)
-                    }}
-                >
-                    <BsBrushFill
-                        className=""
-                        style={{
-                            padding: 2,
-                            width: 26,
-                            height: 26,
+                {currentUser.uid === props.art.user.uid ? (
+                    <IconButton
+                        sx={{ p: 2 }}
+                        aria-label="tool-button"
+                        variant="contained"
+                        style={{ color: '#000', background: 'white' }}
+                        onClick={() => {
+                            openUpdateDialog()
                         }}
-                    />
-                </IconButton>
+                    >
+                        <BsBrushFill
+                            className=""
+                            style={{
+                                padding: 2,
+                                width: 26,
+                                height: 26,
+                            }}
+                        />
+                    </IconButton>
+                ) : (
+                    ''
+                )}
 
                 <IconButton
                     sx={{ p: 2 }}
@@ -394,56 +406,76 @@ function ArtDetail(props) {
                 open={isUpdateDialog}
                 onClose={closeUpdateDialog}
             >
-                <DialogTitle>Subscribe</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        To subscribe to this website, please enter your email
-                        address here. We will send updates occasionally.
-                    </DialogContentText>
-                    <TextField
-                        margin="dense"
-                        id="title"
-                        label="Title"
-                        type="text"
-                        fullWidth
-                        color="secondary"
-                        {...register('tag', CreateArtValidation.title)}
-                    />
-                    <TextField
-                        margin="dense"
-                        id="description"
-                        label="Description"
-                        type="text"
-                        fullWidth
-                        color="secondary"
-                        {...register(
-                            'description',
-                            CreateArtValidation.description
-                        )}
-                    />
-                    <TextField
-                        margin="dense"
-                        id="description"
-                        label="Tag"
-                        type="text"
-                        fullWidth
-                        color="secondary"
-                        {...register('tag', CreateArtValidation.tag)}
-                    />
-                    <TextField
-                        margin="dense"
-                        id="description"
-                        label="Tool"
-                        type="text"
-                        fullWidth
-                        color="secondary"
-                        {...register('tool', CreateArtValidation.tool)}
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={closeUpdateDialog}>Cancel</Button>
-                    <Button onClick={closeUpdateDialog}>Subscribe</Button>
-                </DialogActions>
+                <DialogTitle>Edit Art</DialogTitle>
+                <form className="form-group">
+                    <DialogContent>
+                        <DialogContentText className="mb-3">
+                            Edit your art information and click update to save
+                            change.
+                        </DialogContentText>
+                        <TextField
+                            margin="dense"
+                            id="title"
+                            label="Title"
+                            type="text"
+                            fullWidth
+                            color="secondary"
+                            helperText={errors.tool?.message}
+                            {...register('title', CreateArtValidation.title)}
+                        />
+                        <TextField
+                            margin="dense"
+                            id="description"
+                            label="Description"
+                            type="text"
+                            fullWidth
+                            color="secondary"
+                            helperText={errors.tool?.message}
+                            {...register(
+                                'description',
+                                CreateArtValidation.description
+                            )}
+                        />
+                        <TextField
+                            margin="dense"
+                            id="description"
+                            label="Tag"
+                            type="text"
+                            fullWidth
+                            color="secondary"
+                            helperText={errors.tool?.message}
+                            {...register('tag', CreateArtValidation.tag)}
+                        />
+                        <TextField
+                            margin="dense"
+                            id="description"
+                            label="Tool"
+                            type="text"
+                            fullWidth
+                            color="secondary"
+                            helperText={errors.tool?.message}
+                            {...register('tool', CreateArtValidation.tool)}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            onClick={(event) => {
+                                event.preventDefault()
+                                closeUpdateDialog()
+                            }}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={(event) => {
+                                event.preventDefault()
+                                tryToUpdate()
+                            }}
+                        >
+                            Update
+                        </Button>
+                    </DialogActions>
+                </form>
             </Dialog>
         </div>
     )

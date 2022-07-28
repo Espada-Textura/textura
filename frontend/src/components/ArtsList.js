@@ -94,7 +94,7 @@ function ArtsList(props) {
                                 }}
                             />
 
-                            <div className="art-info fade-display slide-up-display flex align-items-center">
+                            <div className="art-info fade-display slide-up-display flex align-items-center mb-3">
                                 <div className="d-flex align-items-center">
                                     <FaEye
                                         style={{
