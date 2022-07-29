@@ -13,17 +13,24 @@ import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import ArtDetail from '@components/ArtDetail'
 import Avatar from '@mui/material/Avatar'
+import { Button } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { useTheme } from '@mui/material/styles'
 
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { updateView } from '@redux/art/operations'
 
 import { FaEye } from 'react-icons/fa'
+import { AiFillHeart } from 'react-icons/ai'
 
 function ArtsList(props) {
     const [currentArt, setCurrentArt] = React.useState({})
     const dispatch = useDispatch()
+
+    const [like, setLike] = useState(false)
+    // const [artForm, setArtForm] = useState({})
+    const handleClick = () => setLike(!like)
 
     const modalStyle = {
         position: 'absolute',
@@ -122,27 +129,46 @@ function ArtsList(props) {
                                             height: 38,
                                         }}
                                     />
-                                    <div className="flex">
-                                        <div className="art-info-username pt-1">
-                                            <h6
-                                                style={{
-                                                    color: 'black',
-                                                    fontWeight: 'bold',
+                                    <div className="">
+                                        <div className="flex">
+                                            <div className="art-info-username pt-1">
+                                                <h6
+                                                    style={{
+                                                        color: 'white',
+                                                        fontWeight: 'bold',
+                                                    }}
+                                                >
+                                                    {item.user.firstName}{' '}
+                                                    {item.user.lastName}
+                                                </h6>
+                                            </div>
+                                            <div className="art-info-username">
+                                                <Typography
+                                                    variant="caption"
+                                                    display="block"
+                                                    gutterBottom
+                                                >
+                                                    {getDate(item.timeCreated)}
+                                                </Typography>
+                                            </div>
+                                        </div>
+                                        {/*Like Button on HOVER*/}
+                                        {/* <div>
+                                            <Button
+                                                onClick={handleClick}
+                                                sx={{
+                                                    color: `${
+                                                        like
+                                                            ? '#E64E4E !important'
+                                                            : '#00000080 !important'
+                                                    }`,
                                                 }}
-                                            >
-                                                {item.user.firstName}{' '}
-                                                {item.user.lastName}
-                                            </h6>
-                                        </div>
-                                        <div className="art-info-username">
-                                            <Typography
-                                                variant="caption"
-                                                display="block"
-                                                gutterBottom
-                                            >
-                                                {getDate(item.timeCreated)}
-                                            </Typography>
-                                        </div>
+                                                variant="text"
+                                                startIcon={<AiFillHeart />}
+                                                className="art-detail-left-side-btn w-35 w-sm-100 w-lg-35"
+                                                style={{ minWidth: '100px' }}
+                                            ></Button>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>
