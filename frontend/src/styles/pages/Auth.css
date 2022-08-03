@@ -71,7 +71,7 @@
 }
 
 .auth-input {
-    height: 58px;
+    height: 58px !important;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;

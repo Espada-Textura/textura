@@ -205,3 +205,14 @@
     align-self: center;
     border-radius: 1px;
 }
+
+.css-2zwj5t-MuiPaper-root-MuiDialog-paper.MuiDialog-paperScrollBody {
+    border-radius: 20px !important;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.css-2zwj5t-MuiPaper-root-MuiDialog-paper.MuiDialog-paperScrollBody::-webkit-scrollbar {
+    display: none;
+}

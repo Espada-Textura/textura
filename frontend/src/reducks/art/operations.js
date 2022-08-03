@@ -1,4 +1,10 @@
-import { getArtsAction } from './actions'
+import {
+    deleteArtAction,
+    getArtsAction,
+    updateArtAction,
+    updateArtViewAction,
+    resetArtsActions,
+} from './actions'
 import {
     updateRequesetStatusAction,
     resetRequesetStatusAction,
@@ -16,6 +22,10 @@ import {
     increment,
     doc,
     deleteDoc,
+    startAt,
+    endAt,
+    startAfter,
+    limit,
 } from 'firebase/firestore'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import {
@@ -28,21 +38,58 @@ export const getArts = () => {
     return async (dispatch, getState) => {
         let artsRef = collection(db, 'arts')
         let artsResp = []
-        const q = query(artsRef, orderBy('timeCreated'))
-        getDocs(q).then((querySnapshot) => {
-            querySnapshot.forEach((resp) => {
-                let art = resp.data()
-                art.id = resp.id
-                artsResp.push(art)
-            })
+        const q = query(artsRef, orderBy('timeCreated', 'desc'), limit(10))
+        const documentSnapshots = await getDocs(q)
 
-            dispatch(getArtsAction(artsResp.reverse()))
+        documentSnapshots.forEach((resp) => {
+            let art = resp.data()
+            art.id = resp.id
+            artsResp.push(art)
         })
+
+        dispatch(resetArtsActions())
+
+        dispatch(
+            getArtsAction({
+                arts: artsResp,
+                lastVisible:
+                    documentSnapshots.docs[documentSnapshots.docs.length - 1],
+            })
+        )
+    }
+}
+
+export const getMoreArts = () => {
+    return async (dispatch, getState) => {
+        let artsRef = collection(db, 'arts')
+        let artsResp = []
+        const q = query(
+            artsRef,
+            orderBy('timeCreated', 'desc'),
+            startAfter(getState().art.lastVisible),
+            limit(6)
+        )
+        const documentSnapshots = await getDocs(q)
+
+        documentSnapshots.forEach((resp) => {
+            let art = resp.data()
+            art.id = resp.id
+            artsResp.push(art)
+        })
+
+        dispatch(
+            getArtsAction({
+                arts: artsResp,
+                lastVisible:
+                    documentSnapshots.docs[documentSnapshots.docs.length - 1],
+            })
+        )
     }
 }
 
 export const getArtsByProfile = () => {
     return async (dispatch, getState) => {
+        dispatch(resetArtsActions())
         let artsRef = collection(db, 'arts')
         let user = getState().users
         let artsResp = []
@@ -53,7 +100,7 @@ export const getArtsByProfile = () => {
                 art.id = resp.id
                 artsResp.push(art)
             })
-            dispatch(getArtsAction(artsResp))
+            dispatch(getArtsAction({ arts: artsResp }))
         })
     }
 }
@@ -161,15 +208,19 @@ export const updateView = (art) => {
             return null
         if (art.id.length < 10) return null
         let artsRef = doc(db, `arts/${art.id}`)
-        return updateDoc(artsRef, {
+
+        updateDoc(artsRef, {
             views: increment(1),
             requsetMethod: 'view',
             timeUpdated: serverTimestamp(),
+        }).then(() => {
+            art.views++
+            dispatch(updateArtViewAction(art))
         })
     }
 }
 
-export const updateArt = (art) => {
+export const updateArt = (art, close) => {
     return async (dispatch, getState) => {
         // Auth security
         if (!auth.currentUser) return null
@@ -181,15 +232,21 @@ export const updateArt = (art) => {
         // Privacy security
         if (auth.currentUser.uid !== art.userId) return null
 
+        if (art.id.length < 10) return null
         let artsRef = doc(db, `arts/${art.id}`)
-        let data = Object.assign({}, art)
-        delete data.id
-        data.requsetMethod = 'view'
-        return updateDoc(artsRef, data)
+
+        updateDoc(artsRef, {
+            ...art,
+            requsetMethod: 'view',
+            timeUpdated: serverTimestamp(),
+        }).then(() => {
+            dispatch(updateArtAction(art))
+            close()
+        })
     }
 }
 
-export const deleteArt = (art) => {
+export const deleteArt = (art, close) => {
     return async (dispatch, getState) => {
         // Auth security
         if (!auth.currentUser) return null
@@ -202,6 +259,10 @@ export const deleteArt = (art) => {
         if (auth.currentUser.uid !== art.userId) return null
 
         let artsRef = doc(db, `arts/${art.id}`)
-        return deleteDoc(artsRef)
+
+        deleteDoc(artsRef).then((resp) => {
+            dispatch(deleteArtAction(art))
+            close()
+        })
     }
 }

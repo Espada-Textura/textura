@@ -3,19 +3,73 @@
 }
 .art-detail-left-bar-layout {
     position: relative;
-    height: 100vh;
+    max-height: 100vh;
+    height: 100vmax;
     top: 0;
     left: 0;
     background-color: #fff;
-    min-width: 300px;
-    width: 300px;
+    max-width: 290px;
 }
+
 .art-detail-main-layout {
-    padding-right: 0px !important;
     flex: 1;
 }
 
 .art-detail-right-bar-layout {
-    min-width: 80px;
-    width: 80px;
+    max-width: 70px;
+    width: 100%;
 }
+
+.art-detail-poster,
+.art-detail-art-title {
+    font-weight: bold !important;
+    color: black !important;
+}
+
+.art-detail-left-side-btn {
+    color: #00000080 !important;
+    font-weight: 900 !important;
+    font-family: 'Lato', 'san-serifs' !important;
+    text-transform: none !important;
+}
+
+.art-detail-comments {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    overflow-y: scroll;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.art-detail-comments::-webkit-scrollbar {
+    display: none;
+}
+
+button[aria-label='close-button']:hover {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+button[aria-label='art-detail-poster-avatar'] {
+    padding: 0 !important;
+}
+
+@media screen and (max-width: 992.5px) {
+    .art-detail-left-bar-layout {
+        max-width: 100% !important;
+    }
+
+    .art-detail-main-layout {
+        max-height: 400px !important;
+    }
+
+    .art-detail-left-side-btn {
+        width: 100%;
+    }
+
+    .MuiModal-root.css-79ws1d-MuiModal-root {
+        overflow: scroll;
+    }
+}
+/* 
+* {
+    overflow-y: scroll;
+} */
