@@ -6,11 +6,16 @@
     position: absolute;
     padding: 10px;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
     min-height: 50px;
     max-height: 120px;
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
+    color: var(--text-coler);
+    background: linear-gradient(
+        to bottom,
+        rgb(255, 255, 255, 0) 0%,
+        rgba(0, 0, 0, 0.6) 100%
+    );
 }
 
 .img-wrapper > img,
@@ -35,7 +40,7 @@
 }
 
 .img-wrapper:hover > img.img-darken {
-    filter: brightness(50%);
+    filter: brightness(90%);
 }
 
 .views-icon {
