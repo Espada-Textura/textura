@@ -2,7 +2,7 @@ import ArtsList from '@components/ArtsList'
 
 // redux
 import { useDispatch, useSelector } from 'react-redux'
-import { getArts } from '@redux/art/operations'
+import { getArts, getMoreArts } from '@redux/art/operations'
 import { allArts } from '@redux/art/selectors'
 import { useEffect, useState } from 'react'
 
@@ -20,7 +20,25 @@ function Art() {
         setArts(allArts(selector))
     }, [allArts(selector)])
 
-    return <div className="col-12">{<ArtsList arts={arts}></ArtsList>}</div>
+    return (
+        <div className="col-12">
+            {
+                <ArtsList
+                    arts={arts}
+                    fetchMoreData={() => {
+                        dispatch(getMoreArts())
+                    }}
+                ></ArtsList>
+            }
+            <button
+                onClick={() => {
+                    dispatch(getMoreArts())
+                }}
+            >
+                more
+            </button>
+        </div>
+    )
 }
 
 export default Art

@@ -3,6 +3,7 @@ import {
     getArtsAction,
     updateArtAction,
     updateArtViewAction,
+    resetArtsActions,
 } from './actions'
 import {
     updateRequesetStatusAction,
@@ -21,6 +22,10 @@ import {
     increment,
     doc,
     deleteDoc,
+    startAt,
+    endAt,
+    startAfter,
+    limit,
 } from 'firebase/firestore'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import {
@@ -33,21 +38,58 @@ export const getArts = () => {
     return async (dispatch, getState) => {
         let artsRef = collection(db, 'arts')
         let artsResp = []
-        const q = query(artsRef, orderBy('timeCreated'))
-        getDocs(q).then((querySnapshot) => {
-            querySnapshot.forEach((resp) => {
-                let art = resp.data()
-                art.id = resp.id
-                artsResp.push(art)
-            })
+        const q = query(artsRef, orderBy('timeCreated', 'desc'), limit(10))
+        const documentSnapshots = await getDocs(q)
 
-            dispatch(getArtsAction(artsResp.reverse()))
+        documentSnapshots.forEach((resp) => {
+            let art = resp.data()
+            art.id = resp.id
+            artsResp.push(art)
         })
+
+        dispatch(resetArtsActions())
+
+        dispatch(
+            getArtsAction({
+                arts: artsResp,
+                lastVisible:
+                    documentSnapshots.docs[documentSnapshots.docs.length - 1],
+            })
+        )
+    }
+}
+
+export const getMoreArts = () => {
+    return async (dispatch, getState) => {
+        let artsRef = collection(db, 'arts')
+        let artsResp = []
+        const q = query(
+            artsRef,
+            orderBy('timeCreated', 'desc'),
+            startAfter(getState().art.lastVisible),
+            limit(6)
+        )
+        const documentSnapshots = await getDocs(q)
+
+        documentSnapshots.forEach((resp) => {
+            let art = resp.data()
+            art.id = resp.id
+            artsResp.push(art)
+        })
+
+        dispatch(
+            getArtsAction({
+                arts: artsResp,
+                lastVisible:
+                    documentSnapshots.docs[documentSnapshots.docs.length - 1],
+            })
+        )
     }
 }
 
 export const getArtsByProfile = () => {
     return async (dispatch, getState) => {
+        dispatch(resetArtsActions())
         let artsRef = collection(db, 'arts')
         let user = getState().users
         let artsResp = []
@@ -58,7 +100,7 @@ export const getArtsByProfile = () => {
                 art.id = resp.id
                 artsResp.push(art)
             })
-            dispatch(getArtsAction(artsResp))
+            dispatch(getArtsAction({ arts: artsResp }))
         })
     }
 }

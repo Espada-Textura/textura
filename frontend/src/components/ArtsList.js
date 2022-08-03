@@ -21,6 +21,8 @@ import { updateView } from '@redux/art/operations'
 
 import { FaEye } from 'react-icons/fa'
 
+import InfiniteScroll from 'react-infinite-scroll-component'
+
 function ArtsList(props) {
     const [currentArt, setCurrentArt] = React.useState({})
     const dispatch = useDispatch()
@@ -60,94 +62,110 @@ function ArtsList(props) {
         return date.substring(0, date.indexOf('T'))
     }
     return (
-        <div className="col-12 d-flex flex-row justify-content-center p-3">
-            <Masonry columns={{ xs: 1, sm: 3, lg: 4 }} spacing={2}>
-                {(props.arts ? props.arts : []).map((item, index) => (
-                    <Fade
-                        key={index}
-                        in={true}
-                        style={{
-                            transformOrigin: '0 0 0',
-                            cursor: 'pointer',
-                        }}
-                        {...(true ? { timeout: 200 } : {})}
-                        onClick={() => {
-                            setCurrentArt(item)
-                            handleClickOpen()
-                            dispatch(updateView(item))
-                        }}
-                    >
-                        <div className="img-wrapper">
-                            <img
-                                className="img-darken"
-                                src={item.path}
-                                srcSet={item.path}
-                                alt={item.title}
-                                style={{
-                                    borderBottomLeftRadius: 0,
-                                    borderBottomRightRadius: 0,
-                                    borderRadius: 12,
-                                    display: 'block',
-                                    width: '100%',
-                                    minHeight: '50px',
-                                    backgroundColor: '#f0f0f0',
-                                }}
-                            />
+        <div
+            className="col-12 d-flex flex-row justify-content-center p-3"
+            style={{
+                minHeight: '100vh',
+                minWidth: '100vh',
+            }}
+        >
+            <InfiniteScroll
+                dataLength={props.arts ? props.arts.length : 0}
+                next={props.fetchMoreData}
+                hasMore={true}
+                className="col-12 flex-column justify-content-center p-3"
+                style={{
+                    minWidth: '100vh',
+                }}
+            >
+                <Masonry columns={{ xs: 1, sm: 3, lg: 4 }} spacing={2}>
+                    {(props.arts ? props.arts : []).map((item, index) => (
+                        <Fade
+                            key={index}
+                            in={true}
+                            style={{
+                                transformOrigin: '0 0 0',
+                                cursor: 'pointer',
+                            }}
+                            {...(true ? { timeout: 200 } : {})}
+                            onClick={() => {
+                                setCurrentArt(item)
+                                handleClickOpen()
+                                dispatch(updateView(item))
+                            }}
+                        >
+                            <div className="img-wrapper">
+                                <img
+                                    className="img-darken"
+                                    src={item.path}
+                                    srcSet={item.path}
+                                    alt={item.title}
+                                    style={{
+                                        borderBottomLeftRadius: 0,
+                                        borderBottomRightRadius: 0,
+                                        borderRadius: 12,
+                                        display: 'block',
+                                        width: '100%',
+                                        minHeight: '200px',
+                                        backgroundColor: '#f0f0f0',
+                                    }}
+                                />
 
-                            <div className="art-info fade-display slide-up-display flex align-items-center mb-3">
-                                <div className="d-flex align-items-center">
-                                    <FaEye
-                                        style={{
-                                            width: '22px',
-                                            height: '22px',
-                                        }}
-                                        className="views-icon"
-                                    />
-                                    {item.views ? item.views : 0}
-                                </div>
-                                <div className="align-items-center pt-1 pb-1">
-                                    {item.title}
-                                </div>
-                                <div className="d-flex align-items-center">
-                                    <Avatar
-                                        alt={
-                                            item.user.firstName +
-                                            item.user.lastName
-                                        }
-                                        src={item.user.avatarIcon}
-                                        style={{
-                                            width: 38,
-                                            height: 38,
-                                        }}
-                                    />
-                                    <div className="flex">
-                                        <div className="art-info-username pt-1">
-                                            <h6
-                                                style={{
-                                                    color: 'black',
-                                                    fontWeight: 'bold',
-                                                }}
-                                            >
-                                                {item.user.firstName}{' '}
-                                                {item.user.lastName}
-                                            </h6>
-                                        </div>
-                                        <div className="art-info-username">
-                                            <Typography
-                                                variant="caption"
-                                                display="block"
-                                                gutterBottom
-                                            >
-                                                {getDate(item.timeCreated)}
-                                            </Typography>
+                                <div className="art-info fade-display slide-up-display flex align-items-center mb-3">
+                                    <div className="d-flex align-items-center">
+                                        <FaEye
+                                            style={{
+                                                width: '22px',
+                                                height: '22px',
+                                            }}
+                                            className="views-icon"
+                                        />
+                                        {item.views ? item.views : 0}
+                                    </div>
+                                    <div className="align-items-center pt-1 pb-1">
+                                        {item.title}
+                                    </div>
+                                    <div className="d-flex align-items-center">
+                                        <Avatar
+                                            alt={
+                                                item.user.firstName +
+                                                item.user.lastName
+                                            }
+                                            src={item.user.avatarIcon}
+                                            style={{
+                                                width: 38,
+                                                height: 38,
+                                            }}
+                                        />
+                                        <div className="flex">
+                                            <div className="art-info-username pt-1">
+                                                <h6
+                                                    style={{
+                                                        color: 'black',
+                                                        fontWeight: 'bold',
+                                                    }}
+                                                >
+                                                    {item.user.firstName}{' '}
+                                                    {item.user.lastName}
+                                                </h6>
+                                            </div>
+                                            <div className="art-info-username">
+                                                <Typography
+                                                    variant="caption"
+                                                    display="block"
+                                                    gutterBottom
+                                                >
+                                                    {getDate(item.timeCreated)}
+                                                </Typography>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </Fade>
-                ))}
-            </Masonry>
+                        </Fade>
+                    ))}
+                </Masonry>
+            </InfiniteScroll>
 
             <div>
                 <Modal

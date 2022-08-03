@@ -1,14 +1,22 @@
 import * as Actions from './actions'
 import initialState from '../store/initialState'
-import { CgBrackets } from 'react-icons/cg'
 
 export const ArtsReducer = (state = initialState.art, action) => {
     let updatedArts = [...state.arts]
     switch (action.type) {
         case Actions.GET_ARTS:
+            // arts: [...action.payload.arts],
+            // lastVisible: action.payload.lastVisible,
             return {
                 ...state,
-                arts: action.payload,
+                ...{ arts: [...state.arts, ...action.payload.arts] },
+                ...{ lastVisible: action.payload.lastVisible },
+            }
+        case Actions.RESET_ARTS:
+            return {
+                ...state,
+                ...{ arts: [] },
+                ...{ lastVisible: [] },
             }
         case Actions.CREATE_ART:
             return {
