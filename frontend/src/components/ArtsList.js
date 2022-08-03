@@ -169,23 +169,6 @@ function ArtsList(props) {
                                                     </Typography>
                                                 </div>
                                             </div>
-                                            {/*Like Button on HOVER*/}
-                                            {/* <div>
-                                            <Button
-                                                onClick={handleClick}
-                                                sx={{
-                                                    color: `${
-                                                        like
-                                                            ? '#E64E4E !important'
-                                                            : '#00000080 !important'
-                                                    }`,
-                                                }}
-                                                variant="text"
-                                                startIcon={<AiFillHeart />}
-                                                className="art-detail-left-side-btn w-35 w-sm-100 w-lg-35"
-                                                style={{ minWidth: '100px' }}
-                                            ></Button>
-                                        </div> */}
                                         </div>
                                     </div>
                                 </div>
