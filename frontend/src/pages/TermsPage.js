@@ -10,8 +10,8 @@ export default function TermsPage() {
           <b>TERMS AND CONDITIONS</b>
         </h2>
         <p style={{ fontSize: 12 }}>Last updated: 2022-06-23</p>
-        <div className=" p-3">
-          <h5 className="p-1">
+        <div>
+          <h5>
 
             <b>1. Introduction</b>
           </h5>
