@@ -6,6 +6,13 @@ export const getArtsAction = (arts = []) => {
     }
 }
 
+export const RESET_ARTS = 'RESET_ARTS'
+export const resetArtsActions = () => {
+    return {
+        type: 'RESET_ARTS',
+    }
+}
+
 export const CREATE_ART = 'CREATE_ART'
 export const createArtAction = (artState) => {
     return {
