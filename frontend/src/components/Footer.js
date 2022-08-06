@@ -85,7 +85,7 @@ function Footer() {
                                 <li>
                                     <Link
                                         className="list-item text-light lh-lg"
-                                        to="/helpnfaq"
+                                        to="/TermsPage"
                                         children="Terms"
                                     />
                                 </li>

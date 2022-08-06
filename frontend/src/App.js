@@ -9,6 +9,7 @@ import Art from '@pages/Art'
 import AboutUs from '@pages/AboutUs'
 import ContactUs from '@pages/ContactUs'
 import HelpNFaq from '@pages/HelpNFaqs'
+import TermsPage from './pages/TermsPage'
 
 
 import Login from '@pages/auth/Login'
@@ -50,7 +51,7 @@ function App() {
                         <Route path="aboutus" element={<AboutUs />} />
                         <Route path="contactus" element={<ContactUs />} />
                         <Route path="helpnfaq" element={<HelpNFaq />} />
-                       
+                        <Route path='TermsPage' element={<TermsPage/>} />
                     </Route>
                 </Route>
                 <Route path="/login" element={<Login />} />

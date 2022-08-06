@@ -1,9 +1,9 @@
-.bg-first {
-    background-color: rgb(234, 245, 246,0.7);
-    margin-bottom: 1rem;
-    
-}
+.terms-page-blur{
 
-.container {
-    max-width: 760px !important;
+    filter: blur(3px);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+
 }

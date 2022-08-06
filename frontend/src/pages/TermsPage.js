@@ -4,16 +4,15 @@ import logo from '@assets/logo.png'
 
 export default function TermsPage() {
   return (
-    <div style={{ backgroundImage: `url(${logo})`,backgroundRepeat:"no-repeat",
-    backgroundAttachment: "fixed",backgroundPosition:"center", }}>
-      <div className="container bg-first">
+    <div>
+      <div className="m-4">
         <h2 className="text-center ">
           <b>TERMS AND CONDITIONS</b>
         </h2>
         <p style={{ fontSize: 12 }}>Last updated: 2022-06-23</p>
         <div className=" p-3">
           <h5 className="p-1">
-      
+
             <b>1. Introduction</b>
           </h5>
           <p>
