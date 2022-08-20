@@ -59,7 +59,7 @@
 .topbar-btn-sing-up {
     font-weight: bold;
     font-family: 'Lato' !important;
-    border: 1.75px solid #E64E4E !important;
+    box-shadow: 0px 0px 3px #E64E4E !important;
 }
 
 .topber-btn-icon {

@@ -350,7 +350,7 @@ const TopBarNew = () => {
                             onClick={(e) => {
                                 navigate('register')
                             }}
-                            className={'topbar-btn-sing-up d-flex flex-row gap-2 align-content-center'}
+                            className={'topbar-btn-sing-up d-flex flex-row gap-2 align-content-center algin-items-center'}
                             sx={{
                                 my: 2,
                                 fontWeight: 'bold',
