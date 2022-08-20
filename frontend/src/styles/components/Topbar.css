@@ -57,14 +57,16 @@
 }
 
 .topbar-btn-sing-up {
-    background: linear-gradient(267deg, #8d2ee4 -17.94%, #2d9bea 97.51%);
+    font-weight: bold;
     font-family: 'Lato' !important;
+    border: 1.75px solid #E64E4E !important;
 }
 
 .topber-btn-icon {
     position: relative;
-    top: -2px;
+    /* top: -2px; */
     margin-right: 4px;
+    
 }
 
 /* custom-bootstrap-css */

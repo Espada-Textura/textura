@@ -44,6 +44,7 @@ import { signOut } from '@redux/users/operations'
 
 // Images
 import TexturaLogo from '@assets/logo.png'
+import { ClassNames } from '@emotion/react'
 
 const TopBarNew = () => {
     const settings = [
@@ -344,23 +345,26 @@ const TopBarNew = () => {
                             </Menu>
                         </Box>
                     ) : (
+
                         <Button
                             onClick={(e) => {
                                 navigate('register')
                             }}
-                            className={'topbar-btn-sing-up'}
+                            className={'topbar-btn-sing-up d-flex flex-row gap-2 align-content-center'}
                             sx={{
                                 my: 2,
-                                color: 'white',
+                                fontWeight: 'bold',
+                                color: '#E64E4E !important',
                                 display: 'block',
                                 borderRadius: 16,
                                 mx: { xs: 0, md: 1 },
-                                px: { xs: 0, md: 2 },
+                                padding: matches ? '0.3rem 2rem' : '0.6rem'
                             }}
                         >
-                            <MdLogin className="topber-btn-icon" />
+                            <MdLogin className={"topber-btn-icon align-self-center".concat(matches ? ' d-none' : '')} />
                             {matches ? 'Sign Up' : ''}
                         </Button>
+
                     )}
                 </Toolbar>
             </Container>
