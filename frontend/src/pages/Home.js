@@ -30,6 +30,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { getArts } from '@redux/art/operations'
 import { allArts } from '@redux/art/selectors'
+import { signOut } from '@redux/users/operations'
 import React, { useEffect, useState, useRef } from 'react'
 import { getIsSignedIn, getCurrentUser } from '@redux/users/selectors'
 import ProfileAvatar from '@components/universal/profileAvatar'
@@ -46,6 +47,7 @@ function Home() {
     const [footerHigth, setFooterHigth] = useState(0)
     const location = useLocation()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const footerRef = useRef(null)
     const allMenu = [
         {
@@ -73,7 +75,7 @@ function Home() {
             path: 'art',
         },
         {
-            title: 'login',
+            title: isSignedIn ? 'Logout' : 'Login',
             content:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna.',
             width: 300,
@@ -89,6 +91,7 @@ function Home() {
         let current = footerRef.current.clientHeight
         setFooterHigth(showFooter ? current : 0)
     }, [showFooter])
+
     useEffect(() => {
         // setArts(allArts(selector))
     }, [allArts(selector)])
@@ -138,6 +141,7 @@ function Home() {
                         <h3 className="px-2"> | </h3>
                         <h6 className="py-2">ART COMMINUNITY</h6>
                     </div>
+
                     <Grow
                         in={isSignedIn}
                         style={{ transformOrigin: 'bottom right 60px' }}
@@ -168,6 +172,11 @@ function Home() {
                                 >
                                     <div
                                         onClick={(event) => {
+                                            if (element.path === 'login') {
+                                                dispatch(signOut())
+                                                navigate('login')
+                                            }
+
                                             PushTo(event, element.path)
                                         }}
                                     >
