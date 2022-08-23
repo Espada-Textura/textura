@@ -87,7 +87,14 @@ const TopBarNew = () => {
             tag: 'Setting',
             style: 'top-bar-btn',
             icon: <BsFillGearFill className="topber-btn-icon" />,
-            to: '/profile',
+            action: function () {
+                if (isSignedIn) {
+                    // handleShow()
+                    if (location.pathname !== '/profile') navigate('/profile')
+                } else {
+                    setPleaseSignInDialogStatus(true)
+                }
+            },
         },
     ]
     const navigate = useNavigate()
@@ -112,7 +119,7 @@ const TopBarNew = () => {
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
 
     // methods
-    const PushTo = function (e, pathname = '') {
+    const PushTo = function (e = {}, pathname = '') {
         e.preventDefault()
         if (location.pathname !== '/' + pathname) navigate(pathname)
     }
@@ -345,12 +352,13 @@ const TopBarNew = () => {
                             </Menu>
                         </Box>
                     ) : (
-
                         <Button
                             onClick={(e) => {
                                 navigate('register')
                             }}
-                            className={'topbar-btn-sing-up d-flex flex-row gap-2 align-content-center algin-items-center'}
+                            className={
+                                'topbar-btn-sing-up d-flex flex-row gap-2 align-content-center algin-items-center'
+                            }
                             sx={{
                                 my: 2,
                                 fontWeight: 'bold',
@@ -358,13 +366,16 @@ const TopBarNew = () => {
                                 display: 'block',
                                 borderRadius: 16,
                                 mx: { xs: 0, md: 1 },
-                                padding: matches ? '0.3rem 2rem' : '0.6rem'
+                                padding: matches ? '0.3rem 2rem' : '0.6rem',
                             }}
                         >
-                            <MdLogin className={"topber-btn-icon align-self-center".concat(matches ? ' d-none' : '')} />
+                            <MdLogin
+                                className={'topber-btn-icon align-self-center'.concat(
+                                    matches ? ' d-none' : ''
+                                )}
+                            />
                             {matches ? 'Sign Up' : ''}
                         </Button>
-
                     )}
                 </Toolbar>
             </Container>
